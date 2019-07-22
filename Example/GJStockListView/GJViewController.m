@@ -25,9 +25,35 @@
 	return [self getTitles];
 }
 
+- (nonnull NSAttributedString *)listView:(nonnull GJStockListView *)listView attributedStringAtRow:(NSInteger)row column:(NSInteger)column {
+	NSInteger num = pow(row, column);
+	NSString *string = [NSString stringWithFormat:@"%zd", num];
+	NSMutableAttributedString *mAttri = [[NSMutableAttributedString alloc] initWithString:string];
+	UIColor *titleColor = [UIColor darkGrayColor];
+	NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+	style.alignment = NSTextAlignmentCenter;
+	if (num % 3 == 2) {
+		titleColor = [UIColor redColor];
+		style.alignment = NSTextAlignmentLeft;
+	} else if (num % 3 == 1) {
+		titleColor = [UIColor greenColor];
+		style.alignment = NSTextAlignmentRight;
+	}
+	
+	[mAttri addAttributes:@{NSForegroundColorAttributeName : titleColor, NSParagraphStyleAttributeName : style} range:NSMakeRange(0, string.length)];
+	
+	return mAttri;
+}
+
+
+- (NSInteger)numberOfRowsInListView:(nonnull GJStockListView *)listView {
+	return 30;
+}
+
+
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	self.title  = @"股票列表";
 	
@@ -61,8 +87,9 @@
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
+
 
 @end

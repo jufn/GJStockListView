@@ -10,6 +10,7 @@
 
 static NSString * const kGJStockListTableViewCellIdentifier = @"kGJStockListTableViewCellIdentifier";
 static NSString * const kGJStockListTableViewContentSize = @"contentSize";
+static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列没有意义
 
 @interface GJStockListView () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
@@ -37,7 +38,7 @@ static NSString * const kGJStockListTableViewContentSize = @"contentSize";
 }
 
 - (void)setInitialConfig {
-	self.preferWidthPerColumn = 90;
+	self.preferWidthPerColumn = 90.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -68,7 +69,7 @@ static NSString * const kGJStockListTableViewContentSize = @"contentSize";
 	NSArray *titles = [self getHeaderTitles];
 	
 	NSParameterAssert(titles);
-	NSParameterAssert(titles.count > 0);
+	NSParameterAssert(titles.count >= kMinimumColumnPerRow);
 	
 	CGFloat width = MAX(self.preferWidthPerColumn * titles.count, CGRectGetWidth(self.frame));
 	self.scrollView.frame = CGRectMake(0, 0, width, self.tableView.contentSize.height);
