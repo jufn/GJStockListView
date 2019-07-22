@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "GJStockListView.h"
 
 FOUNDATION_EXPORT double GJStockListViewVersionNumber;
 FOUNDATION_EXPORT const unsigned char GJStockListViewVersionString[];
