@@ -10,6 +10,9 @@
 #import "GJStockListView.h"
 
 @interface GJViewController () <GJStockListViewDelegate>
+
+
+
 @end
 
 @implementation GJViewController
