@@ -11,8 +11,6 @@
 		54563839DCD0F728D7EE5DCD461509E4 /* GJStockListView.m in Sources */ = {isa = PBXBuildFile; fileRef = F77803F9D505260BEC2FE50A780EB06D /* GJStockListView.m */; };
 		68197A1422E5A9F000543E19 /* GJStockListTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 68197A1222E5A9F000543E19 /* GJStockListTableViewCell.h */; };
 		68197A1522E5A9F000543E19 /* GJStockListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68197A1322E5A9F000543E19 /* GJStockListTableViewCell.m */; };
-		68197A1822E5B04D00543E19 /* GJStockList.h in Headers */ = {isa = PBXBuildFile; fileRef = 68197A1622E5B04D00543E19 /* GJStockList.h */; };
-		68197A1922E5B04D00543E19 /* GJStockList.m in Sources */ = {isa = PBXBuildFile; fileRef = 68197A1722E5B04D00543E19 /* GJStockList.m */; };
 		6C3F69E5C19B0131A7E7C864781B9A4C /* Pods-GJStockListView_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD7ED09BC6243A6D63849FD69B3EC39 /* Pods-GJStockListView_Tests-dummy.m */; };
 		83A9276CF6578F76DC2DC4DBF1F239EC /* Pods-GJStockListView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A10097E0C3DE3160ED45711C4B91B7A /* Pods-GJStockListView_Example-dummy.m */; };
 		858769EA01B2CAB528C5C13A400E41E1 /* GJStockListView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A9DD95CA3EFF56F0DB425E8E525983E /* GJStockListView-dummy.m */; };
@@ -54,8 +52,6 @@
 		3F8DDBFCCCAA66052ABCEC235D20C8A6 /* Pods-GJStockListView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-GJStockListView_Example.modulemap"; sourceTree = "<group>"; };
 		68197A1222E5A9F000543E19 /* GJStockListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GJStockListTableViewCell.h; path = GJStockListView/Classes/GJStockListTableViewCell.h; sourceTree = "<group>"; };
 		68197A1322E5A9F000543E19 /* GJStockListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GJStockListTableViewCell.m; path = GJStockListView/Classes/GJStockListTableViewCell.m; sourceTree = "<group>"; };
-		68197A1622E5B04D00543E19 /* GJStockList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJStockList.h; sourceTree = "<group>"; };
-		68197A1722E5B04D00543E19 /* GJStockList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJStockList.m; sourceTree = "<group>"; };
 		6A10097E0C3DE3160ED45711C4B91B7A /* Pods-GJStockListView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-GJStockListView_Example-dummy.m"; sourceTree = "<group>"; };
 		6CD7ED09BC6243A6D63849FD69B3EC39 /* Pods-GJStockListView_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-GJStockListView_Tests-dummy.m"; sourceTree = "<group>"; };
 		7D30AD0ECF56F7B527A24EE9664F705E /* Pods-GJStockListView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-GJStockListView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -209,8 +205,6 @@
 				F77803F9D505260BEC2FE50A780EB06D /* GJStockListView.m */,
 				68197A1222E5A9F000543E19 /* GJStockListTableViewCell.h */,
 				68197A1322E5A9F000543E19 /* GJStockListTableViewCell.m */,
-				68197A1622E5B04D00543E19 /* GJStockList.h */,
-				68197A1722E5B04D00543E19 /* GJStockList.m */,
 				E96AE842ADE809BECDC41B6D2D098560 /* Pod */,
 				9FA59AF4E006B5E47B43FC3E28F5FD9B /* Support Files */,
 			);
@@ -243,7 +237,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68197A1822E5B04D00543E19 /* GJStockList.h in Headers */,
 				D7D21589EC001EEA4B85755A075ED68D /* GJStockListView-umbrella.h in Headers */,
 				68197A1422E5A9F000543E19 /* GJStockListTableViewCell.h in Headers */,
 				EBE9CF2CD0AB8B724886BC278D59B037 /* GJStockListView.h in Headers */,
@@ -399,7 +392,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				858769EA01B2CAB528C5C13A400E41E1 /* GJStockListView-dummy.m in Sources */,
-				68197A1922E5B04D00543E19 /* GJStockList.m in Sources */,
 				54563839DCD0F728D7EE5DCD461509E4 /* GJStockListView.m in Sources */,
 				68197A1522E5A9F000543E19 /* GJStockListTableViewCell.m in Sources */,
 			);
