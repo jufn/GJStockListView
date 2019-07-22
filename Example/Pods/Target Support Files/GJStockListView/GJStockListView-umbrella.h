@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "GJStockListTableViewCell.h"
 #import "GJStockListView.h"
 
 FOUNDATION_EXPORT double GJStockListViewVersionNumber;
