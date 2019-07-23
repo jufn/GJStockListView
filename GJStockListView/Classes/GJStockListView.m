@@ -35,7 +35,9 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
 	if ([keyPath isEqualToString:kGJStockListTableViewContentSize]) {
 		CGSize size = [change[NSKeyValueChangeNewKey] CGSizeValue];
-		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.height, size.height);
+		
+		CGRect frame = self.scrollView.frame;
+		self.scrollView.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
 	}
 }
 
