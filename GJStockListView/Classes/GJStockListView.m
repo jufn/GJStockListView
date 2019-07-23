@@ -27,6 +27,7 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		[self loadupUI];
 		
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentSize options:NSKeyValueObservingOptionNew context:NULL];
+		[self.tableView addObserver:self forKeyPath:@"subviews" options:NSKeyValueObservingOptionNew context:NULL];
 		
 	}
 	return self;
@@ -38,12 +39,19 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		
 		CGRect frame = self.scrollView.frame;
 		self.scrollView.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
+		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, size.height);
+		
+	} else if ([keyPath isEqualToString:@"subviews"]) {
+		NSArray *sub = change[NSKeyValueChangeNewKey];
+		NSLog(@"%@", sub);
 	}
 }
 
 - (void)loadupUI {
 	[self addSubview:self.tableView];
-	[self.tableView insertSubview:self.scrollView atIndex:0];
+
+	[self.tableView addSubview:self.scrollView];
+	[self.tableView sendSubviewToBack:self.scrollView];
 }
 
 - (void)setInitialConfig {
@@ -89,7 +97,8 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	NSParameterAssert(titles.count >= kMinimumColumnPerRow);
 	
 	CGFloat width = MAX(self.preferWidthPerColumn * titles.count, CGRectGetWidth(self.frame));
-	self.scrollView.frame = CGRectMake(0, 0, width, self.tableView.contentSize.height);
+	self.scrollView.frame = CGRectMake(self.preferWidthPerColumn, 0, CGRectGetWidth(self.tableView.frame) - self.preferWidthPerColumn, self.tableView.contentSize.height);
+	self.scrollView.contentSize = CGSizeMake(width - self.preferWidthPerColumn, self.tableView.contentSize.height);
 	
 }
 
