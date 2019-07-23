@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GJStockListTableViewCell : UITableViewCell
 
-@property (nonatomic, weak) id <GJStockListTableViewCellDataSource> dataSource;
+@property (nonatomic, weak) id <GJStockListTableViewCellDataSource> ds;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
 			  reuseIdentifier:(NSString *)reuseIdentifier

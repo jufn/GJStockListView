@@ -12,7 +12,7 @@ static NSString * const kGJStockListTableViewCellIdentifier = @"kGJStockListTabl
 static NSString * const kGJStockListTableViewContentSize = @"contentSize";
 static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列没有意义
 
-@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource>
+@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, GJStockListTableViewCellDataSource>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -23,13 +23,20 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 - (instancetype)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
 		
-		[self loadupUI];
 		[self setInitialConfig];
+		[self loadupUI];
 		
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentSize options:NSKeyValueObservingOptionNew context:NULL];
 		
 	}
 	return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+	if ([keyPath isEqualToString:kGJStockListTableViewContentSize]) {
+		CGSize size = [change[NSKeyValueChangeNewKey] CGSizeValue];
+		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.height, size.height);
+	}
 }
 
 - (void)loadupUI {
@@ -55,6 +62,7 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	if (!cell) {
 		cell = [[GJStockListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier numberOfColumnsPerRow:titleCount scrollView:self.scrollView];
 	}
+	cell.ds = self;
 	
 	for (int i = 0; i < titleCount; i ++) {
 		UILabel *label = [cell labelAtColumn:i];
@@ -63,6 +71,13 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	}
 	
 	return cell;;
+}
+
+#pragma mark -- GJStockListTableViewCellDataSource
+#pragma mark --
+
+- (CGFloat)stockListTableViewCell:(GJStockListTableViewCell *)cell widthAtColumn:(NSInteger)column {
+	return self.preferWidthPerColumn;
 }
 
 - (void)reloadData {
@@ -92,13 +107,6 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		titles = [self.delegate titlesForListViewHeader:self];
 	}
 	return titles;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGJStockListTableViewContentSize]) {
-		CGSize size = [change[NSKeyValueChangeNewKey] CGSizeValue];
-		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.height, size.height);
-	}
 }
 
 - (UITableView *)tableView {

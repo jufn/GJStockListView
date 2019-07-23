@@ -59,8 +59,8 @@
 
 - (CGFloat)getWidthAtColumn:(NSInteger)column {
 	CGFloat width = 0.0f;
-	if (self.dataSource && [self.dataSource respondsToSelector:@selector(stockListTableViewCell:widthAtColumn:)]) {
-		width = [self.dataSource stockListTableViewCell:self widthAtColumn:column];
+	if (self.ds && [self.ds respondsToSelector:@selector(stockListTableViewCell:widthAtColumn:)]) {
+		width = [self.ds stockListTableViewCell:self widthAtColumn:column];
 	}
 	return width;
 }

@@ -11,7 +11,7 @@
 
 @interface GJViewController () <GJStockListViewDelegate>
 
-
+@property (nonatomic, strong) GJStockListView *listView;
 
 @end
 
@@ -57,12 +57,9 @@
 	// Do any additional setup after loading the view, typically from a nib.
 	self.title  = @"股票列表";
 	
-	
-	GJStockListView *view = [[GJStockListView alloc] initWithFrame:self.view.bounds];
-	view.delegate = self;
-	[self.view addSubview:view];
-	
-	
+	self.listView = [[GJStockListView alloc] initWithFrame:self.view.bounds];
+	self.listView.delegate = self;
+	[self.view addSubview:self.listView];
 	
 }
 
@@ -90,6 +87,7 @@
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
 }
+
 
 
 @end
