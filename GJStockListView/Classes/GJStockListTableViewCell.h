@@ -10,13 +10,13 @@
 NS_ASSUME_NONNULL_BEGIN
 @class GJStockListTableViewCell;
 
-@protocol GJStockListTableViewCellDataSource <NSObject>
-- (CGFloat)stockListTableViewCell:(GJStockListTableViewCell *)cell widthAtColumn:(NSInteger)column;
+@protocol GJStockListItemDataSource <NSObject>
+- (CGFloat)widthAtColumn:(NSInteger)column inView:(UIView *)view;
 @end
 
 @interface GJStockListTableViewCell : UITableViewCell
 
-@property (nonatomic, weak) id <GJStockListTableViewCellDataSource> ds;
+@property (nonatomic, weak) id <GJStockListItemDataSource> dataSource;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
 			  reuseIdentifier:(NSString *)reuseIdentifier
@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface GJStockListHeaderFooterView : UITableViewHeaderFooterView
+@property (nonatomic, weak) id <GJStockListItemDataSource> dataSource;
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
 						   headerTitles:(NSArray *)titles

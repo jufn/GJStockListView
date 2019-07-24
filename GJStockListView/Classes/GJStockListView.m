@@ -64,7 +64,7 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 
 @end
 
-@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, GJStockListTableViewCellDataSource>
+@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, GJStockListItemDataSource>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong) SLScrollView *scrollView;
 
@@ -125,7 +125,7 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	if (!cell) {
 		cell = [[GJStockListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier numberOfColumnsPerRow:titleCount scrollView:self.scrollView];
 	}
-	cell.ds = self;
+	cell.dataSource = self;
 	
 	for (int i = 0; i < titleCount; i ++) {
 		UILabel *label = [cell labelAtColumn:i];
@@ -147,10 +147,10 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark -- GJStockListTableViewCellDataSource
+#pragma mark -- GJStockListItemDataSource
 #pragma mark --
 
-- (CGFloat)stockListTableViewCell:(GJStockListTableViewCell *)cell widthAtColumn:(NSInteger)column {
+- (CGFloat)widthAtColumn:(NSInteger)column inView:(UIView *)view {
 	return self.preferWidthPerColumn;
 }
 

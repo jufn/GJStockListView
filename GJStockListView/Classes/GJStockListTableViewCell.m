@@ -6,7 +6,6 @@
 //
 
 #import "GJStockListTableViewCell.h"
-#import "GJStockListHeaderFooterView.h"
 
 @interface GJStockListTableViewCell ()
 @property (nonatomic, copy) NSArray <UILabel *>* labels;
@@ -63,8 +62,8 @@
 
 - (CGFloat)getWidthAtColumn:(NSInteger)column {
 	CGFloat width = 0.0f;
-	if (self.ds && [self.ds respondsToSelector:@selector(stockListTableViewCell:widthAtColumn:)]) {
-		width = [self.ds stockListTableViewCell:self widthAtColumn:column];
+	if (self.dataSource && [self.dataSource respondsToSelector:@selector(widthAtColumn:inView:)]) {
+		width = [self.dataSource widthAtColumn:column inView:self];
 	}
 	return width;
 }
