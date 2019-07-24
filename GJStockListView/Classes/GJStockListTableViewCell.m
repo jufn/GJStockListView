@@ -95,9 +95,7 @@
 
 
 @interface GJStockListHeaderFooterView ()
-
 @property (nonatomic, copy) NSArray <UIButton *>*btns;
-
 @end
 
 @implementation GJStockListHeaderFooterView
@@ -112,22 +110,65 @@
 	return self;
 }
 
+- (void)layoutSubviews {
+	[super layoutSubviews];
+	for (UIButton *btn in self.btns) {
+		NSInteger i = [self.btns indexOfObject:btn];
+		CGFloat posX = 0.0f, posY = 0.0f;
+		
+		if (i != 0) {
+			CGPoint point = [self convertPoint:self.frame.origin toView:btn.superview];
+			posY = point.y;
+		}
+		
+		if (i > 1) {
+			UIButton *preBtn = [self.btns objectAtIndex:i - 1];
+			posX = CGRectGetMaxX(preBtn.frame);
+		}
+		
+		CGFloat width = [self getWidthAtColumn:i];
+		btn.frame = CGRectMake(posX, posY, width, CGRectGetHeight(self.frame));
+	}
+}
+
 - (void)loadUpUIWithTitles:(NSArray *)titles scrollView:(UIScrollView *)scrollView {
 	
+	NSParameterAssert(titles.count > 0);
+	NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:titles.count];
 	for (NSString *title in titles) {
 		NSInteger i = [titles indexOfObject:title];
 		
 		UIButton *button = [[UIButton alloc] init];
+		[mArray addObject:button];
 		[button setTitle:title forState:UIControlStateNormal];
 		[button setTitle:title forState:UIControlStateHighlighted];
+		[button addTarget:self action:@selector(tapHeaderBtn:) forControlEvents:UIControlEventTouchUpInside];
+		button.tag = i;
+		
 		
 		if (i == 0) {
 			[self.contentView addSubview:button];
 		} else {
 			[scrollView addSubview:button];
 		}
-		
 	}
+	self.btns = mArray;
+}
+
+- (void)tapHeaderBtn:(UIButton *)sender {
+	
+	if (self.didTapHeaderAtIndexBlock) {
+		self.didTapHeaderAtIndexBlock(sender.tag);
+	}
+	
+}
+
+- (CGFloat)getWidthAtColumn:(NSInteger)column {
+	CGFloat width = 0.0f;
+	if (self.dataSource && [self.dataSource respondsToSelector:@selector(widthAtColumn:inView:)]) {
+		width = [self.dataSource widthAtColumn:column inView:self];
+	}
+	return width;
 }
 
 @end

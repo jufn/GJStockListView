@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GJStockListHeaderFooterView : UITableViewHeaderFooterView
 @property (nonatomic, weak) id <GJStockListItemDataSource> dataSource;
+@property (nonatomic, copy) void(^didTapHeaderAtIndexBlock)(NSInteger index);
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
 						   headerTitles:(NSArray *)titles
