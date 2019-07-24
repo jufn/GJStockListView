@@ -6,6 +6,7 @@
 //
 
 #import "GJStockListTableViewCell.h"
+#import "GJStockListHeaderFooterView.h"
 
 @interface GJStockListTableViewCell ()
 @property (nonatomic, copy) NSArray <UILabel *>* labels;
@@ -88,6 +89,46 @@
 	}
 	
 	self.labels = mArray;
+}
+
+@end
+
+
+
+@interface GJStockListHeaderFooterView ()
+
+@property (nonatomic, copy) NSArray <UIButton *>*btns;
+
+@end
+
+@implementation GJStockListHeaderFooterView
+
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
+						   headerTitles:(NSArray *)titles
+							 scrollView:(UIScrollView *)scrollView {
+	
+	if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
+		[self loadUpUIWithTitles:titles scrollView:scrollView];
+	}
+	return self;
+}
+
+- (void)loadUpUIWithTitles:(NSArray *)titles scrollView:(UIScrollView *)scrollView {
+	
+	for (NSString *title in titles) {
+		NSInteger i = [titles indexOfObject:title];
+		
+		UIButton *button = [[UIButton alloc] init];
+		[button setTitle:title forState:UIControlStateNormal];
+		[button setTitle:title forState:UIControlStateHighlighted];
+		
+		if (i == 0) {
+			[self.contentView addSubview:button];
+		} else {
+			[scrollView addSubview:button];
+		}
+		
+	}
 }
 
 @end

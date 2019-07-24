@@ -27,4 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface GJStockListHeaderFooterView : UITableViewHeaderFooterView
+
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
+						   headerTitles:(NSArray *)titles
+							 scrollView:(UIScrollView *)scrollView;
+@end
+
 NS_ASSUME_NONNULL_END
