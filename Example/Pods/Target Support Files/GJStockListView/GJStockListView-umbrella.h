@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "GJStockListHeaderFooterView.h"
 #import "GJStockListTableViewCell.h"
 #import "GJStockListView.h"
 

@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FE1C57E1A6BD4E84AD83AC85C7C5F45 /* GJStockListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3485C6B8DC9E3D54CE4331CDBE22663D /* GJStockListView.m */; };
-		15508C687EE9BD0A44D5CE5D4160CA36 /* GJStockListView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DB65506584B080D9FDE602B42347173C /* GJStockListView-dummy.m */; };
+		0958BB2F51ABB0CF6C6CBE38B8C3E2C3 /* GJStockListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFAE2F4C378FBDD72CE09A88233803 /* GJStockListTableViewCell.m */; };
 		2C2FD4E38D7CDC9EC77074429D0895EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		6648FA7DB2D6D055CF71A4FADE60B396 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		30B13A4467C45BE7EEA5D5DF75A45356 /* GJStockListView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D123880FE9E1C424F846129178B26971 /* GJStockListView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C3F69E5C19B0131A7E7C864781B9A4C /* Pods-GJStockListView_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD7ED09BC6243A6D63849FD69B3EC39 /* Pods-GJStockListView_Tests-dummy.m */; };
+		6CBC79A251EF8AA4A5A4173FDA1FE692 /* GJStockListView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E536C52B1E6CA18C22CCF4D9B1901D40 /* GJStockListView-dummy.m */; };
+		74A2BAB1A0435E523171BC47DBDF5B63 /* GJStockListView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F06EA8870D92634D3AE3E078F71B08 /* GJStockListView.m */; };
 		83A9276CF6578F76DC2DC4DBF1F239EC /* Pods-GJStockListView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A10097E0C3DE3160ED45711C4B91B7A /* Pods-GJStockListView_Example-dummy.m */; };
-		C4BE81D07EB1F0833EFE2DAC1BD886B8 /* GJStockListView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C19640101BCE007E8ADF3A26DFF9923 /* GJStockListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CABF97C75A284BD6874790870BFF47B5 /* GJStockListTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B216CA58C21CD0932D4C545868A9BC38 /* GJStockListTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99D2EF5E775D8EDB2D4C51802EB3CFD6 /* GJStockListHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A95E5EEE225750CABCAABCA23D78 /* GJStockListHeaderFooterView.m */; };
+		A14FDCAE1A3280C0B5290B24A55D04C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		AB8006B80BD554495E856A67126874B7 /* GJStockListView.h in Headers */ = {isa = PBXBuildFile; fileRef = F6AC051CBD6EECAA65ADC92EF5257A7C /* GJStockListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CEBF7134A7A70992A2F7A5EF40ADC87F /* Pods-GJStockListView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E316553A8363DC86DFFF8025F59FC96B /* Pods-GJStockListView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC55AD7023688AFDE5654AC511E3AD44 /* GJStockListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F465AF1E94BED26063EF144D2B04C75A /* GJStockListTableViewCell.m */; };
+		E2A942984F8257280159453F82649F45 /* GJStockListHeaderFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = A1D3966C74723469CB2F799A67DDD193 /* GJStockListHeaderFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3C58B39AE762424B4C2E1A681B65C5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		E48F118C198C87DB4A17DC9163F574C0 /* GJStockListTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E3FB2F5FCC7291FF6E095C222053702 /* GJStockListTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFB8C32BD6DBE0AB54419FC5D113BEFB /* Pods-GJStockListView_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F6A0E260788A6560F96BF1C11214CB /* Pods-GJStockListView_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F7DA691E15830904170D8F4F7918A0F2 /* GJStockListView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A3AC6AA76DFD65258E1D1E51BEDA9A70 /* GJStockListView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,55 +44,57 @@
 /* Begin PBXFileReference section */
 		00BDE4E78459F66EEAE9DCCB6E2EB2F5 /* GJStockListView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GJStockListView.framework; path = GJStockListView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0989F6396017E32809CC3D4DE80588A1 /* Pods-GJStockListView_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-GJStockListView_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		0EB9EB9DF8DC6D19BE4EABCFC7B82407 /* GJStockListView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = GJStockListView.modulemap; sourceTree = "<group>"; };
 		10F0E6AA154F48230EC559EB942537CF /* Pods-GJStockListView_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-GJStockListView_Example-Info.plist"; sourceTree = "<group>"; };
-		1714189EF58658FC196DE62E1544A7B3 /* GJStockListView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GJStockListView.xcconfig; sourceTree = "<group>"; };
+		18A9A95E5EEE225750CABCAABCA23D78 /* GJStockListHeaderFooterView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GJStockListHeaderFooterView.m; path = GJStockListView/Classes/GJStockListHeaderFooterView.m; sourceTree = "<group>"; };
 		29EF04C6BF36B6A0033DFDD04246FAC4 /* Pods-GJStockListView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GJStockListView_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		2CB5A3CBEBAAD8E08DCEE43D97F9C0CF /* GJStockListView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GJStockListView.xcconfig; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3485C6B8DC9E3D54CE4331CDBE22663D /* GJStockListView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GJStockListView.m; path = GJStockListView/Classes/GJStockListView.m; sourceTree = "<group>"; };
-		3C19640101BCE007E8ADF3A26DFF9923 /* GJStockListView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GJStockListView.h; path = GJStockListView/Classes/GJStockListView.h; sourceTree = "<group>"; };
 		3D85855DA4FAFCC8424F240EA7246FC4 /* Pods-GJStockListView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-GJStockListView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		3F8DDBFCCCAA66052ABCEC235D20C8A6 /* Pods-GJStockListView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-GJStockListView_Example.modulemap"; sourceTree = "<group>"; };
-		41E69BC8D7CBCFCB4EF6308AE23BA6FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		467AA528CA4086897715AF2EACF2B089 /* GJStockListView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GJStockListView-prefix.pch"; sourceTree = "<group>"; };
-		4A8EE5C22AA650D6A3AC3707BA7BC6BB /* GJStockListView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = GJStockListView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5815F3B22103D3AB2EE3FBB656983CFD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		5E3FB2F5FCC7291FF6E095C222053702 /* GJStockListTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GJStockListTableViewCell.h; path = GJStockListView/Classes/GJStockListTableViewCell.h; sourceTree = "<group>"; };
 		6A10097E0C3DE3160ED45711C4B91B7A /* Pods-GJStockListView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-GJStockListView_Example-dummy.m"; sourceTree = "<group>"; };
 		6CD7ED09BC6243A6D63849FD69B3EC39 /* Pods-GJStockListView_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-GJStockListView_Tests-dummy.m"; sourceTree = "<group>"; };
+		73FFAE2F4C378FBDD72CE09A88233803 /* GJStockListTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GJStockListTableViewCell.m; path = GJStockListView/Classes/GJStockListTableViewCell.m; sourceTree = "<group>"; };
 		7D30AD0ECF56F7B527A24EE9664F705E /* Pods-GJStockListView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-GJStockListView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		7D653465228C03F820A581A26E6FD24C /* GJStockListView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GJStockListView-prefix.pch"; sourceTree = "<group>"; };
+		8782F2AB083A6BD8DB5C1A45AF4958C7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		8C0383A9531EF8C8ADA19740CEAECF0F /* Pods_GJStockListView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_GJStockListView_Example.framework; path = "Pods-GJStockListView_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F325348FED5CDB5833D5ADEA1FFEE2B /* Pods-GJStockListView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GJStockListView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		98C94BB05EE0094435DFB19C873C3976 /* GJStockListView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = GJStockListView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		998D01225F13C272D806F8380FE427B8 /* Pods-GJStockListView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-GJStockListView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F60E749E43FB29CB4D424536F5A5804 /* Pods-GJStockListView_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-GJStockListView_Example-frameworks.sh"; sourceTree = "<group>"; };
-		A3AC6AA76DFD65258E1D1E51BEDA9A70 /* GJStockListView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GJStockListView-umbrella.h"; sourceTree = "<group>"; };
+		A1D3966C74723469CB2F799A67DDD193 /* GJStockListHeaderFooterView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GJStockListHeaderFooterView.h; path = GJStockListView/Classes/GJStockListHeaderFooterView.h; sourceTree = "<group>"; };
 		A46AE148A8598747E85ECF93C8324A06 /* Pods-GJStockListView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GJStockListView_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		B216CA58C21CD0932D4C545868A9BC38 /* GJStockListTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GJStockListTableViewCell.h; path = GJStockListView/Classes/GJStockListTableViewCell.h; sourceTree = "<group>"; };
-		BCAC228E2412920BC86ABC72F0076522 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		D123880FE9E1C424F846129178B26971 /* GJStockListView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GJStockListView-umbrella.h"; sourceTree = "<group>"; };
 		D3F6A0E260788A6560F96BF1C11214CB /* Pods-GJStockListView_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-GJStockListView_Tests-umbrella.h"; sourceTree = "<group>"; };
-		DB65506584B080D9FDE602B42347173C /* GJStockListView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GJStockListView-dummy.m"; sourceTree = "<group>"; };
 		E316553A8363DC86DFFF8025F59FC96B /* Pods-GJStockListView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-GJStockListView_Example-umbrella.h"; sourceTree = "<group>"; };
+		E536C52B1E6CA18C22CCF4D9B1901D40 /* GJStockListView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GJStockListView-dummy.m"; sourceTree = "<group>"; };
 		E7231DA2DF25D321E19E4F4E73CBEA4D /* Pods_GJStockListView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_GJStockListView_Tests.framework; path = "Pods-GJStockListView_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA0940D041D38CDDA30FC89CB5B2F791 /* Pods-GJStockListView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-GJStockListView_Tests.modulemap"; sourceTree = "<group>"; };
-		ED219EF97CD3098BE0EB0D2D5A807D5D /* GJStockListView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "GJStockListView-Info.plist"; sourceTree = "<group>"; };
 		F34B4582E2FAC16B5A04A29BECEA5893 /* Pods-GJStockListView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GJStockListView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		F465AF1E94BED26063EF144D2B04C75A /* GJStockListTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GJStockListTableViewCell.m; path = GJStockListView/Classes/GJStockListTableViewCell.m; sourceTree = "<group>"; };
+		F6AC051CBD6EECAA65ADC92EF5257A7C /* GJStockListView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GJStockListView.h; path = GJStockListView/Classes/GJStockListView.h; sourceTree = "<group>"; };
 		F6BF796F11F4BD729CA8C131A4B3C2F3 /* Pods-GJStockListView_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-GJStockListView_Tests-Info.plist"; sourceTree = "<group>"; };
+		F9F06EA8870D92634D3AE3E078F71B08 /* GJStockListView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GJStockListView.m; path = GJStockListView/Classes/GJStockListView.m; sourceTree = "<group>"; };
+		FA24FBB638747013EC0339B938C27A11 /* GJStockListView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "GJStockListView-Info.plist"; sourceTree = "<group>"; };
+		FD3A96415FF38BF1931DE9F479D9EE34 /* GJStockListView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = GJStockListView.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		22D5133FC681A9A7A1A9C3178839CA03 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A14FDCAE1A3280C0B5290B24A55D04C7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		49B8057CB196325255FFBCBA353C9788 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2C2FD4E38D7CDC9EC77074429D0895EC /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AC0CFA2FD771E79B6EFD6C6C464B030D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6648FA7DB2D6D055CF71A4FADE60B396 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,16 +109,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A4EE9FFB1F172BF0B2AAF983E7D894B /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				4A8EE5C22AA650D6A3AC3707BA7BC6BB /* GJStockListView.podspec */,
-				BCAC228E2412920BC86ABC72F0076522 /* LICENSE */,
-				41E69BC8D7CBCFCB4EF6308AE23BA6FE /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
 		37FEC3B369E0951C05D260424F8EB892 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,32 +118,26 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		5157ED24B4F57236D7D60F45F8902480 /* GJStockListView */ = {
+		58079FF73C2C1D777292ADCE64643504 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				B216CA58C21CD0932D4C545868A9BC38 /* GJStockListTableViewCell.h */,
-				F465AF1E94BED26063EF144D2B04C75A /* GJStockListTableViewCell.m */,
-				3C19640101BCE007E8ADF3A26DFF9923 /* GJStockListView.h */,
-				3485C6B8DC9E3D54CE4331CDBE22663D /* GJStockListView.m */,
-				0A4EE9FFB1F172BF0B2AAF983E7D894B /* Pod */,
-				86A0B3A732616B4E9521CB6E050ADF50 /* Support Files */,
-			);
-			name = GJStockListView;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		86A0B3A732616B4E9521CB6E050ADF50 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				0EB9EB9DF8DC6D19BE4EABCFC7B82407 /* GJStockListView.modulemap */,
-				1714189EF58658FC196DE62E1544A7B3 /* GJStockListView.xcconfig */,
-				DB65506584B080D9FDE602B42347173C /* GJStockListView-dummy.m */,
-				ED219EF97CD3098BE0EB0D2D5A807D5D /* GJStockListView-Info.plist */,
-				467AA528CA4086897715AF2EACF2B089 /* GJStockListView-prefix.pch */,
-				A3AC6AA76DFD65258E1D1E51BEDA9A70 /* GJStockListView-umbrella.h */,
+				FD3A96415FF38BF1931DE9F479D9EE34 /* GJStockListView.modulemap */,
+				2CB5A3CBEBAAD8E08DCEE43D97F9C0CF /* GJStockListView.xcconfig */,
+				E536C52B1E6CA18C22CCF4D9B1901D40 /* GJStockListView-dummy.m */,
+				FA24FBB638747013EC0339B938C27A11 /* GJStockListView-Info.plist */,
+				7D653465228C03F820A581A26E6FD24C /* GJStockListView-prefix.pch */,
+				D123880FE9E1C424F846129178B26971 /* GJStockListView-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/GJStockListView";
+			sourceTree = "<group>";
+		};
+		7652975353BC06552523693931BF77E9 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A33DF03107FE4D1B2DF1DFE89C44280D /* GJStockListView */,
+			);
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		899B7F5DB19DC31D0A474BB731AEF8B1 /* Pods-GJStockListView_Example */ = {
@@ -179,12 +167,30 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A42195A1D6D6E1DB38A2F01979647818 /* Development Pods */ = {
+		A276D1E3B49BB77F1253AC798920588F /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				5157ED24B4F57236D7D60F45F8902480 /* GJStockListView */,
+				98C94BB05EE0094435DFB19C873C3976 /* GJStockListView.podspec */,
+				5815F3B22103D3AB2EE3FBB656983CFD /* LICENSE */,
+				8782F2AB083A6BD8DB5C1A45AF4958C7 /* README.md */,
 			);
-			name = "Development Pods";
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		A33DF03107FE4D1B2DF1DFE89C44280D /* GJStockListView */ = {
+			isa = PBXGroup;
+			children = (
+				A1D3966C74723469CB2F799A67DDD193 /* GJStockListHeaderFooterView.h */,
+				18A9A95E5EEE225750CABCAABCA23D78 /* GJStockListHeaderFooterView.m */,
+				5E3FB2F5FCC7291FF6E095C222053702 /* GJStockListTableViewCell.h */,
+				73FFAE2F4C378FBDD72CE09A88233803 /* GJStockListTableViewCell.m */,
+				F6AC051CBD6EECAA65ADC92EF5257A7C /* GJStockListView.h */,
+				F9F06EA8870D92634D3AE3E078F71B08 /* GJStockListView.m */,
+				A276D1E3B49BB77F1253AC798920588F /* Pod */,
+				58079FF73C2C1D777292ADCE64643504 /* Support Files */,
+			);
+			name = GJStockListView;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
@@ -199,7 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				A42195A1D6D6E1DB38A2F01979647818 /* Development Pods */,
+				7652975353BC06552523693931BF77E9 /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				A084C9EC1F4ADE58B46673FE318A8796 /* Products */,
 				37FEC3B369E0951C05D260424F8EB892 /* Targets Support Files */,
@@ -233,21 +239,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		1B67C9BCFE9AE47890C3BBF76B85FA78 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2A942984F8257280159453F82649F45 /* GJStockListHeaderFooterView.h in Headers */,
+				E48F118C198C87DB4A17DC9163F574C0 /* GJStockListTableViewCell.h in Headers */,
+				30B13A4467C45BE7EEA5D5DF75A45356 /* GJStockListView-umbrella.h in Headers */,
+				AB8006B80BD554495E856A67126874B7 /* GJStockListView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E68A8C2AE42B098970454B9CFA71338 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EFB8C32BD6DBE0AB54419FC5D113BEFB /* Pods-GJStockListView_Tests-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		90DD1397BDC43C2C1FB702618C08EA3D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CABF97C75A284BD6874790870BFF47B5 /* GJStockListTableViewCell.h in Headers */,
-				F7DA691E15830904170D8F4F7918A0F2 /* GJStockListView-umbrella.h in Headers */,
-				C4BE81D07EB1F0833EFE2DAC1BD886B8 /* GJStockListView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,12 +309,12 @@
 		};
 		DB9C3295F53B471BFD3CA613FF3ACF48 /* GJStockListView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BAECE37DECFAD350D87AA3682B16C99D /* Build configuration list for PBXNativeTarget "GJStockListView" */;
+			buildConfigurationList = 62F4CC008B4427B127EEAE3175AFAA19 /* Build configuration list for PBXNativeTarget "GJStockListView" */;
 			buildPhases = (
-				90DD1397BDC43C2C1FB702618C08EA3D /* Headers */,
-				7FD9A22DE2E25A2D4A9D0BDD15BD3240 /* Sources */,
-				AC0CFA2FD771E79B6EFD6C6C464B030D /* Frameworks */,
-				8A986B3531C29853CBC2BDAB9F518604 /* Resources */,
+				1B67C9BCFE9AE47890C3BBF76B85FA78 /* Headers */,
+				D0E26E38D8D1A5DCF3DDA131A191C202 /* Sources */,
+				22D5133FC681A9A7A1A9C3178839CA03 /* Frameworks */,
+				A99DF9B17F3FDE590037F161A3CE9E32 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -361,7 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A986B3531C29853CBC2BDAB9F518604 /* Resources */ = {
+		A99DF9B17F3FDE590037F161A3CE9E32 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -379,21 +386,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7FD9A22DE2E25A2D4A9D0BDD15BD3240 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DC55AD7023688AFDE5654AC511E3AD44 /* GJStockListTableViewCell.m in Sources */,
-				15508C687EE9BD0A44D5CE5D4160CA36 /* GJStockListView-dummy.m in Sources */,
-				0FE1C57E1A6BD4E84AD83AC85C7C5F45 /* GJStockListView.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AF3AFFA7148C01E0162C1C32FB695C5D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6C3F69E5C19B0131A7E7C864781B9A4C /* Pods-GJStockListView_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0E26E38D8D1A5DCF3DDA131A191C202 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99D2EF5E775D8EDB2D4C51802EB3CFD6 /* GJStockListHeaderFooterView.m in Sources */,
+				0958BB2F51ABB0CF6C6CBE38B8C3E2C3 /* GJStockListTableViewCell.m in Sources */,
+				6CBC79A251EF8AA4A5A4173FDA1FE692 /* GJStockListView-dummy.m in Sources */,
+				74A2BAB1A0435E523171BC47DBDF5B63 /* GJStockListView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,9 +423,9 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		3AEA2D0D823B72EEA53547790ACA5950 /* Debug */ = {
+		1161CC5E1941020CA4FAA34E76AC56A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1714189EF58658FC196DE62E1544A7B3 /* GJStockListView.xcconfig */;
+			baseConfigurationReference = 2CB5A3CBEBAAD8E08DCEE43D97F9C0CF /* GJStockListView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -441,10 +449,11 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		4BE66A09A74FD25164AAB3C2645B9B93 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -636,38 +645,6 @@
 			};
 			name = Debug;
 		};
-		8BFFE3C54BCAB6AB5771B29C82854B52 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1714189EF58658FC196DE62E1544A7B3 /* GJStockListView.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/GJStockListView/GJStockListView-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/GJStockListView/GJStockListView-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/GJStockListView/GJStockListView.modulemap";
-				PRODUCT_MODULE_NAME = GJStockListView;
-				PRODUCT_NAME = GJStockListView;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		8CA9C9F749E9C9408FE1B3C7377366B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A46AE148A8598747E85ECF93C8324A06 /* Pods-GJStockListView_Tests.release.xcconfig */;
@@ -701,6 +678,37 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		C2CC68E763292DB76BBAC6F269EFC517 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2CB5A3CBEBAAD8E08DCEE43D97F9C0CF /* GJStockListView.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/GJStockListView/GJStockListView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/GJStockListView/GJStockListView-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/GJStockListView/GJStockListView.modulemap";
+				PRODUCT_MODULE_NAME = GJStockListView;
+				PRODUCT_NAME = GJStockListView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		FC98196CB86E142E2D53B26B45FFB85E /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -757,20 +765,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		62F4CC008B4427B127EEAE3175AFAA19 /* Build configuration list for PBXNativeTarget "GJStockListView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2CC68E763292DB76BBAC6F269EFC517 /* Debug */,
+				1161CC5E1941020CA4FAA34E76AC56A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9CC8A6D66895D89916DC4A5F219CF5E9 /* Build configuration list for PBXNativeTarget "Pods-GJStockListView_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				581F94EE85B5397DD63EB36BBE618E77 /* Debug */,
 				FC98196CB86E142E2D53B26B45FFB85E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BAECE37DECFAD350D87AA3682B16C99D /* Build configuration list for PBXNativeTarget "GJStockListView" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3AEA2D0D823B72EEA53547790ACA5950 /* Debug */,
-				8BFFE3C54BCAB6AB5771B29C82854B52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
