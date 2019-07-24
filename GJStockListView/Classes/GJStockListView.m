@@ -12,9 +12,62 @@ static NSString * const kGJStockListTableViewCellIdentifier = @"kGJStockListTabl
 static NSString * const kGJStockListTableViewContentSize = @"contentSize";
 static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列没有意义
 
+@interface SLScrollView : UIScrollView
+
+@end
+
+@implementation SLScrollView
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	
+	if ([[self nextResponder] isKindOfClass:[UITableView class]]) {
+		UITouch *touch = touches.anyObject;
+		if (touch == nil) {
+			return;
+		}
+		UITableView *tableView = (UITableView *)[self nextResponder];
+		CGPoint point = [touch locationInView:tableView];
+		NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:point];
+		[tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+	}
+	
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+	[super touchesMoved:touches withEvent:event];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	if ([[self nextResponder] isKindOfClass:[UITableView class]]) {
+		UITouch *touch = touches.anyObject;
+		if (touch == nil) {
+			return;
+		}
+		UITableView *tableView = (UITableView *)[self nextResponder];
+		CGPoint point = [touch locationInView:tableView];
+		NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:point];
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+	if ([[self nextResponder] isKindOfClass:[UITableView class]]) {
+		UITouch *touch = touches.anyObject;
+		if (touch == nil) {
+			return;
+		}
+		UITableView *tableView = (UITableView *)[self nextResponder];
+		CGPoint point = [touch locationInView:tableView];
+		NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:point];
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+}
+
+@end
+
 @interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, GJStockListTableViewCellDataSource>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) SLScrollView *scrollView;
 
 @end
 
@@ -27,7 +80,6 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		[self loadupUI];
 		
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentSize options:NSKeyValueObservingOptionNew context:NULL];
-		[self.tableView addObserver:self forKeyPath:@"subviews" options:NSKeyValueObservingOptionNew context:NULL];
 		
 	}
 	return self;
@@ -41,9 +93,6 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		self.scrollView.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
 		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, size.height);
 		
-	} else if ([keyPath isEqualToString:@"subviews"]) {
-		NSArray *sub = change[NSKeyValueChangeNewKey];
-		NSLog(@"%@", sub);
 	}
 }
 
@@ -79,8 +128,11 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		NSAttributedString *attr = [self attributedStringAtRow:indexPath.row column:i];
 		label.attributedText = attr;
 	}
-	
 	return cell;;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark -- GJStockListTableViewCellDataSource
@@ -129,9 +181,9 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	return _tableView;
 }
 
-- (UIScrollView *)scrollView {
+- (SLScrollView *)scrollView {
 	if (!_scrollView) {
-		_scrollView = [[UIScrollView alloc] init];
+		_scrollView = [[SLScrollView alloc] init];
 	}
 	return _scrollView;
 }

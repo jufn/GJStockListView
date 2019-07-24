@@ -19,6 +19,9 @@
 				   scrollView:(UIScrollView *)scrollView {
 	
 	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+		
+		self.contentView.backgroundColor = [UIColor clearColor];
+		self.backgroundColor = [UIColor clearColor];
 		[self loadUpUIWithScrollView:scrollView numberOfColumnsPerRow:numberOfColumnsPerRow];
 	}
 	return self;
