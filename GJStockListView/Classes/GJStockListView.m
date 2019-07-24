@@ -9,7 +9,8 @@
 #import "GJStockListTableViewCell.h"
 
 static NSString * const kGJStockListTableViewCellIdentifier = @"kGJStockListTableViewCellIdentifier";
-static NSString * const kGJStockListTableViewContentSize = @"contentSize";
+static NSString * const kGJStockListHeaderViewIdentifier 	= @"GJStockListHeaderViewIdentifier";
+static NSString * const kGJStockListTableViewContentSize 	= @"contentSize";
 static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列没有意义
 
 @interface SLScrollView : UIScrollView
@@ -140,7 +141,13 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	return [[UIView alloc] init];
+	GJStockListHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kGJStockListHeaderViewIdentifier];
+	if (headerView == nil) {
+		headerView = [[GJStockListHeaderView alloc] initWithReuseIdentifier:kGJStockListHeaderViewIdentifier headerTitles:[self getHeaderTitles] scrollView:self.scrollView];
+	}
+	headerView.dataSource = self;
+	
+	return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

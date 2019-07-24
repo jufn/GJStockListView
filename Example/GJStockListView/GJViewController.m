@@ -56,8 +56,9 @@
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	self.title  = @"股票列表";
+	CGRect frame = CGRectMake(0, 188, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 188);
 	
-	self.listView = [[GJStockListView alloc] initWithFrame:self.view.bounds];
+	self.listView = [[GJStockListView alloc] initWithFrame:frame];
 	self.listView.delegate = self;
 	[self.listView reloadData];
 	[self.view addSubview:self.listView];

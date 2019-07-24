@@ -94,17 +94,19 @@
 
 
 
-@interface GJStockListHeaderFooterView ()
+@interface GJStockListHeaderView ()
 @property (nonatomic, copy) NSArray <UIButton *>*btns;
 @end
 
-@implementation GJStockListHeaderFooterView
+@implementation GJStockListHeaderView
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
 						   headerTitles:(NSArray *)titles
 							 scrollView:(UIScrollView *)scrollView {
 	
 	if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
+		self.contentView.backgroundColor = [UIColor clearColor];
+		self.backgroundColor = [UIColor clearColor];
 		[self loadUpUIWithTitles:titles scrollView:scrollView];
 	}
 	return self;
@@ -142,6 +144,8 @@
 		[mArray addObject:button];
 		[button setTitle:title forState:UIControlStateNormal];
 		[button setTitle:title forState:UIControlStateHighlighted];
+		[button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+		[button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
 		[button addTarget:self action:@selector(tapHeaderBtn:) forControlEvents:UIControlEventTouchUpInside];
 		button.tag = i;
 		

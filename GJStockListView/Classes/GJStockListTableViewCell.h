@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface GJStockListHeaderFooterView : UITableViewHeaderFooterView
+@interface GJStockListHeaderView : UITableViewHeaderFooterView
 @property (nonatomic, weak) id <GJStockListItemDataSource> dataSource;
 @property (nonatomic, copy) void(^didTapHeaderAtIndexBlock)(NSInteger index);
 
