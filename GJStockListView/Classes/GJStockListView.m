@@ -30,7 +30,6 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:point];
 		[tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
 	}
-	
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -105,6 +104,7 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 
 - (void)setInitialConfig {
 	self.preferWidthPerColumn = 90.0f;
+	self.tableRowHeight = 44.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -113,6 +113,10 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		rows = [self.delegate numberOfRowsInListView:self];
 	}
 	return rows;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return self.tableRowHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,6 +133,14 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		label.attributedText = attr;
 	}
 	return cell;;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	return self.tableRowHeight;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	return [[UIView alloc] init];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
