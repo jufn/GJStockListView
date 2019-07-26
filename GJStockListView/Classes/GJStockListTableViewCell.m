@@ -101,13 +101,11 @@
 @implementation GJStockListHeaderView
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
-						   headerTitles:(NSArray *)titles
-							 scrollView:(UIScrollView *)scrollView {
+						   headerTitles:(NSArray *)titles {
 	
 	if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-		self.contentView.backgroundColor = [UIColor clearColor];
-		self.backgroundColor = [UIColor clearColor];
-		[self loadUpUIWithTitles:titles scrollView:scrollView];
+		[self.contentView addSubview:self.scrollView];
+		[self loadUpUIWithTitles:titles];
 	}
 	return self;
 }
@@ -118,22 +116,25 @@
 		NSInteger i = [self.btns indexOfObject:btn];
 		CGFloat posX = 0.0f, posY = 0.0f;
 		
-		if (i != 0) {
-			CGPoint point = [self convertPoint:self.frame.origin toView:btn.superview];
-			posY = point.y;
-		}
-		
-		if (i > 1) {
+		if (i == 1) { // 布局scroll View
+			UIButton *preBtn = [self.btns objectAtIndex:i - 1];
+
+			self.scrollView.frame = CGRectMake(CGRectGetMaxX(preBtn.frame), posY, CGRectGetWidth(self.frame) - CGRectGetMaxX(preBtn.frame), CGRectGetHeight(preBtn.frame));
+		} else if (i > 1) {
 			UIButton *preBtn = [self.btns objectAtIndex:i - 1];
 			posX = CGRectGetMaxX(preBtn.frame);
 		}
-		
+
 		CGFloat width = [self getWidthAtColumn:i];
 		btn.frame = CGRectMake(posX, posY, width, CGRectGetHeight(self.frame));
+		if (i == self.btns.count - 1) {
+			CGFloat wid = MAX(CGRectGetMaxX(btn.frame), CGRectGetWidth(self.scrollView.frame)) ;
+			self.scrollView.contentSize = CGSizeMake(wid, self.scrollView.contentSize.height);
+		}
 	}
 }
 
-- (void)loadUpUIWithTitles:(NSArray *)titles scrollView:(UIScrollView *)scrollView {
+- (void)loadUpUIWithTitles:(NSArray *)titles {
 	
 	NSParameterAssert(titles.count > 0);
 	NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:titles.count];
@@ -153,7 +154,7 @@
 		if (i == 0) {
 			[self.contentView addSubview:button];
 		} else {
-			[scrollView addSubview:button];
+			[self.scrollView addSubview:button];
 		}
 	}
 	self.btns = mArray;
@@ -173,6 +174,13 @@
 		width = [self.dataSource widthAtColumn:column inView:self];
 	}
 	return width;
+}
+
+- (UIScrollView *)scrollView {
+	if (!_scrollView) {
+		_scrollView = [[UIScrollView alloc] init];
+	}
+	return _scrollView;
 }
 
 @end

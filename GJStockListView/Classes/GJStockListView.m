@@ -11,6 +11,7 @@
 static NSString * const kGJStockListTableViewCellIdentifier = @"kGJStockListTableViewCellIdentifier";
 static NSString * const kGJStockListHeaderViewIdentifier 	= @"GJStockListHeaderViewIdentifier";
 static NSString * const kGJStockListTableViewContentSize 	= @"contentSize";
+static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列没有意义
 
 @interface SLScrollView : UIScrollView
@@ -65,7 +66,7 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 
 @end
 
-@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, GJStockListItemDataSource>
+@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, GJStockListItemDataSource, UIScrollViewDelegate>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong) SLScrollView *scrollView;
 
@@ -80,6 +81,8 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		[self loadupUI];
 		
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentSize options:NSKeyValueObservingOptionNew context:NULL];
+		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
+		
 		
 	}
 	return self;
@@ -143,9 +146,11 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 	GJStockListHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kGJStockListHeaderViewIdentifier];
 	if (headerView == nil) {
-		headerView = [[GJStockListHeaderView alloc] initWithReuseIdentifier:kGJStockListHeaderViewIdentifier headerTitles:[self getHeaderTitles] scrollView:self.scrollView];
+		headerView = [[GJStockListHeaderView alloc] initWithReuseIdentifier:kGJStockListHeaderViewIdentifier headerTitles:[self getHeaderTitles]];
+		[headerView.scrollView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
 	}
 	headerView.dataSource = self;
+	headerView.scrollView.delegate = self;
 	
 	return headerView;
 }
@@ -154,8 +159,35 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	GJStockListHeaderView *headerView = (GJStockListHeaderView *)[self.tableView headerViewForSection:0];
+	
+	UIScrollView *hScrollView = headerView.scrollView;
+	if ([scrollView isEqual:hScrollView]) {
+		[self.scrollView setContentOffset:scrollView.contentOffset animated:NO];
+	} else if ([scrollView isEqual:self.scrollView]) {
+		[headerView.scrollView setContentOffset:scrollView.contentOffset animated:NO];
+	}
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	
+	GJStockListHeaderView *headerView = (GJStockListHeaderView *)[self.tableView headerViewForSection:0];
+	
+	UIScrollView *hScrollView = headerView.scrollView;
+	
+	BOOL hScrolling = hScrollView.isDragging || hScrollView.isDecelerating || hScrollView.isTracking;
+	BOOL scrolling = self.scrollView.isDragging || self.scrollView.isDecelerating || self.scrollView.isTracking;
+	
+	if ([scrollView isEqual:hScrollView] && scrolling == NO) {
+		[self.scrollView setContentOffset:scrollView.contentOffset animated:NO];
+	} else if ([scrollView isEqual:self.scrollView] && hScrolling == NO) {
+		[headerView.scrollView setContentOffset:scrollView.contentOffset animated:NO];
+	}
+}
+
 #pragma mark -- GJStockListItemDataSource
-#pragma mark --
+#pragma mark
 
 - (CGFloat)widthAtColumn:(NSInteger)column inView:(UIView *)view {
 	return self.preferWidthPerColumn;
@@ -203,6 +235,7 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 - (SLScrollView *)scrollView {
 	if (!_scrollView) {
 		_scrollView = [[SLScrollView alloc] init];
+		_scrollView.delegate = self;
 	}
 	return _scrollView;
 }

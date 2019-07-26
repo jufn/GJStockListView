@@ -30,11 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GJStockListHeaderView : UITableViewHeaderFooterView
 @property (nonatomic, weak) id <GJStockListItemDataSource> dataSource;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, copy) void(^didTapHeaderAtIndexBlock)(NSInteger index);
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
-						   headerTitles:(NSArray *)titles
-							 scrollView:(UIScrollView *)scrollView;
+						   headerTitles:(NSArray *)titles;
 @end
 
 NS_ASSUME_NONNULL_END
