@@ -83,7 +83,6 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentSize options:NSKeyValueObservingOptionNew context:NULL];
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
 		
-		
 	}
 	return self;
 }
@@ -235,6 +234,7 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 - (SLScrollView *)scrollView {
 	if (!_scrollView) {
 		_scrollView = [[SLScrollView alloc] init];
+		_scrollView.showsHorizontalScrollIndicator = NO;
 		_scrollView.delegate = self;
 	}
 	return _scrollView;

@@ -13,9 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)numberOfRowsInListView:(GJStockListView *)listView;
 - (NSArray <NSString *>*)titlesForListViewHeader:(GJStockListView *)listView;
-- (NSAttributedString *)listView:(GJStockListView *)listView
-	 attributedStringAtRow:(NSInteger)row
-					column:(NSInteger)column;
+- (UIButton *)stockListView:(GJStockListView *)view buttonAtColumn:(NSInteger)column;
+- (UIView *)stockListView:(GJStockListView *)view itemViewAtRow:(NSInteger)row column:(NSInteger)column;
+@optional
+
+- (NSTextAlignment)stockListView:(GJStockListView *)view textAlignmentAtColumn:(NSInteger)column;
+- (UIFont *)stockListView:(GJStockListView *)view fontAtColumn:(NSInteger)column;
+
+- (void)stockListView:(GJStockListView *)view reloadingItemView:(UIView *)itemView atRow:(NSInteger)row column:(NSInteger)column;
+- (void)stockListView:(GJStockListView *)view didTapHeaderButton:(UIButton *)button atColumn:(NSInteger)column;
+
 
 @end
 

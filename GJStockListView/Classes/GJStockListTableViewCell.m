@@ -150,7 +150,6 @@
 		[button addTarget:self action:@selector(tapHeaderBtn:) forControlEvents:UIControlEventTouchUpInside];
 		button.tag = i;
 		
-		
 		if (i == 0) {
 			[self.contentView addSubview:button];
 		} else {
