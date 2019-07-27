@@ -65,6 +65,15 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
 
 @end
 
+NSInteger getCellSubViewTag(NSInteger row, NSInteger column) {
+    return column * 10000 + row;
+}
+
+void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
+    *row = tag % 10000;
+    *column = tag / 10000;
+}
+
 @interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong) SLScrollView *scrollView;
@@ -150,7 +159,7 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGJStockListTableViewCellIdentifier];
     NSUInteger count = [self numberOfColumns];
 
-	if (!cell) {
+	if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier];
         CGPoint itemOri = CGPointZero;
         for (int i = 0; i < count; i ++) {
@@ -158,6 +167,7 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
             if (view == nil) {
                 continue;
             }
+            view.tag = getCellSubViewTag(indexPath.row, i);
             CGFloat width = [self itemViewWidthAtColumn:i];
             // lay out subviews
             if (i == 0) {
@@ -170,10 +180,36 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
                 itemOri.x += width;
             }
         }
-	}
+    } else {
+        // 对复用的， 重新调整frame
+        UIView *view = cell.contentView.subviews.firstObject;
+        if (view) {
+            NSInteger row = 0, column = 0;
+            getRowAndColumnWithTag(view.tag, &row, &column);
+            
+            for (int i = 0; i < count; i ++) {
+                if (i == 0) {
+                    view.tag = getCellSubViewTag(indexPath.row, i);
+                } else {
+                    UIView *subView = [self.scrollView viewWithTag:getCellSubViewTag(row, i)];
+                    CGFloat posY = indexPath.row * self.tableRowHeight;
+                    subView.frame = CGRectMake(CGRectGetMinX(subView.frame), posY, CGRectGetWidth(subView.frame), CGRectGetHeight(subView.frame));
+                    subView.tag = getCellSubViewTag(indexPath.row, i);
+                }
+                
+            }
+        }
+    }
 
     for (int i = 0; i < count; i ++) {
-        UIView *view = [self itemViewAtRow:indexPath.row column:i];
+        UIView *view = nil;
+        
+        if (i == 0) {
+            view = [cell.contentView viewWithTag:getCellSubViewTag(indexPath.row, i)];
+        } else {
+            view = [self.scrollView viewWithTag:getCellSubViewTag(indexPath.row, i)];
+        }
+        
         if (view == nil) { //  空白
             continue;
         }
@@ -181,7 +217,8 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
             [self.delegate stockListView:self reloadingItemView:view atRow:indexPath.row column:i];
         }
     }
-	return cell;;
+    
+	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
