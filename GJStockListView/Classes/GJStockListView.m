@@ -123,18 +123,34 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	GJStockListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGJStockListTableViewCellIdentifier];
-	NSUInteger titleCount = [[self getHeaderTitles] count];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGJStockListTableViewCellIdentifier];
+    NSUInteger titleCount = [[self getHeaderTitles] count];
+
 	if (!cell) {
-		cell = [[GJStockListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier numberOfColumnsPerRow:titleCount scrollView:self.scrollView];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier];
+        for (int i = 0; i < titleCount; i ++) {
+            UIView *view = [self itemViewAtRow:indexPath.row column:i];
+            if (view == nil) {
+                continue;
+            }
+            
+            if (i == 0) {
+                [cell.contentView addSubview:view];
+            } else {
+                [self.scrollView addSubview:view];
+            }
+        }
 	}
-	cell.dataSource = self;
-	
-	for (int i = 0; i < titleCount; i ++) {
-		UILabel *label = [cell labelAtColumn:i];
-		NSAttributedString *attr = [self attributedStringAtRow:indexPath.row column:i];
-		label.attributedText = attr;
-	}
+
+    for (int i = 0; i < titleCount; i ++) {
+        UIView *view = [self itemViewAtRow:indexPath.row column:i];
+        if (view == nil) { //  空白
+            continue;
+        }
+        if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:reloadingItemView:atRow:column:)]) {
+            [self.delegate stockListView:self reloadingItemView:view atRow:indexPath.row column:i];
+        }
+    }
 	return cell;;
 }
 
@@ -147,9 +163,9 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	if (headerView == nil) {
 		headerView = [[GJStockListHeaderView alloc] initWithReuseIdentifier:kGJStockListHeaderViewIdentifier headerTitles:[self getHeaderTitles]];
 		[headerView.scrollView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
+        headerView.dataSource = self;
+        headerView.scrollView.delegate = self;
 	}
-	headerView.dataSource = self;
-	headerView.scrollView.delegate = self;
 	
 	return headerView;
 }
@@ -157,6 +173,25 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+- (UIView *)itemViewAtRow:(NSInteger)row column:(NSInteger)column {
+    UIView *itemView = nil;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:itemViewAtRow:column:)]) {
+      itemView =  [self.delegate stockListView:self itemViewAtRow:row column:column];
+    }
+    return itemView;
+}
+
+- (CGFloat)itemViewWidthAtColumn:(NSInteger)column {
+    CGFloat width = self.preferWidthPerColumn;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:widthAtColumn:)]) {
+        width = [self.delegate stockListView:self widthAtColumn:column];
+    }
+    return width;
+}
+
+#pragma mark -- UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	GJStockListHeaderView *headerView = (GJStockListHeaderView *)[self.tableView headerViewForSection:0];
@@ -202,16 +237,6 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 	self.scrollView.frame = CGRectMake(self.preferWidthPerColumn, 0, CGRectGetWidth(self.tableView.frame) - self.preferWidthPerColumn, self.tableView.contentSize.height);
 	self.scrollView.contentSize = CGSizeMake(width - self.preferWidthPerColumn, self.tableView.contentSize.height);
 	
-}
-
-- (NSAttributedString *)attributedStringAtRow:(NSInteger)row
-									column:(NSInteger)column {
-	NSAttributedString *attrbute = nil;
-	
-	if (self.delegate && [self.delegate respondsToSelector:@selector(listView:attributedStringAtRow:column:)]) {
-		attrbute =	[self.delegate listView:self attributedStringAtRow:row column:column];
-	}
-	return attrbute;
 }
 
 - (NSArray *)getHeaderTitles {
