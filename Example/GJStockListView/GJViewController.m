@@ -21,6 +21,10 @@
 	return @[@"名称", @"最新", @"涨幅", @"涨跌", @"昨收", @"成交量", @"成交额", @"最高", @"最低"];
 }
 
+- (NSArray *)getContent {
+    return @[@"国泰君安", @"20.19", @"+2.10%", @"0.45", @"19.64", @"3.2B", @"54B", @"20.21", @"19.88"];
+}
+
 - (NSArray<NSString *> *)titlesForListViewHeader:(GJStockListView *)listView {
 	return [self getTitles];
 }
@@ -28,6 +32,46 @@
 - (NSInteger)numberOfRowsInListView:(nonnull GJStockListView *)listView {
 	return 30;
 }
+
+- (NSInteger)numberOfColumnsInListView:(GJStockListView *)listView {
+    return [[self getTitles] count];
+}
+
+- (UIView *)stockListView:(GJStockListView *)view headerItemViewAtColumn:(NSInteger)column {
+    NSString *title = [self getTitles][column];
+    UIButton *button = [[UIButton alloc] init];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitle:title forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(tapHeaderButton:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
+- (void)tapHeaderButton:(UIButton *)sender {
+    NSString *title = [sender titleForState:UIControlStateNormal];
+    if (title == nil ) {
+        return;
+    }
+    
+    NSInteger index = [[self getTitles] indexOfObject:title];
+    NSLog(@"hhhhhh %@ ____ %zd", title, index);
+}
+
+- (UIView *)stockListView:(GJStockListView *)view itemViewAtRow:(NSInteger)row column:(NSInteger)column {
+    UILabel *label = [[UILabel alloc] init];
+    label.textAlignment = column == 0 || column == 3 ? NSTextAlignmentLeft : NSTextAlignmentCenter;
+    label.text = [self getContent][column];
+    label.textColor = [UIColor orangeColor];
+    return label;
+}
+
+- (CGFloat)stockListView:(GJStockListView *)view widthAtColumn:(NSInteger)column {
+    return 120;
+}
+- (void)stockListView:(GJStockListView *)view reloadingItemView:(UIView *)itemView atRow:(NSInteger)row column:(NSInteger)column {
+    
+}
+
 
 
 - (void)viewDidLoad

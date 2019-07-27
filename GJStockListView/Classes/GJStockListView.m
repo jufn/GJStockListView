@@ -165,7 +165,7 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
                 view.frame = CGRectMake(itemOri.x, itemOri.y, width, self.tableRowHeight);
             } else {
                 [self.scrollView addSubview:view];
-                itemOri.y = [cell convertPoint:cell.frame.origin toView:self.scrollView].y;
+                itemOri.y = indexPath.row * self.tableRowHeight;
                 view.frame = CGRectMake(itemOri.x, itemOri.y, width, self.tableRowHeight);
                 itemOri.x += width;
             }
@@ -287,7 +287,7 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
 - (NSInteger)numberOfColumns {
     NSInteger num = 0;
     if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfColumnsInListView:)]) {
-        num = [self.delegate numberOfRowsInListView:self];
+        num = [self.delegate numberOfColumnsInListView:self];
     }
     return num;
 }
