@@ -6,12 +6,12 @@
 //
 
 #import "GJStockListView.h"
-#import "GJStockListTableViewCell.h"
 
 static NSString * const kGJStockListTableViewCellIdentifier = @"kGJStockListTableViewCellIdentifier";
 static NSString * const kGJStockListHeaderViewIdentifier 	= @"GJStockListHeaderViewIdentifier";
 static NSString * const kGJStockListTableViewContentSize 	= @"contentSize";
 static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
+static NSInteger  const kHeaderScrollViewTag = 1000;
 
 @interface SLScrollView : UIScrollView
 
@@ -132,6 +132,8 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 	self.tableRowHeight = 44.0f;
 }
 
+#pragma mark - UITableViewDelegate & UITableViewDataSource
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	NSInteger rows = 0;
 	if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfRowsInListView:)]) {
@@ -196,6 +198,7 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
         
 		[scrollView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
         scrollView.delegate = self;
+        scrollView.tag = kHeaderScrollViewTag;
         [headerView.contentView addSubview:scrollView];
         
         NSUInteger count = [self numberOfColumns];
@@ -258,42 +261,32 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 #pragma mark -- UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	GJStockListHeaderView *headerView = (GJStockListHeaderView *)[self.tableView headerViewForSection:0];
-	
-	UIScrollView *hScrollView = headerView.scrollView;
+	UITableViewHeaderFooterView *headerView = [self.tableView headerViewForSection:0];
+    UIScrollView *hScrollView = [headerView viewWithTag:kHeaderScrollViewTag];;
 	if ([scrollView isEqual:hScrollView]) {
 		[self.scrollView setContentOffset:scrollView.contentOffset animated:NO];
 	} else if ([scrollView isEqual:self.scrollView]) {
-		[headerView.scrollView setContentOffset:scrollView.contentOffset animated:NO];
+		[hScrollView setContentOffset:scrollView.contentOffset animated:NO];
 	}
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	
-	GJStockListHeaderView *headerView = (GJStockListHeaderView *)[self.tableView headerViewForSection:0];
-	
-	UIScrollView *hScrollView = headerView.scrollView;
-	
+    UITableViewHeaderFooterView *headerView = [self.tableView headerViewForSection:0];
+    UIScrollView *hScrollView = [headerView viewWithTag:kHeaderScrollViewTag];;
 	BOOL hScrolling = hScrollView.isDragging || hScrollView.isDecelerating || hScrollView.isTracking;
 	BOOL scrolling = self.scrollView.isDragging || self.scrollView.isDecelerating || self.scrollView.isTracking;
 	
 	if ([scrollView isEqual:hScrollView] && scrolling == NO) {
 		[self.scrollView setContentOffset:scrollView.contentOffset animated:NO];
 	} else if ([scrollView isEqual:self.scrollView] && hScrolling == NO) {
-		[headerView.scrollView setContentOffset:scrollView.contentOffset animated:NO];
+		[hScrollView setContentOffset:scrollView.contentOffset animated:NO];
 	}
-}
-
-#pragma mark -- GJStockListItemDataSource
-#pragma mark
-
-- (CGFloat)widthAtColumn:(NSInteger)column inView:(UIView *)view {
-	return self.preferWidthPerColumn;
 }
 
 - (NSInteger)numberOfColumns {
     NSInteger num = 0;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfColumnsInHeaderView:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfColumnsInListView:)]) {
         num = [self.delegate numberOfRowsInListView:self];
     }
     return num;

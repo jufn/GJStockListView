@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol GJStockListViewDelegate <NSObject>
 
 - (NSInteger)numberOfRowsInListView:(GJStockListView *)listView;
-- (NSInteger)numberOfColumnInListView:(GJStockListView *)listView;
+- (NSInteger)numberOfColumnsInListView:(GJStockListView *)listView;
 //- (NSArray <NSString *>*)titlesForListViewHeader:(GJStockListView *)listView;
 - (UIView *)stockListView:(GJStockListView *)view headerItemViewAtColumn:(NSInteger)column;
 - (UIView *)stockListView:(GJStockListView *)view itemViewAtRow:(NSInteger)row column:(NSInteger)column;
