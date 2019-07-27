@@ -128,16 +128,22 @@ static const NSInteger kMinimumColumnPerRow = 2; // 最小两列， 小于两列
 
 	if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier];
+        CGPoint itemOri = CGPointZero;
         for (int i = 0; i < titleCount; i ++) {
             UIView *view = [self itemViewAtRow:indexPath.row column:i];
             if (view == nil) {
                 continue;
             }
-            
+            CGFloat width = [self itemViewWidthAtColumn:i];
+            // lay out subviews
             if (i == 0) {
                 [cell.contentView addSubview:view];
+                view.frame = CGRectMake(itemOri.x, itemOri.y, width, self.tableRowHeight);
             } else {
                 [self.scrollView addSubview:view];
+                itemOri.y = [cell convertPoint:cell.frame.origin toView:self.scrollView].y;
+                view.frame = CGRectMake(itemOri.x, itemOri.y, width, self.tableRowHeight);
+                itemOri.x += width;
             }
         }
 	}
