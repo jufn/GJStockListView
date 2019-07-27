@@ -83,7 +83,7 @@
 	
 	self.listView = [[GJStockListView alloc] initWithFrame:frame];
 	self.listView.delegate = self;
-	[self.listView reloadData];
+//    [self.listView reloadData];
 	[self.view addSubview:self.listView];
 	
 }

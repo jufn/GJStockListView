@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <GJStockListViewDelegate> delegate;
 @property (nonatomic, assign) CGFloat preferWidthPerColumn;
 @property (nonatomic, assign) CGFloat tableRowHeight;
+@property (nonatomic, assign) CGFloat headerHeight;
 - (void)reloadData;
 
 @end

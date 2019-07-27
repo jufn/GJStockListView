@@ -10,7 +10,6 @@
 static NSString * const kGJStockListTableViewCellIdentifier = @"kGJStockListTableViewCellIdentifier";
 static NSString * const kGJStockListHeaderViewIdentifier 	= @"GJStockListHeaderViewIdentifier";
 static NSString * const kGJStockListTableViewContentSize 	= @"contentSize";
-static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 static NSInteger  const kHeaderScrollViewTag = 1000;
 
 @interface SLScrollView : UIScrollView
@@ -90,7 +89,6 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
         [self layoutScrollView];
         
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentSize options:NSKeyValueObservingOptionNew context:NULL];
-		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
 		
 	}
 	return self;
@@ -106,8 +104,8 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 		CGSize size = [change[NSKeyValueChangeNewKey] CGSizeValue];
 		
 		CGRect frame = self.scrollView.frame;
-		self.scrollView.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
-		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, size.height);
+		self.scrollView.frame = CGRectMake(CGRectGetMinX(frame), self.headerHeight, CGRectGetWidth(frame), size.height - self.headerHeight);
+		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, size.height - self.headerHeight);
 		
 	}
 }
@@ -129,16 +127,18 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
         CGFloat width_i = [self itemViewWidthAtColumn:i];
         width += width_i;
     }
-    width =   MAX(width, CGRectGetWidth(self.frame));
+    width = MAX(width, CGRectGetWidth(self.frame));
+    
     
     CGFloat firstColumnWidth = [self itemViewWidthAtColumn:0];
-    self.scrollView.frame = CGRectMake(firstColumnWidth, 0, CGRectGetWidth(self.tableView.frame) - firstColumnWidth, self.tableView.contentSize.height);
-    self.scrollView.contentSize = CGSizeMake(width, self.tableView.contentSize.height);
+    self.scrollView.frame = CGRectMake(firstColumnWidth, self.headerHeight, CGRectGetWidth(self.tableView.frame) - firstColumnWidth, self.tableView.contentSize.height - self.headerHeight);
+    self.scrollView.contentSize = CGSizeMake(width, self.tableView.contentSize.height - self.headerHeight);
 }
 
 - (void)setInitialConfig {
 	self.preferWidthPerColumn = 90.0f;
 	self.tableRowHeight = 44.0f;
+    self.headerHeight = 44.0;
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -222,7 +222,7 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return self.tableRowHeight;
+	return self.headerHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -232,8 +232,6 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
         
         CGFloat firstColumnWidth = [self itemViewWidthAtColumn:0];
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(firstColumnWidth, 0, CGRectGetWidth(tableView.frame) - firstColumnWidth, self.tableRowHeight)];
-        
-		[scrollView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
         scrollView.delegate = self;
         scrollView.tag = kHeaderScrollViewTag;
         [headerView.contentView addSubview:scrollView];
