@@ -18,12 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 - (CGFloat)stockListView:(GJStockListView *)view widthAtColumn:(NSInteger)column;
-//- (NSTextAlignment)stockListView:(GJStockListView *)view textAlignmentAtColumn:(NSInteger)column;
-//- (UIFont *)stockListView:(GJStockListView *)view fontAtColumn:(NSInteger)column;
-
 - (void)stockListView:(GJStockListView *)view reloadingItemView:(UIView *)itemView atRow:(NSInteger)row column:(NSInteger)column;
 - (void)stockListView:(GJStockListView *)view didTapHeaderButton:(UIButton *)button atColumn:(NSInteger)column;
-
 
 @end
 
