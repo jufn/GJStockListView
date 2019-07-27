@@ -8,33 +8,31 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@class GJStockListTableViewCell;
+@class GJStockListHeaderView;
 
-@protocol GJStockListItemDataSource <NSObject>
+@protocol GJStockListHeaderViewDataSource <NSObject>
+- (NSInteger)numberOfColumnsInHeaderView:(GJStockListHeaderView *)headerView;
 - (CGFloat)widthAtColumn:(NSInteger)column inView:(UIView *)view;
+- (UIView *)headerView:(GJStockListHeaderView *)headerView viewAtColumn:(NSInteger)column;
 @end
 
-@interface GJStockListTableViewCell : UITableViewCell
-
-@property (nonatomic, weak) id <GJStockListItemDataSource> dataSource;
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style
-			  reuseIdentifier:(NSString *)reuseIdentifier
-		numberOfColumnsPerRow:(NSUInteger)numberOfColumnsPerRow
-				   scrollView:(UIScrollView *)scrollView;
-
-- (UILabel *)labelAtColumn:(NSInteger)column;
-
-@end
+//@interface GJStockListTableViewCell : UITableViewCell
+//
+//@property (nonatomic, weak) id <GJStockListItemDataSource> dataSource;
+//
+//- (instancetype)initWithStyle:(UITableViewCellStyle)style
+//              reuseIdentifier:(NSString *)reuseIdentifier
+//        numberOfColumnsPerRow:(NSUInteger)numberOfColumnsPerRow
+//                   scrollView:(UIScrollView *)scrollView;
+//
+//- (UILabel *)labelAtColumn:(NSInteger)column;
+//
+//@end
 
 
 @interface GJStockListHeaderView : UITableViewHeaderFooterView
-@property (nonatomic, weak) id <GJStockListItemDataSource> dataSource;
+@property (nonatomic, weak) id <GJStockListHeaderViewDataSource> dataSource;
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, copy) void(^didTapHeaderAtIndexBlock)(NSInteger index);
-
-- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
-						   headerTitles:(NSArray *)titles;
 @end
 
 NS_ASSUME_NONNULL_END

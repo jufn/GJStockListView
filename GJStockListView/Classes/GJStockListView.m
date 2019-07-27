@@ -65,7 +65,7 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 
 @end
 
-@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, GJStockListItemDataSource, UIScrollViewDelegate>
+@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong) SLScrollView *scrollView;
 
@@ -111,9 +111,8 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 }
 
 - (void)layoutScrollView {
-    NSArray *titles = [self getHeaderTitles];
     CGFloat width = 0.0f;
-    for (int i = 0; i < titles.count; i ++) {
+    for (int i = 0; i < [self numberOfColumns]; i ++) {
         if (i == 0) {
             continue;
         }
@@ -147,12 +146,12 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGJStockListTableViewCellIdentifier];
-    NSUInteger titleCount = [[self getHeaderTitles] count];
+    NSUInteger count = [self numberOfColumns];
 
 	if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier];
         CGPoint itemOri = CGPointZero;
-        for (int i = 0; i < titleCount; i ++) {
+        for (int i = 0; i < count; i ++) {
             UIView *view = [self itemViewAtRow:indexPath.row column:i];
             if (view == nil) {
                 continue;
@@ -171,7 +170,7 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
         }
 	}
 
-    for (int i = 0; i < titleCount; i ++) {
+    for (int i = 0; i < count; i ++) {
         UIView *view = [self itemViewAtRow:indexPath.row column:i];
         if (view == nil) { //  空白
             continue;
@@ -188,19 +187,55 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	GJStockListHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kGJStockListHeaderViewIdentifier];
+	UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kGJStockListHeaderViewIdentifier];
 	if (headerView == nil) {
-		headerView = [[GJStockListHeaderView alloc] initWithReuseIdentifier:kGJStockListHeaderViewIdentifier headerTitles:[self getHeaderTitles]];
-		[headerView.scrollView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
-        headerView.dataSource = self;
-        headerView.scrollView.delegate = self;
-	}
+		headerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:kGJStockListHeaderViewIdentifier];
+        
+        CGFloat firstColumnWidth = [self itemViewWidthAtColumn:0];
+        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(firstColumnWidth, 0, CGRectGetWidth(tableView.frame) - firstColumnWidth, self.tableRowHeight)];
+        
+		[scrollView addObserver:self forKeyPath:kGJStockListTableViewContentOffset options:NSKeyValueObservingOptionNew context:NULL];
+        scrollView.delegate = self;
+        [headerView.contentView addSubview:scrollView];
+        
+        NSUInteger count = [self numberOfColumns];
+        CGPoint itemOri = CGPointZero;
+        for (int i = 0; i < count; i ++) {
+            UIView *view = [self headeViewAtColumn:i];
+            if (view == nil) {
+                continue;
+            }
+            CGFloat width = [self itemViewWidthAtColumn:i];
+            // lay out subviews
+            if (i == 0) {
+                [headerView.contentView addSubview:view];
+                view.frame = CGRectMake(itemOri.x, itemOri.y, width, self.tableRowHeight);
+            } else {
+                [scrollView addSubview:view];
+                view.frame = CGRectMake(itemOri.x, itemOri.y, width, self.tableRowHeight);
+                itemOri.x += width;
+            }
+            
+            if (i == count - 1) { // 最后一个
+                scrollView.contentSize = CGSizeMake(CGRectGetMaxX(view.frame), CGRectGetHeight(headerView.frame));
+            }
+        }
+        
+    }
 	
 	return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (UIView *)headeViewAtColumn:(NSInteger)column {
+    UIView *headerView = nil;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:headerItemViewAtColumn:)]) {
+        headerView = [self.delegate stockListView:self headerItemViewAtColumn:column];
+    }
+    return headerView;
 }
 
 - (UIView *)itemViewAtRow:(NSInteger)row column:(NSInteger)column {
@@ -256,12 +291,12 @@ static NSString * const kGJStockListTableViewContentOffset 	= @"contentOffset";
 	return self.preferWidthPerColumn;
 }
 
-- (NSArray *)getHeaderTitles {
-	NSArray *titles = nil;
-	if (self.delegate && [self.delegate respondsToSelector:@selector(titlesForListViewHeader:)]) {
-		titles = [self.delegate titlesForListViewHeader:self];
-	}
-	return titles;
+- (NSInteger)numberOfColumns {
+    NSInteger num = 0;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfColumnsInHeaderView:)]) {
+        num = [self.delegate numberOfRowsInListView:self];
+    }
+    return num;
 }
 
 - (UITableView *)tableView {
