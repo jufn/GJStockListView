@@ -76,7 +76,6 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 @interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong) SLScrollView *scrollView;
-
 @end
 
 @implementation GJStockListView
@@ -86,17 +85,10 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 		
 		[self setInitialConfig];
 		[self loadupUI];
-        [self layoutScrollView];
         
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentSize options:NSKeyValueObservingOptionNew context:NULL];
-		
 	}
 	return self;
-}
-
-- (void)reloadData {
-    [self layoutScrollView];
-    [self.tableView reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -106,7 +98,6 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 		CGRect frame = self.scrollView.frame;
 		self.scrollView.frame = CGRectMake(CGRectGetMinX(frame), self.headerHeight, CGRectGetWidth(frame), size.height - self.headerHeight);
 		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, size.height - self.headerHeight);
-		
 	}
 }
 
@@ -117,18 +108,21 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 	[self.tableView sendSubviewToBack:self.scrollView];
 }
 
+- (void)setDelegate:(id<GJStockListViewDelegate>)delegate {
+	_delegate = delegate;
+	[self layoutScrollView];
+}
+
 - (void)layoutScrollView {
     CGFloat width = 0.0f;
     for (int i = 0; i < [self numberOfColumns]; i ++) {
         if (i == 0) {
             continue;
         }
-        
         CGFloat width_i = [self itemViewWidthAtColumn:i];
         width += width_i;
     }
     width = MAX(width, CGRectGetWidth(self.frame));
-    
     
     CGFloat firstColumnWidth = [self itemViewWidthAtColumn:0];
     self.scrollView.frame = CGRectMake(firstColumnWidth, self.headerHeight, CGRectGetWidth(self.tableView.frame) - firstColumnWidth, self.tableView.contentSize.height - self.headerHeight);
@@ -203,7 +197,6 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 
     for (int i = 0; i < count; i ++) {
         UIView *view = nil;
-        
         if (i == 0) {
             view = [cell.contentView viewWithTag:getCellSubViewTag(indexPath.row, i)];
         } else {
