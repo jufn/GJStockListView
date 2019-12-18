@@ -1,6 +1,0 @@
-framework module GJStockListView {
-  umbrella header "GJStockListView-umbrella.h"
-
-  export *
-  module * { export * }
-}
