@@ -1,8 +1,14 @@
 PODS:
   - GJStockListView (0.1.0)
+  - MJRefresh (3.1.15.6)
 
 DEPENDENCIES:
   - GJStockListView (from `../`)
+  - MJRefresh (= 3.1.15.6)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MJRefresh
 
 EXTERNAL SOURCES:
   GJStockListView:
@@ -10,7 +16,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GJStockListView: 12456297bc13bf93d25e6c4db600452790a2d4a7
+  MJRefresh: 0efa19656679d70a0f47cbe76e56c2271fe53a97
 
-PODFILE CHECKSUM: 874255b09ca6d4220f1b6fd6adaab3a9f59b8827
+PODFILE CHECKSUM: 4a5570f5ca5dbb7474a256f952a48676ecd7f7c3
 
 COCOAPODS: 1.7.2

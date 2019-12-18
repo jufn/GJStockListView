@@ -76,6 +76,7 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 @interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 @property (nonatomic, strong) SLScrollView *scrollView;
+@property (nonatomic, strong) UIView *headerView;
 @end
 
 @implementation GJStockListView
@@ -96,12 +97,13 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 		CGSize size = [change[NSKeyValueChangeNewKey] CGSizeValue];
 		
 		CGRect frame = self.scrollView.frame;
-		self.scrollView.frame = CGRectMake(CGRectGetMinX(frame), self.headerHeight, CGRectGetWidth(frame), size.height - self.headerHeight);
-		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, size.height - self.headerHeight);
+		self.scrollView.frame = CGRectMake(CGRectGetMinX(frame), 0, CGRectGetWidth(frame), size.height);
+		self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, size.height);
 	}
 }
 
 - (void)loadupUI {
+	[self addSubview:self.headerView];
 	[self addSubview:self.tableView];
 
 	[self.tableView addSubview:self.scrollView];
@@ -110,6 +112,7 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 
 - (void)setDelegate:(id<GJStockListViewDelegate>)delegate {
 	_delegate = delegate;
+	[self layoutHeaderView];
 	[self layoutScrollView];
 }
 
@@ -125,14 +128,43 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
     width = MAX(width, CGRectGetWidth(self.frame));
     
     CGFloat firstColumnWidth = [self itemViewWidthAtColumn:0];
-    self.scrollView.frame = CGRectMake(firstColumnWidth, self.headerHeight, CGRectGetWidth(self.tableView.frame) - firstColumnWidth, self.tableView.contentSize.height - self.headerHeight);
-    self.scrollView.contentSize = CGSizeMake(width, self.tableView.contentSize.height - self.headerHeight);
+    self.scrollView.frame = CGRectMake(firstColumnWidth, 0, CGRectGetWidth(self.tableView.frame) - firstColumnWidth, self.tableView.contentSize.height);
+    self.scrollView.contentSize = CGSizeMake(width, self.tableView.contentSize.height);
+}
+
+- (void)layoutHeaderView {
+	CGFloat firstColumnWidth = [self itemViewWidthAtColumn:0];
+	UIScrollView *scrollView = [self.headerView viewWithTag:kHeaderScrollViewTag];
+	scrollView.frame = CGRectMake(firstColumnWidth, 0, CGRectGetWidth(self.headerView.frame) - firstColumnWidth, CGRectGetHeight(self.headerView.frame));
+
+	NSUInteger count = [self numberOfColumns];
+	CGPoint itemOri = CGPointZero;
+	for (int i = 0; i < count; i ++) {
+		UIView *view = [self headeViewAtColumn:i];
+		if (view == nil) {
+			continue;
+		}
+		CGFloat width = [self itemViewWidthAtColumn:i];
+		// lay out subviews
+		if (i == 0) {
+			[self.headerView addSubview:view];
+			view.frame = CGRectMake(itemOri.x, itemOri.y, width, CGRectGetHeight(self.headerView.frame));
+		} else {
+			[scrollView addSubview:view];
+			view.frame = CGRectMake(itemOri.x, itemOri.y, width, CGRectGetHeight(self.headerView.frame));
+			itemOri.x += width;
+		}
+
+		if (i == count - 1) { // 最后一个
+			scrollView.contentSize = CGSizeMake(CGRectGetMaxX(view.frame), CGRectGetHeight(self.headerView.frame));
+		}
+	}
 }
 
 - (void)setInitialConfig {
 	self.preferWidthPerColumn = 90.0f;
 	self.tableRowHeight = 44.0f;
-    self.headerHeight = 44.0;
+    self.headerHeight = 44.0f;
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -214,49 +246,6 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 	return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return self.headerHeight;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kGJStockListHeaderViewIdentifier];
-	if (headerView == nil) {
-		headerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:kGJStockListHeaderViewIdentifier];
-        
-        CGFloat firstColumnWidth = [self itemViewWidthAtColumn:0];
-        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(firstColumnWidth, 0, CGRectGetWidth(tableView.frame) - firstColumnWidth, self.tableRowHeight)];
-        scrollView.delegate = self;
-        scrollView.tag = kHeaderScrollViewTag;
-        [headerView.contentView addSubview:scrollView];
-        
-        NSUInteger count = [self numberOfColumns];
-        CGPoint itemOri = CGPointZero;
-        for (int i = 0; i < count; i ++) {
-            UIView *view = [self headeViewAtColumn:i];
-            if (view == nil) {
-                continue;
-            }
-            CGFloat width = [self itemViewWidthAtColumn:i];
-            // lay out subviews
-            if (i == 0) {
-                [headerView.contentView addSubview:view];
-                view.frame = CGRectMake(itemOri.x, itemOri.y, width, self.tableRowHeight);
-            } else {
-                [scrollView addSubview:view];
-                view.frame = CGRectMake(itemOri.x, itemOri.y, width, self.tableRowHeight);
-                itemOri.x += width;
-            }
-            
-            if (i == count - 1) { // 最后一个
-                scrollView.contentSize = CGSizeMake(CGRectGetMaxX(view.frame), CGRectGetHeight(headerView.frame));
-            }
-        }
-        
-    }
-	
-	return headerView;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -289,8 +278,7 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 #pragma mark -- UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	UITableViewHeaderFooterView *headerView = [self.tableView headerViewForSection:0];
-    UIScrollView *hScrollView = [headerView viewWithTag:kHeaderScrollViewTag];;
+    UIScrollView *hScrollView = [self.headerView viewWithTag:kHeaderScrollViewTag];;
 	if ([scrollView isEqual:hScrollView]) {
 		[self.scrollView setContentOffset:scrollView.contentOffset animated:NO];
 	} else if ([scrollView isEqual:self.scrollView]) {
@@ -300,8 +288,7 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	
-    UITableViewHeaderFooterView *headerView = [self.tableView headerViewForSection:0];
-    UIScrollView *hScrollView = [headerView viewWithTag:kHeaderScrollViewTag];;
+    UIScrollView *hScrollView = [self.headerView viewWithTag:kHeaderScrollViewTag];;
 	BOOL hScrolling = hScrollView.isDragging || hScrollView.isDecelerating || hScrollView.isTracking;
 	BOOL scrolling = self.scrollView.isDragging || self.scrollView.isDecelerating || self.scrollView.isTracking;
 	
@@ -322,7 +309,7 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 
 - (UITableView *)tableView {
 	if (!_tableView) {
-		_tableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
+		_tableView = [[UITableView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.headerView.frame), CGRectGetMaxY(self.headerView.frame), CGRectGetWidth(self.headerView.frame), CGRectGetHeight(self.frame) - CGRectGetMaxY(self.headerView.frame)) style:UITableViewStylePlain];
 		_tableView.dataSource = self;
 		_tableView.delegate = self;
 	}
@@ -336,6 +323,22 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 		_scrollView.delegate = self;
 	}
 	return _scrollView;
+}
+
+- (UIView *)headerView {
+	if (!_headerView) {
+		_headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), self.headerHeight)];
+		UIScrollView *scrollView = [[UIScrollView alloc] init];
+		scrollView.delegate = self;
+		scrollView.showsHorizontalScrollIndicator = NO;
+		scrollView.tag = kHeaderScrollViewTag;
+		[_headerView addSubview:scrollView];
+		
+		UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_headerView.frame) - 0.5, CGRectGetWidth(_headerView.frame), 0.5)];
+		shadowView.backgroundColor = [UIColor grayColor];
+		[_headerView addSubview:shadowView];
+	}
+	return _headerView;
 }
 
 @end

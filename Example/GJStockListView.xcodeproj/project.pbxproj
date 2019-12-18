@@ -325,10 +325,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GJStockListView_Example/Pods-GJStockListView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GJStockListView/GJStockListView.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GJStockListView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

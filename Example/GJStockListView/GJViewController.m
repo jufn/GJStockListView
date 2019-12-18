@@ -8,11 +8,10 @@
 
 #import "GJViewController.h"
 #import "GJStockListView.h"
+#import <MJRefresh/MJRefresh.h>
 
 @interface GJViewController () <GJStockListViewDelegate>
-
 @property (nonatomic, strong) GJStockListView *listView;
-
 @end
 
 @implementation GJViewController
@@ -59,7 +58,7 @@
 
 - (UIView *)stockListView:(GJStockListView *)view itemViewAtRow:(NSInteger)row column:(NSInteger)column {
     UILabel *label = [[UILabel alloc] init];
-    label.textAlignment = column == 0 || column == 3 ? NSTextAlignmentLeft : NSTextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     label.text = [self getContent][column];
     label.textColor = [UIColor orangeColor];
     return label;
@@ -68,22 +67,29 @@
 - (CGFloat)stockListView:(GJStockListView *)view widthAtColumn:(NSInteger)column {
     return 120;
 }
+
 - (void)stockListView:(GJStockListView *)view reloadingItemView:(UIView *)itemView atRow:(NSInteger)row column:(NSInteger)column {
     
 }
-
-
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	self.title  = @"股票列表";
-	CGRect frame = CGRectMake(0, 188, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 188);
+	CGRect frame = CGRectMake(0, 200, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 200);
 	
 	self.listView = [[GJStockListView alloc] initWithFrame:frame];
 	self.listView.delegate = self;
-//    [self.listView reloadData];
+	
+	MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[self.listView.tableView.mj_header endRefreshing];
+		});
+	}];
+	header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+	[header setTitle:@"正在刷新......" forState:MJRefreshStateRefreshing];
+	self.listView.tableView.mj_header = header;
 	[self.view addSubview:self.listView];
 	
 }
