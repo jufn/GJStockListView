@@ -10,8 +10,16 @@
 #import "GJStockListView.h"
 #import <MJRefresh/MJRefresh.h>
 
+static NSString * const kMenuItemTitleBuy = @"买入";
+static NSString * const kMenuItemTitleSell = @"卖出";
+static NSString * const kMenuItemTitleTop = @"置顶";
+static NSString * const kMenuItemTitleBottom = @"置底";
+static NSString * const kMenuItemTitleDelete = @"删除";
+static NSString * const kMenuItemTitleManager = @"指标管理";
+
 @interface GJViewController () <GJStockListViewDelegate>
 @property (nonatomic, strong) GJStockListView *listView;
+@property (nonatomic, copy) NSArray<UIMenuItem *> *allMenuItems;
 @end
 
 @implementation GJViewController
@@ -70,6 +78,93 @@
 
 - (void)stockListView:(GJStockListView *)view reloadingItemView:(UIView *)itemView atRow:(NSInteger)row column:(NSInteger)column {
     
+}
+
+- (void)stockListView:(GJStockListView *)view didSelectedAtRow:(NSInteger)row {
+	
+	[view startRiseHeartBeatAnimationAtRow:row];
+	NSLog(@" ++++++ 您点击了第%ld行", row);
+}
+
+- (void)stockListView:(GJStockListView *)view didLongPressAtRow:(NSInteger)row {
+	[view startFallHeartBeatAnimationAtRow:row];
+	
+	NSLog(@" ________ 您长按了第%zd行", row);
+	
+	UIMenuController *menuCtrl = [UIMenuController sharedMenuController];
+	NSArray *titles = @[kMenuItemTitleTop, kMenuItemTitleBottom, kMenuItemTitleDelete, kMenuItemTitleManager];
+	NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+		NSString *title = [(UIMenuItem *)evaluatedObject title];
+		return [titles containsObject:title];
+	}];
+	menuCtrl.menuItems = [self.allMenuItems filteredArrayUsingPredicate:predicate];
+	
+	UITableViewCell *cell = [view.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+	
+	CGRect rect = [view.tableView convertRect:cell.frame toView:self.listView];
+	rect.size.width = CGRectGetWidth(view.frame);
+	rect.origin.x = 0;
+	
+	[menuCtrl setTargetRect:rect inView:view.tableView];
+	[menuCtrl update];
+	[menuCtrl setMenuVisible:YES animated:YES];
+}
+
+- (void)didTapMenuItemBuy {
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:kMenuItemTitleBuy preferredStyle:UIAlertControllerStyleAlert];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)didTapMenuItemSell {
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:kMenuItemTitleSell preferredStyle:UIAlertControllerStyleAlert];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)didTapMenuItemTop {
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:kMenuItemTitleTop preferredStyle:UIAlertControllerStyleAlert];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)didTapMenuItemBottom {
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:kMenuItemTitleBottom preferredStyle:UIAlertControllerStyleAlert];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)didTapMenuItemDelete {
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:kMenuItemTitleDelete preferredStyle:UIAlertControllerStyleAlert];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)didTapMenuItemManager {
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:kMenuItemTitleManager preferredStyle:UIAlertControllerStyleAlert];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (NSArray<UIMenuItem *> *)allMenuItems {
+	if (!_allMenuItems) {
+		NSArray *titles = @[kMenuItemTitleBuy, kMenuItemTitleSell, kMenuItemTitleTop, kMenuItemTitleBottom, kMenuItemTitleDelete, kMenuItemTitleManager];
+		NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:titles.count];
+		for (NSString *title in titles) {
+			SEL selector = NULL;
+			if ([title isEqualToString:kMenuItemTitleBuy]) {
+				selector = @selector(didTapMenuItemBuy);
+			} else if ([title isEqualToString:kMenuItemTitleSell]) {
+				selector = @selector(didTapMenuItemSell);
+			} else if ([title isEqualToString:kMenuItemTitleTop]) {
+				selector = @selector(didTapMenuItemTop);
+			} else if ([title isEqualToString:kMenuItemTitleBottom]) {
+				selector = @selector(didTapMenuItemBottom);
+			} else if ([title isEqualToString:kMenuItemTitleDelete]) {
+				selector = @selector(didTapMenuItemDelete);
+			} else if ([title isEqualToString:kMenuItemTitleManager]) {
+				selector = @selector(didTapMenuItemManager);
+			}
+			UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:title action:selector];
+			[mArray addObject:item];
+		}
+		_allMenuItems = mArray;
+	}
+	return _allMenuItems;
 }
 
 - (void)viewDidLoad

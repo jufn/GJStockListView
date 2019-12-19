@@ -28,7 +28,10 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
 		UITableView *tableView = (UITableView *)[self nextResponder];
 		CGPoint point = [touch locationInView:tableView];
 		NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:point];
-		[tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+		
+		if (tableView.delegate && [tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+			[tableView.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+		}
 	}
 }
 
@@ -321,6 +324,9 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:didSelectedAtRow:)]) {
+		[self.delegate stockListView:self didSelectedAtRow:indexPath.row];
+	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -381,6 +387,22 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
     return num;
 }
 
+- (void)longGesture:(UIGestureRecognizer *)gesture {
+	
+	CGPoint location = [gesture locationInView:self.tableView];
+	NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+	if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:didLongPressAtRow:)]) {
+		[self.delegate stockListView:self didLongPressAtRow:indexPath.row];
+	}
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+	
+	
+	return YES;
+	
+}
+
 - (UITableView *)tableView {
 	if (!_tableView) {
 		_tableView = [[UITableView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.headerView.frame), CGRectGetMaxY(self.headerView.frame), CGRectGetWidth(self.headerView.frame), CGRectGetHeight(self.frame) - CGRectGetMaxY(self.headerView.frame)) style:UITableViewStylePlain];
@@ -395,6 +417,8 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 		_scrollView = [[SLScrollView alloc] init];
 		_scrollView.showsHorizontalScrollIndicator = NO;
 		_scrollView.delegate = self;
+		UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
+		[_scrollView addGestureRecognizer:longPress];
 	}
 	return _scrollView;
 }
