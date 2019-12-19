@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat tableRowHeight;
 @property (nonatomic, assign) CGFloat headerHeight;
 
+- (void)startRiseHeartBeatAnimationAtRow:(NSInteger)row;
+- (void)startFallHeartBeatAnimationAtRow:(NSInteger)row;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -95,7 +95,9 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-	[self method];
+	[self.listView startFallHeartBeatAnimationAtRow:3];
+	[self.listView startRiseHeartBeatAnimationAtRow:5];
+	
 }
 
 - (void)method {

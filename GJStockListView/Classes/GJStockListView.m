@@ -64,6 +64,66 @@ static NSInteger  const kHeaderScrollViewTag = 1000;
 
 @end
 
+@interface GJStockListTableViewCell : UITableViewCell
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
+@property (nonatomic, strong) CABasicAnimation *heartBeatAnimation;
+@end
+
+@implementation GJStockListTableViewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	if (self) {
+		[self.contentView.layer addSublayer:self.gradientLayer];
+	}
+	return self;
+}
+
+- (void)layoutSubviews {
+	[super layoutSubviews];
+	self.gradientLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame));
+}
+
+- (CAGradientLayer *)gradientLayer {
+	if (!_gradientLayer) {
+		_gradientLayer = [CAGradientLayer layer];
+		_gradientLayer.startPoint = CGPointMake(1, 0);
+		_gradientLayer.endPoint = CGPointMake(0, 0);
+		_gradientLayer.locations = @[@(0.0f),@(1.0f)];
+		_gradientLayer.opacity = 0;
+	}
+	return _gradientLayer;
+}
+
+- (CABasicAnimation *)heartBeatAnimation {
+	if (!_heartBeatAnimation) {
+		_heartBeatAnimation = [CABasicAnimation animation];
+		_heartBeatAnimation.keyPath = @"opacity";
+		_heartBeatAnimation.fromValue = @(0);
+		_heartBeatAnimation.toValue = @(1);
+		_heartBeatAnimation.duration = 0.75;
+		_heartBeatAnimation.autoreverses = YES;
+		_heartBeatAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+	}
+	return _heartBeatAnimation;
+}
+
+- (void)startRiseAnimation {
+	UIColor *color = [UIColor colorWithRed:235.0/255 green:51.0/255 blue:59/255.0 alpha:0.45];
+	UIColor *toColor = [UIColor colorWithRed:216.0/255 green:216.0/255 blue:216.0/255 alpha:0.0];
+	self.gradientLayer.colors = @[(__bridge id)color.CGColor, (__bridge id)toColor.CGColor];
+	[self.gradientLayer addAnimation:self.heartBeatAnimation forKey:@"rise"];
+}
+
+- (void)startFallAnimation {
+	UIColor *color = [UIColor colorWithRed:26.0/255 green:174.0/255 blue:82/255.0 alpha:0.45];
+	UIColor *toColor = [UIColor colorWithRed:216.0/255 green:216.0/255 blue:216.0/255 alpha:0.0];
+	self.gradientLayer.colors = @[(__bridge id)color.CGColor, (__bridge id)toColor.CGColor];
+	[self.gradientLayer addAnimation:self.heartBeatAnimation forKey:@"fall"];
+}
+
+@end
+
 NSInteger getCellSubViewTag(NSInteger row, NSInteger column) {
     return column * 10000 + row;
 }
@@ -161,6 +221,20 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 	}
 }
 
+- (void)startRiseHeartBeatAnimationAtRow:(NSInteger)row {
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+	GJStockListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+	
+	[cell startRiseAnimation];
+}
+
+- (void)startFallHeartBeatAnimationAtRow:(NSInteger)row {
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+	GJStockListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+	
+	[cell startFallAnimation];
+}
+
 - (void)setInitialConfig {
 	self.preferWidthPerColumn = 90.0f;
 	self.tableRowHeight = 44.0f;
@@ -182,11 +256,11 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGJStockListTableViewCellIdentifier];
+	GJStockListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kGJStockListTableViewCellIdentifier];
     NSUInteger count = [self numberOfColumns];
 
 	if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier];
+        cell = [[GJStockListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kGJStockListTableViewCellIdentifier];
         CGPoint itemOri = CGPointZero;
         for (int i = 0; i < count; i ++) {
             UIView *view = [self itemViewAtRow:indexPath.row column:i];
