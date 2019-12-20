@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)stockListView:(GJStockListView *)view widthAtColumn:(NSInteger)column;
 - (void)stockListView:(GJStockListView *)view reloadingItemView:(UIView *)itemView atRow:(NSInteger)row column:(NSInteger)column;
 
-- (void)stockListView:(GJStockListView *)view didLongPressAtRow:(NSInteger)row;
+- (void)stockListView:(GJStockListView *)view didBegainLongPressAtRow:(NSInteger)row;
 - (void)stockListView:(GJStockListView *)view didSelectedAtRow:(NSInteger)row;
 
 @end
