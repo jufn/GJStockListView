@@ -129,7 +129,6 @@ void getRowAndColumnWithTag(NSInteger tag, NSInteger *row, NSInteger *column) {
 		
 		[self setInitialConfig];
 		[self loadupUI];
-        
 		[self.tableView addObserver:self forKeyPath:kGJStockListTableViewContentSize options:NSKeyValueObservingOptionNew context:NULL];
 	}
 	return self;

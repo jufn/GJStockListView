@@ -18,8 +18,10 @@ static NSString * const kMenuItemTitleDelete = @"删除";
 static NSString * const kMenuItemTitleManager = @"指标管理";
 
 @interface GJViewController () <GJStockListViewDelegate>
+
 @property (nonatomic, strong) GJStockListView *listView;
 @property (nonatomic, copy) NSArray<UIMenuItem *> *allMenuItems;
+
 @end
 
 @implementation GJViewController
@@ -81,7 +83,6 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 }
 
 - (void)stockListView:(GJStockListView *)view didSelectedAtRow:(NSInteger)row {
-	
 	[view startRiseHeartBeatAnimationAtRow:row];
 	NSLog(@" ++++++ 您点击了第%ld行", row);
 }
@@ -106,60 +107,40 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	CGRect rect = [view.tableView convertRect:cell.frame toView:view];
 	[menuCtrl setTargetRect:rect inView:view];
 	[menuCtrl update];
-	[menuCtrl setMenuVisible:YES animated:YES];}
+	[menuCtrl setMenuVisible:YES animated:YES];
+}
 
-- (void)didTapMenuItemBuy {
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:kMenuItemTitleBuy message:nil preferredStyle:UIAlertControllerStyleAlert];
+- (void)presentAlertWithTitle:(NSString *)title {
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
 	UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
 		[alert dismissViewControllerAnimated:YES completion:nil];
 	}];
 	[alert addAction:action];
 	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)didTapMenuItemBuy {
+	[self presentAlertWithTitle:kMenuItemTitleBuy];
 }
 
 - (void)didTapMenuItemSell {
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:kMenuItemTitleSell message:nil preferredStyle:UIAlertControllerStyleAlert];
-	UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-		[alert dismissViewControllerAnimated:YES completion:nil];
-	}];
-	[alert addAction:action];
-	[self presentViewController:alert animated:YES completion:nil];
+	[self presentAlertWithTitle:kMenuItemTitleSell];
 }
 
 - (void)didTapMenuItemTop {
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:kMenuItemTitleTop message:nil preferredStyle:UIAlertControllerStyleAlert];
-	UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-		[alert dismissViewControllerAnimated:YES completion:nil];
-	}];
-	[alert addAction:action];
-	[self presentViewController:alert animated:YES completion:nil];
+	[self presentAlertWithTitle:kMenuItemTitleTop];
 }
 
 - (void)didTapMenuItemBottom {
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:kMenuItemTitleBottom message:nil preferredStyle:UIAlertControllerStyleAlert];
-	UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-		[alert dismissViewControllerAnimated:YES completion:nil];
-	}];
-	[alert addAction:action];
-	[self presentViewController:alert animated:YES completion:nil];
+	[self presentAlertWithTitle:kMenuItemTitleBottom];
 }
 
 - (void)didTapMenuItemDelete {
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:kMenuItemTitleDelete message:nil preferredStyle:UIAlertControllerStyleAlert];
-	UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-		[alert dismissViewControllerAnimated:YES completion:nil];
-	}];
-	[alert addAction:action];
-	[self presentViewController:alert animated:YES completion:nil];
+	[self presentAlertWithTitle:kMenuItemTitleDelete];
 }
 
 - (void)didTapMenuItemManager {
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:kMenuItemTitleManager message:nil preferredStyle:UIAlertControllerStyleAlert];
-	UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-		[alert dismissViewControllerAnimated:YES completion:nil];
-	}];
-	[alert addAction:action];
-	[self presentViewController:alert animated:YES completion:nil];
+	[self presentAlertWithTitle:kMenuItemTitleManager];
 }
 
 - (NSArray<UIMenuItem *> *)allMenuItems {
@@ -208,28 +189,11 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	[header setTitle:@"正在刷新......" forState:MJRefreshStateRefreshing];
 	self.listView.tableView.mj_header = header;
 	[self.view addSubview:self.listView];
-	
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 	[self.listView startFallHeartBeatAnimationAtRow:3];
 	[self.listView startRiseHeartBeatAnimationAtRow:5];
-	
-}
-
-- (void)method {
-	NSString *str = nil;
-	
-	NSMutableDictionary *mDict = [NSMutableDictionary dictionary];
-	
-	@try {
-		[mDict setObject:str forKey:@"123"];
-	} @catch (NSException *exception) {
-		str = @"987";
-		[mDict setObject:str forKey:@"123"];
-	} @finally {
-		NSLog(@" --- %@", mDict);
-	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -237,7 +201,5 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
 }
-
-
 
 @end
