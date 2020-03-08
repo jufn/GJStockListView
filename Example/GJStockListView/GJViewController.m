@@ -9,6 +9,10 @@
 #import "GJViewController.h"
 #import "GJStockListView.h"
 #import <MJRefresh/MJRefresh.h>
+#import <ReactiveObjC/ReactiveObjC.h>
+#import "GJRacView.h"
+#import "GJVCViewModel.h"
+#import "GJLoginSuccessViewController.h"
 
 static NSString * const kMenuItemTitleBuy = @"买入";
 static NSString * const kMenuItemTitleSell = @"卖出";
@@ -17,10 +21,19 @@ static NSString * const kMenuItemTitleBottom = @"置底";
 static NSString * const kMenuItemTitleDelete = @"删除";
 static NSString * const kMenuItemTitleManager = @"指标管理";
 
-@interface GJViewController () <GJStockListViewDelegate>
+@interface GJViewController () <GJStockListViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) GJStockListView *listView;
 @property (nonatomic, copy) NSArray<UIMenuItem *> *allMenuItems;
+
+@property (nonatomic, assign) int time;
+@property (nonatomic, strong) RACDisposable *disposable;
+
+@property (nonatomic, strong) UITextField *nameTextField;
+@property (nonatomic, strong) UITextField *passwordTextField;
+@property (nonatomic, strong) UIButton *sureBtn;
+
+@property (nonatomic, strong) GJVCViewModel *viewModel;
 
 @end
 
@@ -191,9 +204,357 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	[self.view addSubview:self.listView];
 }
 
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//	[self.listView startFallHeartBeatAnimationAtRow:3];
+//	[self.listView startRiseHeartBeatAnimationAtRow:5];
+//	self.title  = @"股票列表";
+//	CGRect frame = CGRectMake(0, 200, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 200);
+//
+//	self.listView = [[GJStockListView alloc] initWithFrame:frame];
+//	self.listView.delegate = self;
+//
+//	MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//			[self.listView.tableView.mj_header endRefreshing];
+//		});
+//	}];
+//	header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+//	[header setTitle:@"正在刷新......" forState:MJRefreshStateRefreshing];
+//	self.listView.tableView.mj_header = header;
+//	[self.view addSubview:self.listView];
+	
+//    [RACObserve(self.view, center) subscribeNext:^(id  _Nullable x) {
+//          NSLog(@"++++ %@", x);
+//      }];
+//    [self racDemo11];
+//    [self racDemo16];
+//    [self blindModel];
+//    [self demo17];
+//}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-	[self.listView startFallHeartBeatAnimationAtRow:3];
-	[self.listView startRiseHeartBeatAnimationAtRow:5];
+//    [self method];
+//    [self racDemo1];
+//    [self racDemo3];
+//    [self racDemo4];
+//    [self racDemo9];
+//    [self racDemo10];
+//    [self racDemo11];
+//    self.filed.text = @"fsdfs";
+//    [self racDemo12];
+//    [self racDemo13];
+//    [self racDemo15];
+    [self demo18];
+}
+
+- (void)demo18 {
+    
+    RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+        NSLog(@"---- %@", input);
+        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            [subscriber sendNext:@"sendNext"];
+            [subscriber sendCompleted];
+            return nil;
+        }];
+    }];
+    
+//    [command.executionSignals subscribeNext:^(id  _Nullable x) {
+//        [x subscribeNext:^(id  _Nullable x) {
+//            NSLog(@"what is %@", x);
+//        }];
+//        NSLog(@"executionSignals %@", x);
+//    }];
+    
+    [command.executionSignals.switchToLatest subscribeNext:^(id  _Nullable x) {
+        NSLog(@"switchToLatest %@", x);
+    }];
+    
+    [command.executing subscribeNext:^(NSNumber * _Nullable x) {
+        if ([x boolValue]) {
+            NSLog(@"executing");
+        } else {
+            NSLog(@"end");
+        }
+    }];
+    
+    RACSignal *signal = [command execute:@"execute"];
+    
+    [signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+
+}
+
+- (void)demo17 {
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        NSLog(@"发送网络请求");
+        [subscriber sendNext:@"得到网络数据"];
+        return nil;
+    }];
+    
+    RACMulticastConnection *connection = [signal publish];
+    [connection.signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"1 +++ %@", x);
+    }];
+    [connection.signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"2 +++ %@", x);
+    }];
+    [connection.signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"3 +++ %@", x);
+    }];
+    [connection connect];
+    
+}
+
+- (void)blindModel {
+    self.viewModel = [[GJVCViewModel alloc] init];
+    
+    RAC(self.viewModel, name) = self.nameTextField.rac_textSignal;
+    RAC(self.viewModel, password) = self.passwordTextField.rac_textSignal;
+    RAC(self.sureBtn, enabled) = [self.viewModel buttonVaild];
+    
+    [self.viewModel.successSubject subscribeNext:^(NSArray *  _Nullable x) {
+        GJLoginSuccessViewController *vc = [[GJLoginSuccessViewController alloc] init];
+        vc.name = x.firstObject;
+        vc.password = x[1];
+        [self presentViewController:vc animated:YES completion:nil];
+    }];
+    
+}
+
+- (void)racDemo16 {
+ 
+    CGFloat w = 200, h = 40;
+    CGFloat origin = [UIScreen mainScreen].bounds.size.width * 0.5 - w;
+    self.nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(origin, 120, w, h)];
+    self.nameTextField.textColor = [UIColor orangeColor];
+    self.nameTextField.backgroundColor = [UIColor lightGrayColor];
+    self.nameTextField.userInteractionEnabled = YES;
+    [self.view addSubview:self.nameTextField];
+    
+    self.passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(origin, 180, w, h)];
+    self.passwordTextField.userInteractionEnabled = YES;
+    self.passwordTextField.textColor = [UIColor orangeColor];
+    self.passwordTextField.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:self.passwordTextField];
+    
+    self.sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(origin, 240, w, h)];
+    [self.sureBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [self.sureBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [self.sureBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    self.sureBtn.enabled = NO;
+    [self.view addSubview:self.sureBtn];
+    
+    [[self.sureBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        [self.viewModel login];
+    }];
+    
+}
+
+- (void)racDemo15 {
+    RACSubject *letters = [RACSubject subject];
+    RACSubject *numbers = [RACSubject subject];
+    RACSubject *chinese = [RACSubject subject];
+    [[RACSignal merge:@[letters, numbers, chinese]] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+    
+    [letters sendNext:@"AA"];
+    [numbers sendNext:@"11"];
+    [chinese sendNext:@"你好"];
+}
+
+- (void)racDemo14 {
+    RACSubject *letters = [RACSubject subject];
+    RACSubject *numbers = [RACSubject subject];
+    
+    [[RACSignal combineLatest:@[letters, numbers] reduce:^(NSString *letter, NSString *number){
+        return [letter stringByAppendingString:number];
+    }] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+    
+    [letters sendNext:@"A"];
+    [letters sendNext:@"B"];
+    [numbers sendNext:@"1"];
+    [letters sendNext:@"C"];
+    [numbers sendNext:@"2"];
+    
+}
+
+- (void)racDemo13 {
+    RACSubject *baidu = [RACSubject subject];
+    RACSubject *geogle = [RACSubject subject];
+    RACSubject *signalOfSignal = [RACSubject subject];
+    
+    RACSignal *switchSignal = signalOfSignal.switchToLatest;
+    [[switchSignal map:^id _Nullable(NSString *  _Nullable value) {
+        return [NSString stringWithFormat:@"https://%@", value];
+    }] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+    
+    [signalOfSignal sendNext:baidu];
+    [baidu sendNext:@"www.baidu.com"];
+    [signalOfSignal sendNext:geogle];
+    [geogle sendNext:@"www.geogle.com"];
+}
+
+- (void)racDemo12 {
+    NSArray *ary = @[@"you", @"are", @"beautiful", @"girl"];
+    [[[ary rac_sequence].signal map:^id _Nullable(NSString *  _Nullable value) {
+        NSLog(@"%@", value);
+        return [value uppercaseString];
+    }] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+//    RACSequence *seq = [ary rac_sequence];
+//    RACSignal *signal = seq.signal;
+//
+//    RACSignal *upperSignal = [signal map:^id _Nullable(NSString *  _Nullable value) {
+//        return value.uppercaseString;
+//    }];
+//
+//    [signal subscribeNext:^(id  _Nullable x) {
+//        NSLog(@"%@", x);
+//    }];
+//    [upperSignal subscribeNext:^(id  _Nullable x) {
+//        NSLog(@"%@", x);
+//    }];
+    
+}
+
+- (void)racDemo11 {
+    UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(50, 120, 200, 50)];
+    field.backgroundColor = [UIColor grayColor];
+    field.textColor = [UIColor orangeColor];
+    field.delegate = self;
+    field.placeholder = @"placeHolder";
+    field.userInteractionEnabled = YES;
+    [self.view addSubview:field];
+    
+    //创建一个label
+       UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(50, 250, 200, 50)];
+    label.backgroundColor = [UIColor redColor];
+    label.textColor = [UIColor orangeColor];
+       [self.view addSubview:label];
+    
+    RAC(label, text) = field.rac_textSignal;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+}
+
+- (void)racDemo10 {
+    self.view.center = CGPointMake(self.view.center.x + 100, self.view.center.y);
+}
+
+- (void)racDemo9 {
+    RACSignal *signal1 = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        [subscriber sendNext:@"发送请求1"];
+        return nil;
+    }];
+    
+    RACSignal *signal2 = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        [subscriber sendNext:@"发送请求2"];
+        return nil;
+    }];
+    [self rac_liftSelector:@selector(uploadUIWithResponse:data2:) withSignals:signal1, signal2, nil];
+}
+
+- (void)uploadUIWithResponse:(id)data1 data2:(id)data2 {
+    NSLog(@"更新UI");
+}
+
+- (void)racDemo5 {
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(40, 120, 200, 50)];
+    btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    btn.backgroundColor = [UIColor greenColor];
+    [btn setTitle:@"发送验证码" forState:(UIControlStateNormal)];
+    [self.view addSubview:btn];
+    [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        self.time = 30;
+        btn.enabled = NO;
+        [btn setTitle:[NSString stringWithFormat:@"请稍等%d秒",_time] forState:UIControlStateDisabled];
+        _disposable = [[RACSignal interval:1.0 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSDate * _Nullable x) {
+            _time --;
+            NSString *text = (_time > 0) ? [NSString stringWithFormat:@"请稍等%d秒",_time] : @"重新发送";
+            if (_time > 0) {
+                btn.enabled = NO;
+                [btn setTitle:text forState:UIControlStateDisabled];
+            } else {
+                btn.enabled = YES;
+                [btn setTitle:text forState:UIControlStateNormal];
+                [_disposable dispose];
+            }
+        }];
+    }];
+}
+
+- (void)racDemo4 {
+    UITextField *field = [[UITextField alloc]initWithFrame:CGRectMake(50, 150, 200, 50)];
+    field.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:field];
+    
+    [field.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+    
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardDidShowNotification object:nil] takeUntil:[self rac_willDeallocSignal]] subscribeNext:^(NSNotification * _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+}
+
+- (void)racDemo3 {
+    GJRacView *view = [[GJRacView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    [self.view addSubview:view];
+    [[view rac_signalForSelector:@selector(sendValue:andDict:)] subscribeNext:^(RACTuple * _Nullable x) {
+        NSLog(@"点击了按钮%@", x.first);
+        NSLog(@"%@", x.second);
+    }];
+}
+
+- (void)racDemo2 {
+    GJRacView *view = [[GJRacView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    [self.view addSubview:view];
+    [view.subject subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+        
+    }];
+}
+
+- (void)racDemo1 {
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(50, 50, 70, 70)];
+    btn.backgroundColor = [UIColor redColor];
+    [self.view addSubview:btn];
+    btn.tag = 1001;
+    [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+//        NSLog(@"%@", x);
+        x.frame = CGRectMake(200, 50, 100, 100);
+    }];
+    [[btn rac_valuesAndChangesForKeyPath:@"frame" options:NSKeyValueObservingOptionNew observer:self] subscribeNext:^(RACTwoTuple<id,NSDictionary *> * _Nullable x) {
+        NSLog(@"+++++ %@", x.second);
+    }];
+}
+
+- (void)method {
+	NSString *str = nil;
+	
+	NSMutableDictionary *mDict = [NSMutableDictionary dictionary];
+	
+	@try {
+		[mDict setObject:str forKey:@"123"];
+	} @catch (NSException *exception) {
+		str = @"987";
+		[mDict setObject:str forKey:@"123"];
+	} @finally {
+		NSLog(@" --- %@", mDict);
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -202,4 +563,11 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	// Dispose of any resources that can be recreated.
 }
 
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [self demo1];
+//}
+//
+//- (void)demo1 {
+//
+//}
 @end

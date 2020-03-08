@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1E974C2413CEC000B33115 /* GJLoginSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E974B2413CEC000B33115 /* GJLoginSuccessViewController.m */; };
+		1A1E974F2413CEDD00B33115 /* GJVCViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E974E2413CEDD00B33115 /* GJVCViewModel.m */; };
+		1A4C918224133AEC00D0E939 /* GJRacView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C918124133AEC00D0E939 /* GJRacView.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -20,10 +23,9 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		62EA14788B47264E5945AD3A /* Pods_GJStockListView_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755880AFC21F09ABAB53E4C5 /* Pods_GJStockListView_Tests.framework */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		981365C3D7E1FCEFB569D21A /* Pods_GJStockListView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBE90EF714B4BEF620D0EA /* Pods_GJStockListView_Example.framework */; };
+		9550327C9FCCBE355725F1F4 /* Pods_GJStockListView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09844DE06ADC927C7661C16 /* Pods_GJStockListView_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		20E682CC7EEBE46EAED9AC4B /* Pods-GJStockListView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GJStockListView_Example.debug.xcconfig"; path = "Target Support Files/Pods-GJStockListView_Example/Pods-GJStockListView_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		1A1E974A2413CEC000B33115 /* GJLoginSuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLoginSuccessViewController.h; sourceTree = "<group>"; };
+		1A1E974B2413CEC000B33115 /* GJLoginSuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLoginSuccessViewController.m; sourceTree = "<group>"; };
+		1A1E974D2413CEDD00B33115 /* GJVCViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJVCViewModel.h; sourceTree = "<group>"; };
+		1A1E974E2413CEDD00B33115 /* GJVCViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJVCViewModel.m; sourceTree = "<group>"; };
+		1A4C918024133AEC00D0E939 /* GJRacView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJRacView.h; sourceTree = "<group>"; };
+		1A4C918124133AEC00D0E939 /* GJRacView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJRacView.m; sourceTree = "<group>"; };
 		3A4973D6D072FFAAB681BEE2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		4A60508DCF2D6BF0AE3DAA49 /* Pods-GJStockListView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GJStockListView_Example.release.xcconfig"; path = "Target Support Files/Pods-GJStockListView_Example/Pods-GJStockListView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* GJStockListView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GJStockListView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -60,12 +68,9 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6A998E9EF6F962734829B017 /* GJStockListView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = GJStockListView.podspec; path = ../GJStockListView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		755880AFC21F09ABAB53E4C5 /* Pods_GJStockListView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GJStockListView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A3E722E2E56BF22A0165C6C8 /* Pods-GJStockListView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GJStockListView_Example.release.xcconfig"; path = "Target Support Files/Pods-GJStockListView_Example/Pods-GJStockListView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		A71CD96519A16E8B87785F7A /* Pods-GJStockListView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GJStockListView_Tests.release.xcconfig"; path = "Target Support Files/Pods-GJStockListView_Tests/Pods-GJStockListView_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		D05BE6E588675B5AB80C15B2 /* Pods-GJStockListView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GJStockListView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-GJStockListView_Tests/Pods-GJStockListView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		DFCBE90EF714B4BEF620D0EA /* Pods_GJStockListView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GJStockListView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95BEC0B7F71AE9EDCBDFCD9C /* Pods-GJStockListView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GJStockListView_Example.debug.xcconfig"; path = "Target Support Files/Pods-GJStockListView_Example/Pods-GJStockListView_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		B09844DE06ADC927C7661C16 /* Pods_GJStockListView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GJStockListView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC4D4FEC388F60D98CAF7348 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,7 +82,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				981365C3D7E1FCEFB569D21A /* Pods_GJStockListView_Example.framework in Frameworks */,
+				9550327C9FCCBE355725F1F4 /* Pods_GJStockListView_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,13 +93,25 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				62EA14788B47264E5945AD3A /* Pods_GJStockListView_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A1E97492413CE9500B33115 /* RAC */ = {
+			isa = PBXGroup;
+			children = (
+				1A4C918024133AEC00D0E939 /* GJRacView.h */,
+				1A4C918124133AEC00D0E939 /* GJRacView.m */,
+				1A1E974A2413CEC000B33115 /* GJLoginSuccessViewController.h */,
+				1A1E974B2413CEC000B33115 /* GJLoginSuccessViewController.m */,
+				1A1E974D2413CEDD00B33115 /* GJVCViewModel.h */,
+				1A1E974E2413CEDD00B33115 /* GJVCViewModel.m */,
+			);
+			name = RAC;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -123,8 +140,7 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				DFCBE90EF714B4BEF620D0EA /* Pods_GJStockListView_Example.framework */,
-				755880AFC21F09ABAB53E4C5 /* Pods_GJStockListView_Tests.framework */,
+				B09844DE06ADC927C7661C16 /* Pods_GJStockListView_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -137,6 +153,7 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* GJViewController.h */,
 				6003F5A6195388D20070C39A /* GJViewController.m */,
+				1A1E97492413CE9500B33115 /* RAC */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -188,10 +205,8 @@
 		B896EA4EADD5CCAC00246672 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				20E682CC7EEBE46EAED9AC4B /* Pods-GJStockListView_Example.debug.xcconfig */,
-				A3E722E2E56BF22A0165C6C8 /* Pods-GJStockListView_Example.release.xcconfig */,
-				D05BE6E588675B5AB80C15B2 /* Pods-GJStockListView_Tests.debug.xcconfig */,
-				A71CD96519A16E8B87785F7A /* Pods-GJStockListView_Tests.release.xcconfig */,
+				95BEC0B7F71AE9EDCBDFCD9C /* Pods-GJStockListView_Example.debug.xcconfig */,
+				4A60508DCF2D6BF0AE3DAA49 /* Pods-GJStockListView_Example.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -203,11 +218,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "GJStockListView_Example" */;
 			buildPhases = (
-				3B8CAE0F6C2B6A5C39E56732 /* [CP] Check Pods Manifest.lock */,
+				06E9D82A9473F33A48914BFE /* [CP] Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				5C4BA0222EC8DBE1B2EB3BAC /* [CP] Embed Pods Frameworks */,
+				91DB1E95801816A271AA88F6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -222,7 +237,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "GJStockListView_Tests" */;
 			buildPhases = (
-				99BAE770431F4402F932E32B /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
@@ -247,6 +261,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = jufn;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						LastSwiftMigration = 1130;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -295,7 +312,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3B8CAE0F6C2B6A5C39E56732 /* [CP] Check Pods Manifest.lock */ = {
+		06E9D82A9473F33A48914BFE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -317,7 +334,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5C4BA0222EC8DBE1B2EB3BAC /* [CP] Embed Pods Frameworks */ = {
+		91DB1E95801816A271AA88F6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -326,37 +343,17 @@
 				"${PODS_ROOT}/Target Support Files/Pods-GJStockListView_Example/Pods-GJStockListView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GJStockListView/GJStockListView.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GJStockListView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GJStockListView_Example/Pods-GJStockListView_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		99BAE770431F4402F932E32B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GJStockListView_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -366,9 +363,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A4C918224133AEC00D0E939 /* GJRacView.m in Sources */,
 				6003F59E195388D20070C39A /* GJAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* GJViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				1A1E974F2413CEDD00B33115 /* GJVCViewModel.m in Sources */,
+				1A1E974C2413CEC000B33115 /* GJLoginSuccessViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,17 +493,20 @@
 		};
 		6003F5C0195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20E682CC7EEBE46EAED9AC4B /* Pods-GJStockListView_Example.debug.xcconfig */;
+			baseConfigurationReference = 95BEC0B7F71AE9EDCBDFCD9C /* Pods-GJStockListView_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GJStockListView/GJStockListView-Prefix.pch";
 				INFOPLIST_FILE = "GJStockListView/GJStockListView-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -511,13 +514,15 @@
 		};
 		6003F5C1195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3E722E2E56BF22A0165C6C8 /* Pods-GJStockListView_Example.release.xcconfig */;
+			baseConfigurationReference = 4A60508DCF2D6BF0AE3DAA49 /* Pods-GJStockListView_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GJStockListView/GJStockListView-Prefix.pch";
 				INFOPLIST_FILE = "GJStockListView/GJStockListView-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -529,7 +534,6 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D05BE6E588675B5AB80C15B2 /* Pods-GJStockListView_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -554,7 +558,6 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A71CD96519A16E8B87785F7A /* Pods-GJStockListView_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
