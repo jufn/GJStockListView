@@ -1,0 +1,5 @@
+{
+  "code": 101,
+  "description": "[F101]直流断路器断开",
+  "resolvent": "[F101]DC Breaker Disconnect"
+}

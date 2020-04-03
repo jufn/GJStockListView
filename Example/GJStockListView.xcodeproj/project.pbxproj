@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1A1E974C2413CEC000B33115 /* GJLoginSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E974B2413CEC000B33115 /* GJLoginSuccessViewController.m */; };
 		1A1E974F2413CEDD00B33115 /* GJVCViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E974E2413CEDD00B33115 /* GJVCViewModel.m */; };
+		1A1E97522414C6D700B33115 /* GJVC2ViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E97512414C6D700B33115 /* GJVC2ViewModel.m */; };
+		1A209D21242270E0008D7761 /* temper.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A209D20242270E0008D7761 /* temper.bundle */; };
+		1A209D252422728E008D7761 /* archive.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A209D242422728E008D7761 /* archive.json */; };
 		1A4C918224133AEC00D0E939 /* GJRacView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4C918124133AEC00D0E939 /* GJRacView.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -43,6 +46,10 @@
 		1A1E974B2413CEC000B33115 /* GJLoginSuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLoginSuccessViewController.m; sourceTree = "<group>"; };
 		1A1E974D2413CEDD00B33115 /* GJVCViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJVCViewModel.h; sourceTree = "<group>"; };
 		1A1E974E2413CEDD00B33115 /* GJVCViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJVCViewModel.m; sourceTree = "<group>"; };
+		1A1E97502414C6D700B33115 /* GJVC2ViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJVC2ViewModel.h; sourceTree = "<group>"; };
+		1A1E97512414C6D700B33115 /* GJVC2ViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJVC2ViewModel.m; sourceTree = "<group>"; };
+		1A209D20242270E0008D7761 /* temper.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = temper.bundle; sourceTree = "<group>"; };
+		1A209D242422728E008D7761 /* archive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = archive.json; sourceTree = "<group>"; };
 		1A4C918024133AEC00D0E939 /* GJRacView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJRacView.h; sourceTree = "<group>"; };
 		1A4C918124133AEC00D0E939 /* GJRacView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJRacView.m; sourceTree = "<group>"; };
 		3A4973D6D072FFAAB681BEE2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -108,6 +115,8 @@
 				1A1E974B2413CEC000B33115 /* GJLoginSuccessViewController.m */,
 				1A1E974D2413CEDD00B33115 /* GJVCViewModel.h */,
 				1A1E974E2413CEDD00B33115 /* GJVCViewModel.m */,
+				1A1E97502414C6D700B33115 /* GJVC2ViewModel.h */,
+				1A1E97512414C6D700B33115 /* GJVC2ViewModel.m */,
 			);
 			name = RAC;
 			sourceTree = "<group>";
@@ -148,10 +157,12 @@
 		6003F593195388D20070C39A /* Example for GJStockListView */ = {
 			isa = PBXGroup;
 			children = (
+				1A209D20242270E0008D7761 /* temper.bundle */,
 				6003F59C195388D20070C39A /* GJAppDelegate.h */,
 				6003F59D195388D20070C39A /* GJAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* GJViewController.h */,
+				1A209D242422728E008D7761 /* archive.json */,
 				6003F5A6195388D20070C39A /* GJViewController.m */,
 				1A1E97492413CE9500B33115 /* RAC */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
@@ -271,10 +282,9 @@
 			};
 			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "GJStockListView" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -296,7 +306,9 @@
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				1A209D21242270E0008D7761 /* temper.bundle in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				1A209D252422728E008D7761 /* archive.json in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A1E97522414C6D700B33115 /* GJVC2ViewModel.m in Sources */,
 				1A4C918224133AEC00D0E939 /* GJRacView.m in Sources */,
 				6003F59E195388D20070C39A /* GJAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* GJViewController.m in Sources */,

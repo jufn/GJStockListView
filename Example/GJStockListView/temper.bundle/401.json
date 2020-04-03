@@ -1,0 +1,5 @@
+{
+  "code": 401,
+  "description": "[C401]电抗器温度过高",
+  "resolvent": "[C401]Reactor Temperature High"
+}

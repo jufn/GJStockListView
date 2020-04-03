@@ -1,0 +1,5 @@
+{
+  "code": 800,
+  "description": "[C800]主从DSP通信故障",
+  "resolvent": "[C800]Slave And Master Dsp Com.Error"
+}

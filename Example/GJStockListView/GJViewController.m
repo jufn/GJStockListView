@@ -13,6 +13,7 @@
 #import "GJRacView.h"
 #import "GJVCViewModel.h"
 #import "GJLoginSuccessViewController.h"
+#import "GJVC2ViewModel.h"
 
 static NSString * const kMenuItemTitleBuy = @"买入";
 static NSString * const kMenuItemTitleSell = @"卖出";
@@ -34,6 +35,9 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 @property (nonatomic, strong) UIButton *sureBtn;
 
 @property (nonatomic, strong) GJVCViewModel *viewModel;
+@property (nonatomic, strong) GJVC2ViewModel *viewMode2;
+
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -189,10 +193,10 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	// Do any additional setup after loading the view, typically from a nib.
 	self.title  = @"股票列表";
 	CGRect frame = CGRectMake(0, 200, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 200);
-	
+
 	self.listView = [[GJStockListView alloc] initWithFrame:frame];
 	self.listView.delegate = self;
-	
+
 	MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			[self.listView.tableView.mj_header endRefreshing];
@@ -202,6 +206,17 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	[header setTitle:@"正在刷新......" forState:MJRefreshStateRefreshing];
 	self.listView.tableView.mj_header = header;
 	[self.view addSubview:self.listView];
+    
+//    [self racDemo16];
+//    [self racDemo20];
+}
+
+- (void)racDemo20 {
+    self.viewMode2 = [[GJVC2ViewModel alloc] init];
+    
+    RAC(self.viewMode2, name) = self.nameTextField.rac_textSignal;
+    RAC(self.viewMode2, password) = self.passwordTextField.rac_textSignal;
+    RAC(self.sureBtn, enabled) = self.viewMode2.loginEnableSignal;
 }
 
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -233,6 +248,26 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 //}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSString *temperPath =  [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"temper.bundle"];
+       
+      NSArray *paths = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:temperPath error:nil];
+       
+       NSSortDescriptor *sortDescripttor1 = [NSSortDescriptor sortDescriptorWithKey:@"intValue" ascending:YES];
+         NSArray *testArr = [paths sortedArrayUsingDescriptors:@[sortDescripttor1]];
+       NSMutableArray *mut = [NSMutableArray array];
+       for (NSString *fileName in testArr) {
+           NSString *filePath = [NSString stringWithFormat:@"%@/%@",temperPath,fileName];
+           NSData *data = [[NSData alloc] initWithContentsOfFile:filePath];
+           if (data !=nil) {
+               NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+               [mut addObject:result];
+           };
+       };
+       
+       NSString *archivepath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"archive.plist"];
+    
+       BOOL yes = [mut writeToFile:archivepath atomically:YES];
+    NSLog(@"%zd", yes);
 //    [self method];
 //    [self racDemo1];
 //    [self racDemo3];
@@ -244,8 +279,37 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 //    [self racDemo12];
 //    [self racDemo13];
 //    [self racDemo15];
-    [self demo18];
+//    [self demo18];
+//    [self demo30];
+//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+//    CFRunLoopAddTimer(CFRunLoopGetCurrent(), (__bridge_retained CFRunLoopTimerRef)self.timer, kCFRunLoopCommonModes);
+//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:UITrackingRunLoopMode];
+//        [self.timer fire];
 }
+
+- (NSTimer *)timer {
+    if (!_timer) {
+        _timer = [NSTimer timerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            NSLog(@"_++++ ^");
+        }];
+    }
+    return _timer;
+}
+
+- (void)demo30 {
+    CGRect bounds = CGRectMake(0, 0, 300, 200);
+    
+    NSString *content = @"您可以在现有会员资格到期日之前的 30 天内进行手动续订，也可在其到期后的任意时间进行续订。开发者网站上的帐户中会显示会员资格的到期日。若要续订，请使用注册时所用的 Apple ID 登录您的帐户 (英文)，然后点按“Renew Membership”(续订会员资格) 按钮。如果会员资格在续订时仍有效，那么新的会员资格会在当前会员资格到期后立即激活，而且您会获得两 (2) 个新的TLS.如果会员资格在续订时已过期，那么新的会员资格会在您完成续订流程后立即激活，之前可供下载的所有免费 app 都会在 24 小时内再次变为上架状态。在您登录 App Store Connect 并完成付费 app 合同后，之前可供下载的所有付费 app 都会再次变为上架状态。您无需重新提交 app。您还会获得两 (2) 个新的 TSI，并会重新获得通过 Apple Developer Program 单独购买的任何 TSI 的相应使用权限。请注意，单独购买的 TSI 会在激活之日起的一年后过期。";
+    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:17]};
+    CGRect rect = [content boundingRectWithSize:CGSizeMake(CGRectGetWidth(bounds), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:NULL];
+    while (CGRectGetHeight(rect) > CGRectGetHeight(bounds)) {
+        content = [content substringToIndex:content.length - 1];
+        rect = [content boundingRectWithSize:CGSizeMake(CGRectGetWidth(bounds), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:NULL];
+    };
+    NSLog(@"%zd", content.length);
+}
+
 
 - (void)demo18 {
     
@@ -346,7 +410,9 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
     [self.view addSubview:self.sureBtn];
     
     [[self.sureBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        [self.viewModel login];
+        [[self.viewMode2.loginCommand execute:@{@"name" : self.nameTextField.text, @"password" : self.passwordTextField.text}] subscribeNext:^(id  _Nullable x) {
+            NSLog(@"===== %@", x);
+        }];
     }];
     
 }

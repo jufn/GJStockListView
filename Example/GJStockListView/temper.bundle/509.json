@@ -1,0 +1,5 @@
+{
+  "code": 509,
+  "description": "[F509]负母线硬件过压",
+  "resolvent": "[F509]Negative Bus OverVoltage(H)"
+}

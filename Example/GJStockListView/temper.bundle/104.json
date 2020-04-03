@@ -1,0 +1,5 @@
+{
+  "code": 104,
+  "description": "[W104]DCS板通讯故障",
+  "resolvent": "[W104]DCS COM.Error"
+}

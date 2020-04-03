@@ -1,0 +1,5 @@
+{
+  "code": 202,
+  "description": "[C202]主从DSP通信异常",
+  "resolvent": "[C202]Master And Slaver DSP COM.Error"
+}

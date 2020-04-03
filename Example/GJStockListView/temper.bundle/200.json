@@ -1,0 +1,5 @@
+{
+  "code": 200,
+  "description": "[C200]CAN总线通信故障",
+  "resolvent": "[C200]CAN-BUS COM.Error"
+}

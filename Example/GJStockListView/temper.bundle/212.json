@@ -1,0 +1,5 @@
+{
+  "code": 212,
+  "description": "[W212]直流分量超限",
+  "resolvent": "[W212]AC Current DC Vaule Over Fault"
+}

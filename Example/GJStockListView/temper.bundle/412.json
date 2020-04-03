@@ -1,0 +1,5 @@
+{
+  "code": 412,
+  "description": "[F412]Bst IGBT温度过温",
+  "resolvent": "[F412]Bst IGBT Temperature High"
+}
