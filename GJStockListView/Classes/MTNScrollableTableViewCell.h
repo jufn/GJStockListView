@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CGSize)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell sizeForItem:(NSInteger)item;
 - (NSAttributedString *)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell attributedStringForItem:(NSInteger)item;
+- (void)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell didScrollToOffsetX:(CGFloat)x;
 
 @end
 
@@ -25,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <MTNScrollableTableViewCellDelegate> delegate;
 
 @property (nonatomic, assign) NSInteger itemCount;
+
+- (void)loadAttributedText:(NSAttributedString *)attributedText item:(NSInteger)item;
+
+- (void)setContentOffsetX:(CGFloat)contentOffsetX;
 
 @end
 

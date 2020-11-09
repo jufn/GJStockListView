@@ -23,8 +23,8 @@
     return self;
 }
 
-- (void)didMoveToSuperview {
-    [super didMoveToSuperview];
+- (void)layoutSubviews {
+    [super layoutSubviews];
     [self.tableView reloadData];
 }
 
@@ -40,6 +40,17 @@
     CGFloat rowHeight = [self heightForRow:indexPath.row section:indexPath.section];
     CGFloat width = [self widthForItem:item section:indexPath.section];
     return CGSizeMake(width, rowHeight);
+}
+
+- (void)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell didScrollToOffsetX:(CGFloat)x {
+    NSArray *visCells = [self.tableView visibleCells];
+    
+    for (MTNScrollableTableViewCell *visCell in visCells) {
+        if ([visCell isEqual:cell] == NO) {
+            [visCell setContentOffsetX:x];
+        }
+    }
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -88,7 +99,7 @@
 - (NSInteger)numberOfItemInSection:(NSInteger)section {
     NSInteger item = 0;
     if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:numOfItemInSection:)]) {
-        [self.delegate stockListView:self numOfItemInSection:section];
+        item =  [self.delegate stockListView:self numOfItemInSection:section];
     }
     return item;
 }

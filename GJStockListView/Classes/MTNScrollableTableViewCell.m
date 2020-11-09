@@ -19,6 +19,7 @@ static CGFloat const MTNScollableItemDefaultWidth = 100.0f;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self.contentView addSubview:self.titleLab];
+        self.titleLab.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
     }
     return self;
 }
@@ -35,7 +36,7 @@ static CGFloat const MTNScollableItemDefaultWidth = 100.0f;
 
 @interface MTNScrollableTableViewCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, copy) NSArray <NSAttributedString *> *attributedTexts;
 
@@ -50,10 +51,31 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
     return self;
 }
 
+- (void)loadAttributedText:(NSAttributedString *)attributedText item:(NSInteger)item {
+    if (item == 0) {
+        self.titleLab.attributedText = attributedText;
+    } else {
+        MTNScrollableCollectionViewCell *cell = (MTNScrollableCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:item-1 inSection:0]];
+        cell.titleLab.attributedText = attributedText;
+    }
+}
+
+- (void)setContentOffsetX:(CGFloat)contentOffsetX {
+    self.collectionView.contentOffset = CGPointMake(contentOffsetX, self.collectionView.contentOffset.y);
+}
+
 - (void)setupUI {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [UIColor clearColor];
-   
+    [self.contentView addSubview:self.titleLab];
+    [self.contentView addSubview:self.collectionView];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CGSize size = [self sizeForItem:0];
+    self.titleLab.frame = CGRectMake(0, 0, size.width, size.height);
+    self.collectionView.frame = CGRectMake(size.width, 0, CGRectGetWidth(self.contentView.frame) - size.width, size.height);
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -64,20 +86,24 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MTNScrollableCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MTNScrollableReuseIdentifier forIndexPath:indexPath];
-    cell.titleLab.attributedText = [self attributedStringForItem:indexPath.item];
+    cell.titleLab.attributedText = [self attributedStringForItem:indexPath.item + 1];
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self sizeForItem:indexPath.item];
+    return [self sizeForItem:indexPath.item + 1];
 }
 
 #pragma mark - scrollview delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
+    if (scrollView.isDragging + scrollView.isTracking + scrollView.isDecelerating) {
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(scrollableTableViewCell:didScrollToOffsetX:)]) {
+            [self.delegate scrollableTableViewCell:self didScrollToOffsetX:scrollView.contentOffset.x];
+//        }
+    }
 }
 
 #pragma mark - Setter&Getter
@@ -115,11 +141,11 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
     return _collectionView;;
 }
 
-- (UILabel *)titleLabel {
-    if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] init];
+- (UILabel *)titleLab {
+    if (!_titleLab) {
+        _titleLab = [[UILabel alloc] init];
     }
-    return _titleLabel;
+    return _titleLab;
 }
 
 @end
