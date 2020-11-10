@@ -416,12 +416,14 @@
 //@end
 
 
-#import "MTNStockListView.h"
+#import "GJStockListView.h"
 #import "MTNScrollableTableViewCell.h"
 
 @interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableTableViewCellDelegate>
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong, readwrite) UITableView *tableView;
+
+@property (nonatomic, assign) CGFloat contentOffsetX;
 
 @end
 
@@ -432,6 +434,10 @@
         [self addSubview:self.tableView];
     }
     return self;
+}
+
+- (void)reloadData {
+    [self.tableView reloadData];
 }
 
 - (void)layoutSubviews {
@@ -457,6 +463,7 @@
 }
 
 - (void)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell didScrollToOffsetX:(CGFloat)x {
+    self.contentOffsetX  = x;
     NSArray *visCells = [self.tableView visibleCells];
     for (MTNScrollableTableViewCell *visCell in visCells) {
         if ([visCell isEqual:cell] == NO) {
@@ -481,18 +488,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MTNScrollableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(MTNScrollableTableViewCell.class)];
-    NSInteger itemCount = [self numberOfItemInSection:indexPath.section];
     if (cell == nil) {
         cell = [[MTNScrollableTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(MTNScrollableTableViewCell.class)];
         cell.delegate = self;
-        cell.itemCount = itemCount;
+        cell.initialContentOffetX = self.contentOffsetX;
     }
     
-    for (NSInteger i = 0; i < itemCount; i ++) {
-        NSAttributedString *attri = [self attributedStringForItem:i row:indexPath.row section:indexPath.section];
-        [cell loadAttributedText:attri item:i];
-    }
+    [cell loadAttributedTexts:[self attributedTextsAtIndexPath:indexPath]];
     return cell;
+}
+
+- (NSArray <NSAttributedString *>*)attributedTextsAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger itemCount = [self numberOfItemInSection:indexPath.section];
+    NSMutableArray *mAttris = [NSMutableArray arrayWithCapacity:itemCount];
+    for (NSInteger i = 0; i < itemCount; i ++) {
+        [mAttris addObject:[self attributedStringForItem:i row:indexPath.row section:indexPath.section]];
+    }
+    return mAttris.copy;
 }
 
 #pragma mark - Getter

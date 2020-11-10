@@ -64,7 +64,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MTNStockListView : UIView
 
+@property (nonatomic, readonly) UITableView *tableView;
+
 @property (nonatomic, weak) id <MTNStockListViewDelegate>delegate;
+
+- (void)reloadData;
 
 @end
 

@@ -51,13 +51,9 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
     return self;
 }
 
-- (void)loadAttributedText:(NSAttributedString *)attributedText item:(NSInteger)item {
-    if (item == 0) {
-        self.titleLab.attributedText = attributedText;
-    } else {
-        MTNScrollableCollectionViewCell *cell = (MTNScrollableCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:item-1 inSection:0]];
-        cell.titleLab.attributedText = attributedText;
-    }
+- (void)loadAttributedTexts:(NSArray<NSAttributedString *> *)attributedTexts {
+    self.attributedTexts = attributedTexts;
+    self.titleLab.attributedText = attributedTexts.firstObject;
 }
 
 - (void)setContentOffsetX:(CGFloat)contentOffsetX {
@@ -73,20 +69,28 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    if (CGRectIsEmpty(self.contentView.frame)) {
+        return;
+    }
     CGSize size = [self sizeForItem:0];
+    if (CGSizeEqualToSize(size, self.titleLab.frame.size)) {
+        return;
+    }
     self.titleLab.frame = CGRectMake(0, 0, size.width, size.height);
     self.collectionView.frame = CGRectMake(size.width, 0, CGRectGetWidth(self.contentView.frame) - size.width, size.height);
+    self.collectionView.contentOffset = CGPointMake(self.initialContentOffetX, self.collectionView.contentOffset.y);
+
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.itemCount;
+    return MAX(self.attributedTexts.count - 1, 0);
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MTNScrollableCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MTNScrollableReuseIdentifier forIndexPath:indexPath];
-    cell.titleLab.attributedText = [self attributedStringForItem:indexPath.item + 1];
+    cell.titleLab.attributedText = self.attributedTexts[indexPath.row + 1];
     return cell;
 }
 
@@ -100,9 +104,9 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.isDragging + scrollView.isTracking + scrollView.isDecelerating) {
-//        if (self.delegate && [self.delegate respondsToSelector:@selector(scrollableTableViewCell:didScrollToOffsetX:)]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(scrollableTableViewCell:didScrollToOffsetX:)]) {
             [self.delegate scrollableTableViewCell:self didScrollToOffsetX:scrollView.contentOffset.x];
-//        }
+        }
     }
 }
 
@@ -114,14 +118,6 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
         size = [self.delegate scrollableTableViewCell:self sizeForItem:item];
     }
     return size;
-}
-
-- (NSAttributedString *)attributedStringForItem:(NSInteger)item {
-    NSAttributedString *attri = nil;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(scrollableTableViewCell:attributedStringForItem:)]) {
-        attri = [self.delegate scrollableTableViewCell:self attributedStringForItem:item];
-    }
-    return attri;
 }
 
 - (UICollectionView *)collectionView {
