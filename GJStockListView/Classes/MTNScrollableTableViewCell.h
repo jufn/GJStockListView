@@ -14,7 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MTNScrollableTableViewCellDelegate <NSObject>
 
+- (NSInteger)numberOfItemsInScrollableTableViewCell:(MTNScrollableTableViewCell *)cell;
+
 - (CGSize)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell sizeForItem:(NSInteger)item;
+- (NSAttributedString *)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell attributedStringForItem:(NSInteger)item;
 - (void)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell didScrollToOffsetX:(CGFloat)x;
 
 @end
@@ -27,9 +30,13 @@ NS_ASSUME_NONNULL_BEGIN
 // 初始化给的偏移量
 @property (nonatomic, assign) CGFloat initialContentOffetX;
 
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
 - (void)setContentOffsetX:(CGFloat)contentOffsetX;
 
-- (void)loadAttributedTexts:(NSArray <NSAttributedString *> *)attributedTexts;
+- (void)loadAttributedText:(NSAttributedString *)attributedText item:(NSInteger)item;
+
+- (void)reloadData;
 
 @end
 

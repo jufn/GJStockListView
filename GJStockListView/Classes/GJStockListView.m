@@ -450,13 +450,17 @@
 
 #pragma mark - MTNScrollableTableViewCellDelegate
 
+- (NSInteger)numberOfItemsInScrollableTableViewCell:(MTNScrollableTableViewCell *)cell {
+    return [self numberOfItemInSection:cell.indexPath.section];
+}
+
 - (nonnull NSAttributedString *)scrollableTableViewCell:(nonnull MTNScrollableTableViewCell *)cell attributedStringForItem:(NSInteger)item {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = cell.indexPath;
     return [self attributedStringForItem:item row:indexPath.row section:indexPath.section];
 }
 
 - (CGSize)scrollableTableViewCell:(nonnull MTNScrollableTableViewCell *)cell sizeForItem:(NSInteger)item {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = cell.indexPath;
     CGFloat rowHeight = [self heightForRow:indexPath.row section:indexPath.section];
     CGFloat width = [self widthForItem:item section:indexPath.section];
     return CGSizeMake(width, rowHeight);
@@ -491,10 +495,10 @@
     if (cell == nil) {
         cell = [[MTNScrollableTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(MTNScrollableTableViewCell.class)];
         cell.delegate = self;
-        cell.initialContentOffetX = self.contentOffsetX;
     }
-    
-    [cell loadAttributedTexts:[self attributedTextsAtIndexPath:indexPath]];
+    cell.initialContentOffetX = self.contentOffsetX;
+    cell.indexPath = indexPath;
+    [cell reloadData];
     return cell;
 }
 
