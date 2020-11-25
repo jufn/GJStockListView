@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
+- (void)layoutSubviewsWithCellWidth:(CGFloat)width;
+
 - (void)setContentOffsetX:(CGFloat)contentOffsetX;
 
 - (void)loadAttributedText:(NSAttributedString *)attributedText item:(NSInteger)item;

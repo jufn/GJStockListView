@@ -58,6 +58,12 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
     }
 }
 
+- (void)layoutSubviewsWithCellWidth:(CGFloat)width {
+    CGSize size = [self sizeForItem:0];
+    self.titleLab.frame = CGRectMake(0, 0, size.width, size.height);
+    self.collectionView.frame = CGRectMake(size.width, 0, width - size.width, size.height);
+}
+
 - (void)reloadData {
     self.titleLab.attributedText = [self attributedStringForItem:0];
     [self.collectionView reloadData];
@@ -72,20 +78,6 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
     self.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.titleLab];
     [self.contentView addSubview:self.collectionView];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (CGRectIsEmpty(self.contentView.frame)) {
-        return;
-    }
-    CGSize size = [self sizeForItem:0];
-    self.titleLab.frame = CGRectMake(0, 0, size.width, size.height);
-    self.collectionView.frame = CGRectMake(size.width, 0, CGRectGetWidth(self.contentView.frame) - size.width, size.height);
-    
-    if (self.initialContentOffetX != self.collectionView.contentOffset.x) {
-        self.collectionView.contentOffset = CGPointMake(self.initialContentOffetX, self.collectionView.contentOffset.y);
-    }
 }
 
 #pragma mark - UICollectionViewDataSource

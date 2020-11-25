@@ -495,10 +495,11 @@
     if (cell == nil) {
         cell = [[MTNScrollableTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(MTNScrollableTableViewCell.class)];
         cell.delegate = self;
+        [cell layoutSubviewsWithCellWidth:CGRectGetWidth(self.frame)];
     }
-    cell.initialContentOffetX = self.contentOffsetX;
     cell.indexPath = indexPath;
     [cell reloadData];
+    [cell setContentOffsetX:self.contentOffsetX];
     return cell;
 }
 
