@@ -55,7 +55,7 @@
 
 - (MTNStockListView *)stockListView {
     if (!_stockListView) {
-        _stockListView = [[MTNStockListView alloc] initWithFrame:self.view.bounds];
+        _stockListView = [[MTNStockListView alloc] initWithFrame:CGRectMake(0, 100, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 100)];
         _stockListView.delegate = self;
     }
     return _stockListView;
@@ -73,10 +73,6 @@
         _contents = @[@"振华重工", @"20.19", @"+2.10%", @"0.45", @"19.64", @"3.2B", @"54B", @"20.21", @"19.88"];
     }
     return _contents;
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.stockListView reloadData];
 }
 
 @end

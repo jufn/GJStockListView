@@ -1,12 +1,16 @@
 
 #import "GJStockListView.h"
-#import "MTNScrollableTableViewCell.h"
+#import "MTNScrollableRowView.h"
 
-@interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableTableViewCellDelegate>
+const NSInteger kMTNScrollableRowTag = 100000;
+
+@interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableRowViewDelegate>
 
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 
 @property (nonatomic, assign) CGFloat contentOffsetX;
+
+@property (nonatomic, strong) NSMapTable *map;
 
 @end
 
@@ -40,28 +44,29 @@
 
 #pragma mark - MTNScrollableTableViewCellDelegate
 
-- (NSInteger)numberOfItemsInScrollableTableViewCell:(MTNScrollableTableViewCell *)cell {
+- (NSInteger)numberOfItemsInScrollableTableViewCell:(MTNScrollableRowView *)cell {
     return [self numberOfItemInSection:cell.indexPath.section];
 }
 
-- (nonnull NSAttributedString *)scrollableTableViewCell:(nonnull MTNScrollableTableViewCell *)cell attributedStringForItem:(NSInteger)item {
+- (nonnull NSAttributedString *)scrollableTableViewCell:(nonnull MTNScrollableRowView *)cell attributedStringForItem:(NSInteger)item {
     NSIndexPath *indexPath = cell.indexPath;
     return [self attributedStringForItem:item row:indexPath.row section:indexPath.section];
 }
 
-- (CGSize)scrollableTableViewCell:(nonnull MTNScrollableTableViewCell *)cell sizeForItem:(NSInteger)item {
+- (CGSize)scrollableTableViewCell:(nonnull MTNScrollableRowView *)cell sizeForItem:(NSInteger)item {
     NSIndexPath *indexPath = cell.indexPath;
     CGFloat rowHeight = [self heightForRow:indexPath.row section:indexPath.section];
     CGFloat width = [self widthForItem:item section:indexPath.section];
     return CGSizeMake(width, rowHeight);
 }
 
-- (void)scrollableTableViewCell:(MTNScrollableTableViewCell *)cell didScrollToOffsetX:(CGFloat)x {
+- (void)scrollableTableViewCell:(MTNScrollableRowView *)cell didScrollToOffsetX:(CGFloat)x {
     self.contentOffsetX  = x;
     NSArray *visCells = [self.tableView visibleCells];
-    for (MTNScrollableTableViewCell *visCell in visCells) {
-        if ([visCell isEqual:cell] == NO) {
-            [visCell setContentOffsetX:x];
+    for (UITableViewCell *visCell in visCells) {
+        MTNScrollableRowView *visView = [visCell viewWithTag:kMTNScrollableRowTag];
+        if ([visView isEqual:cell] == NO) {
+            [visView setContentOffsetX:x];
         }
     }
 }
@@ -81,15 +86,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MTNScrollableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(MTNScrollableTableViewCell.class)];
+    NSString *identifier = [NSString stringWithFormat:@"%@_section_%zd", NSStringFromClass(UITableViewCell.class), indexPath.section];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        cell = [[MTNScrollableTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(MTNScrollableTableViewCell.class)];
-        cell.delegate = self;
-        [cell layoutSubviewsWithCellWidth:CGRectGetWidth(self.frame)];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForRow:indexPath.row section:indexPath.section])];
+        view.delegate = self;
+        [view layoutSubviewsWithCellWidth:CGRectGetWidth(tableView.frame)];
+        view.tag = kMTNScrollableRowTag;
+        
+        [cell.contentView addSubview:view];
     }
-    cell.indexPath = indexPath;
-    [cell reloadData];
-    [cell setContentOffsetX:self.contentOffsetX];
+    MTNScrollableRowView *rowView = [cell.contentView viewWithTag:kMTNScrollableRowTag];
+    [rowView reloadData];
+    [rowView setContentOffsetX:self.contentOffsetX];
     return cell;
 }
 
@@ -168,7 +178,6 @@
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
-        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"UITableViewCell"];
         
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
