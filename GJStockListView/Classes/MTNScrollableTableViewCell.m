@@ -88,7 +88,7 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MTNScrollableCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MTNScrollableReuseIdentifier forIndexPath:indexPath];
-    cell.titleLab.attributedText = [self attributedStringForItem:indexPath.item + 1];
+    cell.titleLab.attributedText = [self attributedStringForItem:indexPath.item];
     return cell;
 }
 
@@ -178,18 +178,7 @@ static NSString *const MTNScrollableHeaderViewReuseIdentifier = @"MTNScrollableH
 }
 
 - (void)setupUI {
-//    self.backgroundColor = [UIColor colorFromHexString:@"#141414"];
-//    [self addSubview:self.leftLabel];
-//    [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self).mas_offset(10);
-//        make.top.bottom.mas_equalTo(self);
-//        make.width.mas_equalTo(120);
-//    }];
-//    [self addSubview:self.collectionView];
-//    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.leftLabel.mas_right);
-//        make.top.bottom.right.mas_equalTo(self);
-//    }];
+
 }
 
 #pragma mark - UICollectionViewDataSource
