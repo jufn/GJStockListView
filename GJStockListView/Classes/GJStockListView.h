@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)stockListView:(MTNStockListView *)view numOfRowInSection:(NSInteger)section;
 - (NSInteger)stockListView:(MTNStockListView *)view numOfItemInSection:(NSInteger)section;
 
+- (CGFloat)stockListView:(MTNStockListView *)view heightForHeaderInsection:(NSInteger)section;
 - (CGFloat)stockListView:(MTNStockListView *)view heightForRow:(NSInteger)row section:(NSInteger)section;
 - (CGFloat)stockListView:(MTNStockListView *)view widthForItem:(NSInteger)item section:(NSInteger)section;
 

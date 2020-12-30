@@ -85,6 +85,17 @@ const NSInteger kMTNScrollableRowTag = 100000;
     return [self heightForRow:indexPath.row section:indexPath.section];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return [self heightForHeaderInSection:section];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForHeaderInSection:section])];
+    
+    return view;
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = [NSString stringWithFormat:@"%@_section_%zd", NSStringFromClass(UITableViewCell.class), indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -136,6 +147,14 @@ const NSInteger kMTNScrollableRowTag = 100000;
        item = [self.delegate stockListView:self numOfItemInSection:section];
     }
     return item;
+}
+
+- (CGFloat)heightForHeaderInSection:(NSInteger)section {
+    CGFloat height = CGFLOAT_MIN;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:heightForHeaderInsection:)]) {
+        height = [self.delegate stockListView:self heightForHeaderInsection:section];
+    }
+    return height;
 }
 
 - (CGFloat)heightForRow:(NSInteger)row section:(NSInteger)section {

@@ -27,9 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <MTNScrollableRowViewDelegate> delegate;
 
-// 初始化给的偏移量
-@property (nonatomic, assign) CGFloat initialContentOffetX;
-
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
 - (void)layoutSubviewsWithCellWidth:(CGFloat)width;
