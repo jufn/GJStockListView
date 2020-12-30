@@ -13,23 +13,17 @@ NS_ASSUME_NONNULL_BEGIN
 @class MTNScrollableRowView;
 
 @protocol MTNScrollableRowViewDelegate <NSObject>
-
-- (NSInteger)numberOfItemsInScrollableTableViewCell:(MTNScrollableRowView *)cell;
-
-- (CGSize)scrollableTableViewCell:(MTNScrollableRowView *)cell sizeForItem:(NSInteger)item;
-- (NSAttributedString *)scrollableTableViewCell:(MTNScrollableRowView *)cell attributedStringForItem:(NSInteger)item;
-- (void)scrollableTableViewCell:(MTNScrollableRowView *)cell didScrollToOffsetX:(CGFloat)x;
-
+- (CGFloat)rowView:(MTNScrollableRowView *)view widthForItem:(NSInteger)item;
+- (NSAttributedString *)rowView:(MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item;
+- (void)rowView:(MTNScrollableRowView *)view didScrollToOffsetX:(CGFloat)x;
 @end
 
 /// 可横向滚动的cell
 @interface MTNScrollableRowView : UIView
 
-@property (nonatomic, weak) id <MTNScrollableRowViewDelegate> delegate;
+- (instancetype)initWithFrame:(CGRect)frame numberOfItems:(NSInteger)numberOfItems delegate:(id <MTNScrollableRowViewDelegate>) delegate;
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
-
-- (void)layoutSubviewsWithCellWidth:(CGFloat)width;
 
 - (void)setContentOffsetX:(CGFloat)contentOffsetX;
 

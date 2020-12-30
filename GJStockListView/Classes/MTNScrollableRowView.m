@@ -8,8 +8,6 @@
 
 #import "MTNScrollableRowView.h"
 
-static CGFloat const MTNScollableItemDefaultWidth = 100.0f;
-
 @interface MTNScrollableCollectionViewCell : UICollectionViewCell
 @property (nonatomic, strong) UILabel *titleLab;
 @end
@@ -38,14 +36,24 @@ static CGFloat const MTNScollableItemDefaultWidth = 100.0f;
 
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, weak) id <MTNScrollableRowViewDelegate> delegate;
+@property (nonatomic, assign) NSInteger numberOfItems;
 @end
 static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdentifier";
 @implementation MTNScrollableRowView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+
+- (instancetype)initWithFrame:(CGRect)frame numberOfItems:(NSInteger)numberOfItems delegate:(id<MTNScrollableRowViewDelegate>)delegate {
     if (self = [super initWithFrame:frame]) {
+        self.delegate = delegate;
+        self.numberOfItems = numberOfItems;
         [self addSubview:self.titleLab];
         [self addSubview:self.collectionView];
+        
+        CGSize size = [self sizeForItem:0];
+        self.titleLab.frame = CGRectMake(0, 0, size.width, size.height);
+        self.collectionView.frame = CGRectMake(size.width, 0, CGRectGetWidth(frame) - size.width, size.height);
     }
     return self;
 }
@@ -57,12 +65,6 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
         MTNScrollableCollectionViewCell *cell = (MTNScrollableCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:item-1 inSection:0]];
         cell.titleLab.attributedText = attributedText;
     }
-}
-
-- (void)layoutSubviewsWithCellWidth:(CGFloat)width {
-    CGSize size = [self sizeForItem:0];
-    self.titleLab.frame = CGRectMake(0, 0, size.width, size.height);
-    self.collectionView.frame = CGRectMake(size.width, 0, width - size.width, size.height);
 }
 
 - (void)reloadData {
@@ -96,34 +98,27 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.isDragging + scrollView.isTracking + scrollView.isDecelerating) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(scrollableTableViewCell:didScrollToOffsetX:)]) {
-            [self.delegate scrollableTableViewCell:self didScrollToOffsetX:scrollView.contentOffset.x];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(rowView:didScrollToOffsetX:)]) {
+            [self.delegate rowView:self didScrollToOffsetX:scrollView.contentOffset.x];
         }
     }
 }
 
 #pragma mark - Setter&Getter
 
-- (NSInteger)numberOfItems {
-    NSInteger item = 0;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfItemsInScrollableTableViewCell:)]) {
-        item = [self.delegate numberOfItemsInScrollableTableViewCell:self];
-    }
-    return item;
-}
-
 - (CGSize)sizeForItem:(NSInteger)item {
     CGSize size = CGSizeZero;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(scrollableTableViewCell:sizeForItem:)]) {
-        size = [self.delegate scrollableTableViewCell:self sizeForItem:item];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(rowView:widthForItem:)]) {
+        CGFloat width = [self.delegate rowView:self widthForItem:item];
+        size = CGSizeMake(width, CGRectGetHeight(self.frame));
     }
     return size;
 }
 
 - (NSAttributedString *)attributedStringForItem:(NSInteger)item {
     NSAttributedString *attri = nil;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(scrollableTableViewCell:attributedStringForItem:)]) {
-        attri = [self.delegate scrollableTableViewCell:self attributedStringForItem:item];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(rowView:widthForItem:)]) {
+        attri = [self.delegate rowView:self attributedStringForItem:item];
     }
     return attri;
 }

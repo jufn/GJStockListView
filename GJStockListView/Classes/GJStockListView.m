@@ -44,23 +44,17 @@ const NSInteger kMTNScrollableRowTag = 100000;
 
 #pragma mark - MTNScrollableTableViewCellDelegate
 
-- (NSInteger)numberOfItemsInScrollableTableViewCell:(MTNScrollableRowView *)cell {
-    return [self numberOfItemInSection:cell.indexPath.section];
-}
-
-- (nonnull NSAttributedString *)scrollableTableViewCell:(nonnull MTNScrollableRowView *)cell attributedStringForItem:(NSInteger)item {
+- (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)cell attributedStringForItem:(NSInteger)item {
     NSIndexPath *indexPath = cell.indexPath;
     return [self attributedStringForItem:item row:indexPath.row section:indexPath.section];
 }
 
-- (CGSize)scrollableTableViewCell:(nonnull MTNScrollableRowView *)cell sizeForItem:(NSInteger)item {
+- (CGFloat)rowView:(nonnull MTNScrollableRowView *)cell widthForItem:(NSInteger)item {
     NSIndexPath *indexPath = cell.indexPath;
-    CGFloat rowHeight = [self heightForRow:indexPath.row section:indexPath.section];
-    CGFloat width = [self widthForItem:item section:indexPath.section];
-    return CGSizeMake(width, rowHeight);
+    return [self widthForItem:item section:indexPath.section];
 }
 
-- (void)scrollableTableViewCell:(MTNScrollableRowView *)cell didScrollToOffsetX:(CGFloat)x {
+- (void)rowView:(MTNScrollableRowView *)cell didScrollToOffsetX:(CGFloat)x {
     self.contentOffsetX  = x;
     NSArray *visCells = [self.tableView visibleCells];
     for (UITableViewCell *visCell in visCells) {
@@ -101,16 +95,13 @@ const NSInteger kMTNScrollableRowTag = 100000;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForRow:indexPath.row section:indexPath.section])];
-        view.delegate = self;
-        [view layoutSubviewsWithCellWidth:CGRectGetWidth(tableView.frame)];
+        MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForRow:indexPath.row section:indexPath.section]) numberOfItems:[self numberOfItemInSection:indexPath.section] delegate:self];
         view.tag = kMTNScrollableRowTag;
-        
         [cell.contentView addSubview:view];
     }
     MTNScrollableRowView *rowView = [cell.contentView viewWithTag:kMTNScrollableRowTag];
-    [rowView reloadData];
     [rowView setContentOffsetX:self.contentOffsetX];
+    rowView.indexPath = indexPath;
     return cell;
 }
 
