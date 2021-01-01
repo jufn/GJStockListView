@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT NSInteger kSectionHeaderRowFlag; // 表示是header
+
 @class MTNScrollableRowView;
 
 @protocol MTNScrollableRowViewDelegate <NSObject>
@@ -20,14 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 可横向滚动的cell
 @interface MTNScrollableRowView : UIView
+@property (nonatomic, strong) UILabel *titleLab;
 
 - (instancetype)initWithFrame:(CGRect)frame numberOfItems:(NSInteger)numberOfItems delegate:(id <MTNScrollableRowViewDelegate>) delegate;
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
 - (void)setContentOffsetX:(CGFloat)contentOffsetX;
-
-- (void)loadAttributedText:(NSAttributedString *)attributedText item:(NSInteger)item;
 
 - (void)reloadData;
 

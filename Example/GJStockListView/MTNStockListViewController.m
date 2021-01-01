@@ -28,6 +28,10 @@
     return 1;
 }
 
+- (CGFloat)stockListView:(MTNStockListView *)view heightForHeaderInSection:(NSInteger)section{
+    return 44.0;
+}
+
 - (CGFloat)stockListView:(nonnull MTNStockListView *)view heightForRow:(NSInteger)row section:(NSInteger)section {
     return 62;
 }

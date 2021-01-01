@@ -59,8 +59,13 @@ const NSInteger kMTNScrollableRowTag = 100000;
 #pragma mark - MTNScrollableTableViewCellDelegate
 
 - (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item {
-    NSIndexPath *indexPath = view.indexPath;
-    return [self attributedStringForItem:item row:indexPath.row section:indexPath.section];
+    NSAttributedString *attri = nil;
+    if (view.indexPath.row == kSectionHeaderRowFlag) { // 头部
+        attri = [self attrbutedStringForHeaderItem:item section:view.indexPath.section];
+    } else {
+        attri = [self attributedStringForItem:item row:view.indexPath.row section:view.indexPath.section];
+    }
+    return attri;
 }
 
 - (CGFloat)rowView:(nonnull MTNScrollableRowView *)view widthForItem:(NSInteger)item {
@@ -99,10 +104,11 @@ const NSInteger kMTNScrollableRowTag = 100000;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     MTNSectionItem *item = [self itemAtSection:section];
-    MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForHeaderInSection:section])];
+    MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForHeaderInSection:section]) numberOfItems:[self numberOfItemInSection:section] delegate:self];
+    view.indexPath = [NSIndexPath indexPathForRow:kSectionHeaderRowFlag inSection:section];
     [item.rowViews addPointer:(__bridge void *)view];
+    view.titleLab.attributedText = [self attrbutedStringForHeaderItem:0 section:section];
     return view;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -119,6 +125,8 @@ const NSInteger kMTNScrollableRowTag = 100000;
     MTNScrollableRowView *rowView = [cell.contentView viewWithTag:kMTNScrollableRowTag];
     [rowView setContentOffsetX:item.contentOffsetX];
     rowView.indexPath = indexPath;
+    rowView.titleLab.attributedText = [self attributedStringForItem:0 row:indexPath.row section:indexPath.section];
+    
     return cell;
 }
 
@@ -169,8 +177,8 @@ const NSInteger kMTNScrollableRowTag = 100000;
 
 - (CGFloat)heightForHeaderInSection:(NSInteger)section {
     CGFloat height = CGFLOAT_MIN;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:heightForHeaderInsection:)]) {
-        height = [self.delegate stockListView:self heightForHeaderInsection:section];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:heightForHeaderInSection:)]) {
+        height = [self.delegate stockListView:self heightForHeaderInSection:section];
     }
     return height;
 }
@@ -223,7 +231,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
     return _tableView;
 }
 
-- (NSMutableDictionary<NSNumber *,MTNSectionItem *> *)mapper {
+- (NSMutableDictionary<NSString *,MTNSectionItem *> *)mapper {
     if (!_mapper) {
         _mapper = [NSMutableDictionary dictionary];
     }

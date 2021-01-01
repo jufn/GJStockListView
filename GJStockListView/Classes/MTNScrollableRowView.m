@@ -8,6 +8,8 @@
 
 #import "MTNScrollableRowView.h"
 
+NSInteger kSectionHeaderRowFlag = NSIntegerMax;
+
 @interface MTNScrollableCollectionViewCell : UICollectionViewCell
 @property (nonatomic, strong) UILabel *titleLab;
 @end
@@ -34,7 +36,6 @@
 
 @interface MTNScrollableRowView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, weak) id <MTNScrollableRowViewDelegate> delegate;
@@ -42,7 +43,6 @@
 @end
 static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdentifier";
 @implementation MTNScrollableRowView
-
 
 - (instancetype)initWithFrame:(CGRect)frame numberOfItems:(NSInteger)numberOfItems delegate:(id<MTNScrollableRowViewDelegate>)delegate {
     if (self = [super initWithFrame:frame]) {
@@ -58,15 +58,6 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
     return self;
 }
 
-- (void)loadAttributedText:(NSAttributedString *)attributedText item:(NSInteger)item {
-    if (item == 0) {
-        self.titleLab.attributedText = attributedText;
-    } else {
-        MTNScrollableCollectionViewCell *cell = (MTNScrollableCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:item-1 inSection:0]];
-        cell.titleLab.attributedText = attributedText;
-    }
-}
-
 - (void)reloadData {
     self.titleLab.attributedText = [self attributedStringForItem:0];
     [self.collectionView reloadData];
@@ -79,12 +70,12 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self numberOfItems];
+    return [self numberOfItems] - 1;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MTNScrollableCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MTNScrollableReuseIdentifier forIndexPath:indexPath];
-    cell.titleLab.attributedText = [self attributedStringForItem:indexPath.item];
+    cell.titleLab.attributedText = [self attributedStringForItem:indexPath.item + 1];
     return cell;
 }
 
