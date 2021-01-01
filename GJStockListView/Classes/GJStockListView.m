@@ -4,13 +4,27 @@
 
 const NSInteger kMTNScrollableRowTag = 100000;
 
+@interface MTNSectionItem : NSObject
+/// 偏移量
+@property (nonatomic, assign) CGFloat contentOffsetX;
+/// 弱引用cell
+@property (nonatomic, strong) NSPointerArray *rowViews;
+@end
+
+@implementation MTNSectionItem
+- (NSPointerArray *)rowViews {
+    if (!_rowViews) {
+        _rowViews = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
+    }
+    return _rowViews;
+}
+@end
+
 @interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableRowViewDelegate>
 
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 
-@property (nonatomic, assign) CGFloat contentOffsetX;
-
-@property (nonatomic, strong) NSMapTable *map;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, MTNSectionItem *> *mapper;
 
 @end
 
@@ -44,23 +58,23 @@ const NSInteger kMTNScrollableRowTag = 100000;
 
 #pragma mark - MTNScrollableTableViewCellDelegate
 
-- (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)cell attributedStringForItem:(NSInteger)item {
-    NSIndexPath *indexPath = cell.indexPath;
+- (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item {
+    NSIndexPath *indexPath = view.indexPath;
     return [self attributedStringForItem:item row:indexPath.row section:indexPath.section];
 }
 
-- (CGFloat)rowView:(nonnull MTNScrollableRowView *)cell widthForItem:(NSInteger)item {
-    NSIndexPath *indexPath = cell.indexPath;
+- (CGFloat)rowView:(nonnull MTNScrollableRowView *)view widthForItem:(NSInteger)item {
+    NSIndexPath *indexPath = view.indexPath;
     return [self widthForItem:item section:indexPath.section];
 }
 
-- (void)rowView:(MTNScrollableRowView *)cell didScrollToOffsetX:(CGFloat)x {
-    self.contentOffsetX  = x;
-    NSArray *visCells = [self.tableView visibleCells];
-    for (UITableViewCell *visCell in visCells) {
-        MTNScrollableRowView *visView = [visCell viewWithTag:kMTNScrollableRowTag];
-        if ([visView isEqual:cell] == NO) {
-            [visView setContentOffsetX:x];
+- (void)rowView:(MTNScrollableRowView *)view didScrollToOffsetX:(CGFloat)x {
+    MTNSectionItem *item = [self itemAtSection:view.indexPath.section];
+    item.contentOffsetX  = x;
+    [item.rowViews compact];
+    for (MTNScrollableRowView *each in item.rowViews) {
+        if ([each isEqual:view] == NO) {
+            [each setContentOffsetX:x];
         }
     }
 }
@@ -84,8 +98,9 @@ const NSInteger kMTNScrollableRowTag = 100000;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    MTNSectionItem *item = [self itemAtSection:section];
     MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForHeaderInSection:section])];
-    
+    [item.rowViews addPointer:(__bridge void *)view];
     return view;
     
 }
@@ -93,14 +108,16 @@ const NSInteger kMTNScrollableRowTag = 100000;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = [NSString stringWithFormat:@"%@_section_%zd", NSStringFromClass(UITableViewCell.class), indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    MTNSectionItem *item = [self itemAtSection:indexPath.section];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForRow:indexPath.row section:indexPath.section]) numberOfItems:[self numberOfItemInSection:indexPath.section] delegate:self];
         view.tag = kMTNScrollableRowTag;
         [cell.contentView addSubview:view];
+        [item.rowViews addPointer:(__bridge void *)view];
     }
     MTNScrollableRowView *rowView = [cell.contentView viewWithTag:kMTNScrollableRowTag];
-    [rowView setContentOffsetX:self.contentOffsetX];
+    [rowView setContentOffsetX:item.contentOffsetX];
     rowView.indexPath = indexPath;
     return cell;
 }
@@ -112,6 +129,16 @@ const NSInteger kMTNScrollableRowTag = 100000;
         [mAttris addObject:[self attributedStringForItem:i row:indexPath.row section:indexPath.section]];
     }
     return mAttris.copy;
+}
+
+- (MTNSectionItem *)itemAtSection:(NSInteger)section {
+    NSString *key = [NSString stringWithFormat:@"%zd", section];
+    MTNSectionItem *item = self.mapper[key];
+    if (item == nil) {
+        item = [[MTNSectionItem alloc] init];
+        [self.mapper setValue:item forKey:key];
+    }
+    return item;
 }
 
 #pragma mark - Getter
@@ -194,6 +221,13 @@ const NSInteger kMTNScrollableRowTag = 100000;
         }
     }
     return _tableView;
+}
+
+- (NSMutableDictionary<NSNumber *,MTNSectionItem *> *)mapper {
+    if (!_mapper) {
+        _mapper = [NSMutableDictionary dictionary];
+    }
+    return _mapper;
 }
 
 @end
