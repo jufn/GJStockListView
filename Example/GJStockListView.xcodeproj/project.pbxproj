@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		193D0D63259C19CB00219433 /* MTNStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193D0D62259C19CB00219433 /* MTNStockListViewController.m */; };
+		19F85BD425C939D200100503 /* MXSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BC525C939D200100503 /* MXSimpleViewController.m */; };
+		19F85BD525C939D200100503 /* MXNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BC825C939D200100503 /* MXNumberViewController.m */; };
+		19F85BD625C939D200100503 /* MXStoryboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BCA25C939D200100503 /* MXStoryboardViewController.m */; };
+		19F85BD725C939D200100503 /* MXExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BCC25C939D200100503 /* MXExampleViewController.m */; };
+		19F85BD825C939D200100503 /* MXParallaxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BCE25C939D200100503 /* MXParallaxViewController.m */; };
+		19F85BD925C939D200100503 /* MXCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BCF25C939D200100503 /* MXCustomView.m */; };
+		19F85BDA25C939D200100503 /* Cover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F85BD125C939D200100503 /* Cover.xib */; };
+		19F85BDE25C939E400100503 /* LongText.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19F85BDD25C939E400100503 /* LongText.txt */; };
 		1A1E974C2413CEC000B33115 /* GJLoginSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E974B2413CEC000B33115 /* GJLoginSuccessViewController.m */; };
 		1A1E974F2413CEDD00B33115 /* GJVCViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E974E2413CEDD00B33115 /* GJVCViewModel.m */; };
 		1A1E97522414C6D700B33115 /* GJVC2ViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E97512414C6D700B33115 /* GJVC2ViewModel.m */; };
@@ -45,6 +53,20 @@
 /* Begin PBXFileReference section */
 		193D0D61259C19CB00219433 /* MTNStockListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTNStockListViewController.h; sourceTree = "<group>"; };
 		193D0D62259C19CB00219433 /* MTNStockListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTNStockListViewController.m; sourceTree = "<group>"; };
+		19F85BC525C939D200100503 /* MXSimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXSimpleViewController.m; sourceTree = "<group>"; };
+		19F85BC625C939D200100503 /* MXSimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXSimpleViewController.h; sourceTree = "<group>"; };
+		19F85BC825C939D200100503 /* MXNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXNumberViewController.m; sourceTree = "<group>"; };
+		19F85BC925C939D200100503 /* MXStoryboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXStoryboardViewController.h; sourceTree = "<group>"; };
+		19F85BCA25C939D200100503 /* MXStoryboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXStoryboardViewController.m; sourceTree = "<group>"; };
+		19F85BCB25C939D200100503 /* MXNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXNumberViewController.h; sourceTree = "<group>"; };
+		19F85BCC25C939D200100503 /* MXExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXExampleViewController.m; sourceTree = "<group>"; };
+		19F85BCE25C939D200100503 /* MXParallaxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXParallaxViewController.m; sourceTree = "<group>"; };
+		19F85BCF25C939D200100503 /* MXCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXCustomView.m; sourceTree = "<group>"; };
+		19F85BD025C939D200100503 /* MXParallaxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXParallaxViewController.h; sourceTree = "<group>"; };
+		19F85BD125C939D200100503 /* Cover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cover.xib; sourceTree = "<group>"; };
+		19F85BD225C939D200100503 /* MXCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXCustomView.h; sourceTree = "<group>"; };
+		19F85BD325C939D200100503 /* MXExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXExampleViewController.h; sourceTree = "<group>"; };
+		19F85BDD25C939E400100503 /* LongText.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LongText.txt; sourceTree = "<group>"; };
 		1A1E974A2413CEC000B33115 /* GJLoginSuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLoginSuccessViewController.h; sourceTree = "<group>"; };
 		1A1E974B2413CEC000B33115 /* GJLoginSuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLoginSuccessViewController.m; sourceTree = "<group>"; };
 		1A1E974D2413CEDD00B33115 /* GJVCViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJVCViewModel.h; sourceTree = "<group>"; };
@@ -109,6 +131,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19F85BC425C939D200100503 /* Simple */ = {
+			isa = PBXGroup;
+			children = (
+				19F85BC525C939D200100503 /* MXSimpleViewController.m */,
+				19F85BC625C939D200100503 /* MXSimpleViewController.h */,
+			);
+			path = Simple;
+			sourceTree = "<group>";
+		};
+		19F85BC725C939D200100503 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				19F85BC825C939D200100503 /* MXNumberViewController.m */,
+				19F85BC925C939D200100503 /* MXStoryboardViewController.h */,
+				19F85BCA25C939D200100503 /* MXStoryboardViewController.m */,
+				19F85BCB25C939D200100503 /* MXNumberViewController.h */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		19F85BCD25C939D200100503 /* Parallax */ = {
+			isa = PBXGroup;
+			children = (
+				19F85BCE25C939D200100503 /* MXParallaxViewController.m */,
+				19F85BD025C939D200100503 /* MXParallaxViewController.h */,
+				19F85BD125C939D200100503 /* Cover.xib */,
+				19F85BCF25C939D200100503 /* MXCustomView.m */,
+				19F85BD225C939D200100503 /* MXCustomView.h */,
+			);
+			path = Parallax;
+			sourceTree = "<group>";
+		};
 		1A1E97492413CE9500B33115 /* RAC */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +223,12 @@
 				193D0D62259C19CB00219433 /* MTNStockListViewController.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				1A209D242422728E008D7761 /* archive.json */,
+				19F85BDD25C939E400100503 /* LongText.txt */,
+				19F85BD325C939D200100503 /* MXExampleViewController.h */,
+				19F85BCC25C939D200100503 /* MXExampleViewController.m */,
+				19F85BCD25C939D200100503 /* Parallax */,
+				19F85BC425C939D200100503 /* Simple */,
+				19F85BC725C939D200100503 /* Storyboard */,
 				1A1E97492413CE9500B33115 /* RAC */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -314,7 +374,9 @@
 				1A209D21242270E0008D7761 /* temper.bundle in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				1A209D252422728E008D7761 /* archive.json in Resources */,
+				19F85BDA25C939D200100503 /* Cover.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				19F85BDE25C939E400100503 /* LongText.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,12 +422,20 @@
 				"${PODS_ROOT}/Target Support Files/Pods-GJStockListView_Example/Pods-GJStockListView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GJStockListView/GJStockListView.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/MXPagerView/MXPagerView.framework",
+				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
+				"${BUILT_PRODUCTS_DIR}/MXSegmentedControl/MXSegmentedControl.framework",
+				"${BUILT_PRODUCTS_DIR}/MXSegmentedPager/MXSegmentedPager.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GJStockListView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXPagerView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXSegmentedControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXSegmentedPager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,10 +451,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A1E97522414C6D700B33115 /* GJVC2ViewModel.m in Sources */,
+				19F85BD825C939D200100503 /* MXParallaxViewController.m in Sources */,
+				19F85BD925C939D200100503 /* MXCustomView.m in Sources */,
+				19F85BD625C939D200100503 /* MXStoryboardViewController.m in Sources */,
 				1A4C918224133AEC00D0E939 /* GJRacView.m in Sources */,
+				19F85BD525C939D200100503 /* MXNumberViewController.m in Sources */,
+				19F85BD725C939D200100503 /* MXExampleViewController.m in Sources */,
 				6003F59E195388D20070C39A /* GJAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* GJViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				19F85BD425C939D200100503 /* MXSimpleViewController.m in Sources */,
 				193D0D63259C19CB00219433 /* MTNStockListViewController.m in Sources */,
 				1A1E974F2413CEDD00B33115 /* GJVCViewModel.m in Sources */,
 				1A1E974C2413CEC000B33115 /* GJLoginSuccessViewController.m in Sources */,

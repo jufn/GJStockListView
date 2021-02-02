@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString *)stockListView:(MTNStockListView *)view attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section;
 - (NSAttributedString *)stockListView:(MTNStockListView *)view attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section;
+- (void)stockListView:(MTNStockListView *)view didSelectedRowAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @interface MTNStockListView : UIView

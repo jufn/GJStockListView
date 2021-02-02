@@ -8,6 +8,8 @@
 
 #import "MTNStockListViewController.h"
 #import <GJStockListView.h>
+#import "MXParallaxViewController.h"
+
 
 @interface MTNStockListViewController () <MTNStockListViewDelegate>
 @property (nonatomic, strong) MTNStockListView *stockListView;
@@ -55,6 +57,11 @@
 
 - (nonnull NSAttributedString *)stockListView:(nonnull MTNStockListView *)view attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section {
     return [[NSAttributedString alloc] initWithString:self.contents[item] attributes:@{NSForegroundColorAttributeName : [UIColor orangeColor], NSFontAttributeName : [UIFont systemFontOfSize:15]}];
+}
+
+- (void)stockListView:(MTNStockListView *)view didSelectedRowAtIndexPath:(NSIndexPath *)indexPath {
+    MXParallaxViewController *vc = [[MXParallaxViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (MTNStockListView *)stockListView {

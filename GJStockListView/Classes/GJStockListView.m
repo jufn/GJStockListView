@@ -130,6 +130,12 @@ const NSInteger kMTNScrollableRowTag = 100000;
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:didSelectedRowAtIndexPath:)]) {
+        [self.delegate stockListView:self didSelectedRowAtIndexPath:indexPath];
+    }
+}
+
 - (NSArray <NSAttributedString *>*)attributedTextsAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger itemCount = [self numberOfItemInSection:indexPath.section];
     NSMutableArray *mAttris = [NSMutableArray arrayWithCapacity:itemCount];
