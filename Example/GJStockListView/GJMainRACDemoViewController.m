@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self racDemo3];
+    [self racDemo1];
 }
 
 - (void)racDemo20 {
@@ -329,7 +329,7 @@
 //        NSLog(@"%@", x);
         x.frame = CGRectMake(200, 50, 100, 100);
     }];
-    [[btn rac_valuesAndChangesForKeyPath:@"frame" options:NSKeyValueObservingOptionNew observer:self] subscribeNext:^(RACTwoTuple<id,NSDictionary *> * _Nullable x) {
+    [[[btn rac_valuesAndChangesForKeyPath:@"frame" options:NSKeyValueObservingOptionNew observer:self] distinctUntilChanged] subscribeNext:^(RACTwoTuple<id,NSDictionary *> * _Nullable x) {
         NSLog(@"+++++ %@", x.second);
     }];
 }

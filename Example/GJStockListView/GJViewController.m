@@ -191,38 +191,7 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	[header setTitle:@"正在刷新......" forState:MJRefreshStateRefreshing];
 	self.listView.tableView.mj_header = header;
 	[self.view addSubview:self.listView];
-    
-//    [self racDemo16];
-//    [self racDemo20];
 }
-
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//	[self.listView startFallHeartBeatAnimationAtRow:3];
-//	[self.listView startRiseHeartBeatAnimationAtRow:5];
-//	self.title  = @"股票列表";
-//	CGRect frame = CGRectMake(0, 200, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 200);
-//
-//	self.listView = [[GJStockListView alloc] initWithFrame:frame];
-//	self.listView.delegate = self;
-//
-//	MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//			[self.listView.tableView.mj_header endRefreshing];
-//		});
-//	}];
-//	header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-//	[header setTitle:@"正在刷新......" forState:MJRefreshStateRefreshing];
-//	self.listView.tableView.mj_header = header;
-//	[self.view addSubview:self.listView];
-	
-//    [RACObserve(self.view, center) subscribeNext:^(id  _Nullable x) {
-//          NSLog(@"++++ %@", x);
-//      }];
-//    [self racDemo11];
-//    [self racDemo16];
-//    [self blindModel];
-//    [self demo17];
-//}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     NSString *temperPath =  [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"temper.bundle"];
@@ -244,25 +213,6 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
        NSString *archivepath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"archive.plist"];
     
        BOOL yes = [mut writeToFile:archivepath atomically:YES];
-    NSLog(@"%zd", yes);
-//    [self method];
-//    [self racDemo1];
-//    [self racDemo3];
-//    [self racDemo4];
-//    [self racDemo9];
-//    [self racDemo10];
-//    [self racDemo11];
-//    self.filed.text = @"fsdfs";
-//    [self racDemo12];
-//    [self racDemo13];
-//    [self racDemo15];
-//    [self demo18];
-//    [self demo30];
-//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-//    CFRunLoopAddTimer(CFRunLoopGetCurrent(), (__bridge_retained CFRunLoopTimerRef)self.timer, kCFRunLoopCommonModes);
-//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:UITrackingRunLoopMode];
-//        [self.timer fire];
 }
 
 - (NSTimer *)timer {
@@ -308,11 +258,4 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	// Dispose of any resources that can be recreated.
 }
 
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    [self demo1];
-//}
-//
-//- (void)demo1 {
-//
-//}
 @end
