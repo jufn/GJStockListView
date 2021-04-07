@@ -7,7 +7,7 @@
 //
 
 #import "GJEntranceTableViewController.h"
-#import "GJLoginSuccessViewController.h"
+#import "GJMainRACDemoViewController.h"
 
 @interface GJEntranceTableViewController ()
 
@@ -46,7 +46,7 @@
     NSString *text = self.data[indexPath.row];
     
     if ([text isEqualToString:@"RAC"]) {
-        [self.navigationController pushViewController:GJLoginSuccessViewController.new animated:YES];
+        [self.navigationController pushViewController:GJMainRACDemoViewController.new animated:YES];
     }
 }
 

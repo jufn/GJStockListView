@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		193D0D63259C19CB00219433 /* MTNStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193D0D62259C19CB00219433 /* MTNStockListViewController.m */; };
 		19CFBBAE261D5927001CD99A /* GJEntranceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CFBBAD261D5927001CD99A /* GJEntranceTableViewController.m */; };
+		19CFBBB5261D5BFD001CD99A /* GJMainRACDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CFBBB4261D5BFD001CD99A /* GJMainRACDemoViewController.m */; };
 		19F85BD425C939D200100503 /* MXSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BC525C939D200100503 /* MXSimpleViewController.m */; };
 		19F85BD525C939D200100503 /* MXNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BC825C939D200100503 /* MXNumberViewController.m */; };
 		19F85BD625C939D200100503 /* MXStoryboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BCA25C939D200100503 /* MXStoryboardViewController.m */; };
@@ -56,6 +57,8 @@
 		193D0D62259C19CB00219433 /* MTNStockListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTNStockListViewController.m; sourceTree = "<group>"; };
 		19CFBBAC261D5927001CD99A /* GJEntranceTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJEntranceTableViewController.h; sourceTree = "<group>"; };
 		19CFBBAD261D5927001CD99A /* GJEntranceTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJEntranceTableViewController.m; sourceTree = "<group>"; };
+		19CFBBB3261D5BFD001CD99A /* GJMainRACDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJMainRACDemoViewController.h; sourceTree = "<group>"; };
+		19CFBBB4261D5BFD001CD99A /* GJMainRACDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJMainRACDemoViewController.m; sourceTree = "<group>"; };
 		19F85BC525C939D200100503 /* MXSimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXSimpleViewController.m; sourceTree = "<group>"; };
 		19F85BC625C939D200100503 /* MXSimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXSimpleViewController.h; sourceTree = "<group>"; };
 		19F85BC825C939D200100503 /* MXNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXNumberViewController.m; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 		1A1E97492413CE9500B33115 /* RAC */ = {
 			isa = PBXGroup;
 			children = (
+				19CFBBB3261D5BFD001CD99A /* GJMainRACDemoViewController.h */,
+				19CFBBB4261D5BFD001CD99A /* GJMainRACDemoViewController.m */,
 				1A4C918024133AEC00D0E939 /* GJRacView.h */,
 				1A4C918124133AEC00D0E939 /* GJRacView.m */,
 				1A1E974A2413CEC000B33115 /* GJLoginSuccessViewController.h */,
@@ -463,6 +468,7 @@
 				19CFBBAE261D5927001CD99A /* GJEntranceTableViewController.m in Sources */,
 				19F85BD525C939D200100503 /* MXNumberViewController.m in Sources */,
 				19F85BD725C939D200100503 /* MXExampleViewController.m in Sources */,
+				19CFBBB5261D5BFD001CD99A /* GJMainRACDemoViewController.m in Sources */,
 				6003F59E195388D20070C39A /* GJAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* GJViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
