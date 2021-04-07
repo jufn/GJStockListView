@@ -60,8 +60,22 @@
 }
 
 - (void)stockListView:(MTNStockListView *)view didSelectedRowAtIndexPath:(NSIndexPath *)indexPath {
-    MXParallaxViewController *vc = [[MXParallaxViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    MXParallaxViewController *vc = [[MXParallaxViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+    [self tryCatchDemo];
+}
+
+- (void)tryCatchDemo{
+    @try {
+//        NSString *demo = nil;
+//        NSDictionary *dc = @{@"demo" : demo};
+//        [dc allKeys];
+    } @catch (NSException *exception) {
+        NSLog(@"00000");
+    } @finally {
+        NSLog(@"11111");
+    }
+    
 }
 
 - (MTNStockListView *)stockListView {
