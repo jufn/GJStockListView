@@ -33,10 +33,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self racDemo1];
+    [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"UITableViewCell"];
 }
 
-- (void)racDemo20 {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 16;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"%zd", indexPath.row + 1];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    for (UIView *sub in self.tableView.subviews) {
+        if ([sub isKindOfClass:GJRacView.class]) {
+            [sub removeFromSuperview];
+        }
+    }
+    NSString *method = [NSString stringWithFormat:@"racDemo%zd", indexPath.row + 1];
+    SEL sel = NSSelectorFromString(method);
+    if ([self respondsToSelector:sel]) {
+        [self performSelector:sel];
+    }
+    
+}
+
+- (void)racDemo16 {
     self.viewMode2 = [[GJVC2ViewModel alloc] init];
     
     RAC(self.viewMode2, name) = self.nameTextField.rac_textSignal;
@@ -44,7 +68,7 @@
     RAC(self.sureBtn, enabled) = self.viewMode2.loginEnableSignal;
 }
 
-- (void)demo18 {
+- (void)racDemo15 {
     
     RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         NSLog(@"---- %@", input);
@@ -75,7 +99,7 @@
 
 }
 
-- (void)demo17 {
+- (void)racDemo14 {
     RACSignal *signal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
         NSLog(@"发送网络请求");
         [subscriber sendNext:@"得到网络数据"];
@@ -112,7 +136,7 @@
     
 }
 
-- (void)racDemo16 {
+- (void)racDemo13 {
  
     CGFloat w = 200, h = 40;
     CGFloat origin = [UIScreen mainScreen].bounds.size.width * 0.5 - w;
@@ -143,7 +167,7 @@
     
 }
 
-- (void)racDemo15 {
+- (void)racDemo12 {
     RACSubject *letters = [RACSubject subject];
     RACSubject *numbers = [RACSubject subject];
     RACSubject *chinese = [RACSubject subject];
@@ -156,7 +180,7 @@
     [chinese sendNext:@"你好"];
 }
 
-- (void)racDemo14 {
+- (void)racDemo11 {
     RACSubject *letters = [RACSubject subject];
     RACSubject *numbers = [RACSubject subject];
     
@@ -174,7 +198,7 @@
     
 }
 
-- (void)racDemo13 {
+- (void)racDemo10 {
     RACSubject *baidu = [RACSubject subject];
     RACSubject *geogle = [RACSubject subject];
     RACSubject *signalOfSignal = [RACSubject subject];
@@ -192,7 +216,7 @@
     [geogle sendNext:@"www.geogle.com"];
 }
 
-- (void)racDemo12 {
+- (void)racDemo9 {
     NSArray *ary = @[@"you", @"are", @"beautiful", @"girl"];
     [[[ary rac_sequence].signal map:^id _Nullable(NSString *  _Nullable value) {
         NSLog(@"%@", value);
@@ -216,7 +240,7 @@
     
 }
 
-- (void)racDemo11 {
+- (void)racDemo8 {
     UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(50, 120, 200, 50)];
     field.backgroundColor = [UIColor grayColor];
     field.textColor = [UIColor orangeColor];
@@ -242,11 +266,11 @@
     
 }
 
-- (void)racDemo10 {
+- (void)racDemo7 {
     self.view.center = CGPointMake(self.view.center.x + 100, self.view.center.y);
 }
 
-- (void)racDemo9 {
+- (void)racDemo6 {
     RACSignal *signal1 = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
         [subscriber sendNext:@"发送请求1"];
         return nil;

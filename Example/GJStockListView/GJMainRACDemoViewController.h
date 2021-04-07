@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GJMainRACDemoViewController : UIViewController
+@interface GJMainRACDemoViewController : UITableViewController
 
 @end
 
