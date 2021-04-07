@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		193D0D63259C19CB00219433 /* MTNStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193D0D62259C19CB00219433 /* MTNStockListViewController.m */; };
+		19CFBBAE261D5927001CD99A /* GJEntranceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CFBBAD261D5927001CD99A /* GJEntranceTableViewController.m */; };
 		19F85BD425C939D200100503 /* MXSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BC525C939D200100503 /* MXSimpleViewController.m */; };
 		19F85BD525C939D200100503 /* MXNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BC825C939D200100503 /* MXNumberViewController.m */; };
 		19F85BD625C939D200100503 /* MXStoryboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BCA25C939D200100503 /* MXStoryboardViewController.m */; };
@@ -53,6 +54,8 @@
 /* Begin PBXFileReference section */
 		193D0D61259C19CB00219433 /* MTNStockListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTNStockListViewController.h; sourceTree = "<group>"; };
 		193D0D62259C19CB00219433 /* MTNStockListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTNStockListViewController.m; sourceTree = "<group>"; };
+		19CFBBAC261D5927001CD99A /* GJEntranceTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJEntranceTableViewController.h; sourceTree = "<group>"; };
+		19CFBBAD261D5927001CD99A /* GJEntranceTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJEntranceTableViewController.m; sourceTree = "<group>"; };
 		19F85BC525C939D200100503 /* MXSimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXSimpleViewController.m; sourceTree = "<group>"; };
 		19F85BC625C939D200100503 /* MXSimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXSimpleViewController.h; sourceTree = "<group>"; };
 		19F85BC825C939D200100503 /* MXNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXNumberViewController.m; sourceTree = "<group>"; };
@@ -217,11 +220,14 @@
 				1A209D20242270E0008D7761 /* temper.bundle */,
 				6003F59C195388D20070C39A /* GJAppDelegate.h */,
 				6003F59D195388D20070C39A /* GJAppDelegate.m */,
-				6003F5A5195388D20070C39A /* GJViewController.h */,
-				6003F5A6195388D20070C39A /* GJViewController.m */,
+				19CFBBAC261D5927001CD99A /* GJEntranceTableViewController.h */,
+				19CFBBAD261D5927001CD99A /* GJEntranceTableViewController.m */,
+				1A1E97492413CE9500B33115 /* RAC */,
 				193D0D61259C19CB00219433 /* MTNStockListViewController.h */,
 				193D0D62259C19CB00219433 /* MTNStockListViewController.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
+				6003F5A5195388D20070C39A /* GJViewController.h */,
+				6003F5A6195388D20070C39A /* GJViewController.m */,
 				1A209D242422728E008D7761 /* archive.json */,
 				19F85BDD25C939E400100503 /* LongText.txt */,
 				19F85BD325C939D200100503 /* MXExampleViewController.h */,
@@ -229,7 +235,6 @@
 				19F85BCD25C939D200100503 /* Parallax */,
 				19F85BC425C939D200100503 /* Simple */,
 				19F85BC725C939D200100503 /* Storyboard */,
-				1A1E97492413CE9500B33115 /* RAC */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -455,6 +460,7 @@
 				19F85BD925C939D200100503 /* MXCustomView.m in Sources */,
 				19F85BD625C939D200100503 /* MXStoryboardViewController.m in Sources */,
 				1A4C918224133AEC00D0E939 /* GJRacView.m in Sources */,
+				19CFBBAE261D5927001CD99A /* GJEntranceTableViewController.m in Sources */,
 				19F85BD525C939D200100503 /* MXNumberViewController.m in Sources */,
 				19F85BD725C939D200100503 /* MXExampleViewController.m in Sources */,
 				6003F59E195388D20070C39A /* GJAppDelegate.m in Sources */,

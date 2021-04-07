@@ -7,8 +7,7 @@
 //
 
 #import "GJAppDelegate.h"
-#import "GJViewController.h"
-#import "MTNStockListViewController.h"
+#import "GJEntranceTableViewController.h"
 
 @implementation GJAppDelegate
 
@@ -19,7 +18,7 @@
 	self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 	self.window.backgroundColor = [UIColor whiteColor];
 	[self.window setRootViewController:({
-		MTNStockListViewController *vc = [[MTNStockListViewController alloc] init];
+        GJEntranceTableViewController *vc = [[GJEntranceTableViewController alloc] init];
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
 		nav;
 	})];
