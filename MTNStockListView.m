@@ -6,15 +6,20 @@
 //
 
 #import "MTNStockListView.h"
+#import "MTNScrollableRowView.h"
 
-@interface MTNSectionItem : NSObject
+inline NSString *getSectionIdentifier(NSInteger section) {
+    return [NSString stringWithFormat:@"MTNStockListView_Section_identifier_%zd", section];
+}
+
+@interface MTNSectionConfigure : NSObject
 /// 偏移量
 @property (nonatomic, assign) CGFloat contentOffsetX;
 /// 弱引用cell
 @property (nonatomic, strong) NSPointerArray *rowViews;
 @end
 
-@implementation MTNSectionItem
+@implementation MTNSectionConfigure
 - (NSPointerArray *)rowViews {
     if (!_rowViews) {
         _rowViews = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
@@ -40,8 +45,9 @@
 }
 @end
 
-@interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource>
+@interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableTableViewCellDelegate>
 
+@property (nonatomic, strong) NSMutableDictionary <NSString *, MTNSectionConfigure *> *sectionConfigure;
 @property (nonatomic, strong) MTNStockListViewForwardTarget *forwardTarget;
 
 @end
@@ -67,6 +73,35 @@
     return self.forwardTarget.delegate;
 }
 
+#pragma mark - MTNScrollableTableViewCellDelegate
+
+- (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item {
+    NSAttributedString *attri = nil;
+    if (view.indexPath.row == kSectionHeaderRowFlag) { // 头部
+        attri = [self attrbutedStringForHeaderItem:item section:view.indexPath.section];
+    } else {
+        attri = [self attributedStringForItem:item row:view.indexPath.row section:view.indexPath.section];
+    }
+    return attri;
+}
+
+- (CGFloat)rowView:(nonnull MTNScrollableRowView *)view widthForItem:(NSInteger)item {
+    NSIndexPath *indexPath = view.indexPath;
+    return [self widthForItem:item section:indexPath.section];
+}
+
+- (void)rowView:(MTNScrollableRowView *)view didScrollToOffsetX:(CGFloat)x {
+    MTNSectionConfigure *configure = [self sectionConfigureAtSection:view.indexPath.section];
+    
+    configure.contentOffsetX  = x;
+    [configure.rowViews compact];
+    for (MTNScrollableRowView *each in configure.rowViews) {
+        if ([each isEqual:view] == NO) {
+            [each setContentOffsetX:x];
+        }
+    }
+}
+
 #pragma mark - <UITableViewDelegate, UITableViewDataSource>
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -82,23 +117,31 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     BOOL should = NO;
     if ([self.forwardTarget respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
         should = [self.forwardTarget.dataSource stockListView:self shouldHorizontalScrollableAtSection:indexPath.section];
     }
     
-    UITableViewCell *cell = nil;
-    if (should) {
-        NSString *identifier = [NSString stringWithFormat:@"%@_section_%zd", NSStringFromClass(UITableViewCell.class), indexPath.section];
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-
-        
-        
-        
-    } else {
-        cell = [self.forwardTarget.dataSource tableView:self cellForRowAtIndexPath:indexPath];
+    if (should == NO) {
+        return [self.forwardTarget.dataSource tableView:self cellForRowAtIndexPath:indexPath];
     }
+    
+    static NSInteger kScrollableRowViewTag = 10086l;
+    NSString *identifier = getSectionIdentifier(indexPath.section);
+    MTNSectionConfigure *configure = [self sectionConfigureAtSection:indexPath.section];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        CGFloat rowHeight = [self.delegate tableView:self heightForRowAtIndexPath:indexPath];
+        
+        MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), rowHeight) numberOfItems:[self numberOfItemsAtSection:indexPath.section] delegate:self];
+        view.tag = kScrollableRowViewTag;
+        [cell.contentView addSubview:view];
+        [configure.rowViews addPointer:(__bridge void *)view];
+    }
+    MTNScrollableRowView *rowView = [cell.contentView viewWithTag:kScrollableRowViewTag];
+    [rowView setContentOffsetX:configure.contentOffsetX];
+    rowView.indexPath = indexPath;
     return cell;
 }
 
@@ -109,6 +152,32 @@
 
 - (id<MTNStockListViewDataSource>)dataSource {
     return self.forwardTarget.dataSource;
+}
+
+- (MTNSectionConfigure *)sectionConfigureAtSection:(NSInteger)section {
+    NSString *identifier = getSectionIdentifier(section);
+    MTNSectionConfigure *configure = self.sectionConfigure[identifier];
+    if (configure == nil) {
+        configure = [MTNSectionConfigure new];
+        [self.sectionConfigure setObject:configure forKey:identifier];
+    }
+    return configure;
+}
+
+- (NSInteger)numberOfItemsAtSection:(NSInteger)section {
+    NSInteger number = 0;
+    if ([self.dataSource respondsToSelector:@selector(stockListView:numberOfItemsAtSection:)]) {
+        number = [self.dataSource stockListView:self numberOfItemsAtSection:section];
+    }
+    return number;
+}
+
+#pragma mark - Getter
+- (NSMutableDictionary<NSString *,MTNSectionConfigure *> *)sectionConfigure {
+    if (!_sectionConfigure) {
+        _sectionConfigure = [NSMutableDictionary dictionary];
+    }
+    return _sectionConfigure;
 }
 
 @end
