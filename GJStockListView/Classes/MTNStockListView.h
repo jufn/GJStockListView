@@ -11,7 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class MTNStockListView;
 @protocol MTNStockListViewDelegate <UITableViewDelegate>
 - (CGFloat)stockListView:(MTNStockListView *)stockListView widthForItem:(NSInteger)item section:(NSInteger)section;
-- (void)stockListView:(MTNStockListView *)stockListView itemViewAtItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section;
+
+- (NSAttributedString *)stockListView:(MTNStockListView *)stockListView attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section;
+- (NSAttributedString *)stockListView:(MTNStockListView *)stockListView attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section;
 @end
 
 @protocol MTNStockListViewDataSource  <UITableViewDataSource>

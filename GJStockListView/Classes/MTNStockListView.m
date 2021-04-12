@@ -78,7 +78,9 @@ NSString *getSectionIdentifier(NSInteger section) {
 - (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item {
     NSAttributedString *attri = nil;
     if (view.indexPath.row == kSectionHeaderRowFlag) { // 头部
+        attri = [self attrbutedStringForHeaderItem:item section:view.indexPath.section];
     } else {
+        attri = [self attributedStringForItem:item row:view.indexPath.row section:view.indexPath.section];
     }
     return attri;
 }
@@ -172,6 +174,22 @@ NSString *getSectionIdentifier(NSInteger section) {
         number = [self.dataSource stockListView:self numberOfItemsAtSection:section];
     }
     return number;
+}
+
+- (NSAttributedString *)attrbutedStringForHeaderItem:(NSInteger)item section:(NSInteger)section {
+    NSAttributedString *attri = nil;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:attributedStringForHeaderItem:section:)]) {
+        attri = [self.delegate stockListView:self attributedStringForHeaderItem:item section:section];
+    }
+    return attri;
+}
+
+- (NSAttributedString *)attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section {
+    NSAttributedString *attri = nil;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(stockListView:attributedStringForItem:row:section:)]) {
+        attri = [self.delegate stockListView:self attributedStringForItem:item row:row section:section];
+    }
+    return attri;
 }
 
 #pragma mark - Getter

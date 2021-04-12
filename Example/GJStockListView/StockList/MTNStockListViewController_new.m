@@ -9,7 +9,12 @@
 #import "MTNStockListViewController_new.h"
 #import <GJStockListView/MTNStockListView.h>
 
-@interface MTNStockListViewController_new ()
+@interface MTNStockListViewController_new () <MTNStockListViewDelegate, MTNStockListViewDataSource>
+
+@property (nonatomic, strong) MTNStockListView *stockListView;
+
+@property (nonatomic, copy) NSArray *titles;
+@property (nonatomic, copy) NSArray *contents;
 
 @end
 
@@ -18,16 +23,63 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"ha ha new";
+
+    [self.view addSubview:self.stockListView];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - <MTNStockListViewDelegate, MTNStockListViewDataSource>
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)stockListView:(MTNStockListView *)stockListView shouldHorizontalScrollableAtSection:(NSInteger)section {
+    return YES;
 }
-*/
+
+
+- (CGFloat)stockListView:(MTNStockListView *)stockListView widthForItem:(NSInteger)item section:(NSInteger)section {
+    return MIN(100, MAX(40, item * 10.0));
+}
+
+- (NSInteger)stockListView:(MTNStockListView *)stockListView numberOfItemsAtSection:(NSInteger)section {
+    return self.titles.count;
+}
+
+- (nonnull NSAttributedString *)stockListView:(nonnull MTNStockListView *)view attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section {
+    return [[NSAttributedString alloc] initWithString:self.titles[item] attributes:@{NSForegroundColorAttributeName : [UIColor darkTextColor], NSFontAttributeName : [UIFont systemFontOfSize:16]}];
+}
+
+- (nonnull NSAttributedString *)stockListView:(nonnull MTNStockListView *)view attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section {
+    return [[NSAttributedString alloc] initWithString:self.contents[item] attributes:@{NSForegroundColorAttributeName : [UIColor orangeColor], NSFontAttributeName : [UIFont systemFontOfSize:15]}];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
+- (MTNStockListView *)stockListView {
+    if (!_stockListView) {
+        _stockListView = [[MTNStockListView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _stockListView.dataSource = self;
+        _stockListView.delegate = self;
+    }
+    return _stockListView;
+}
+
+- (NSArray *)titles {
+    if (!_titles) {
+        _titles = @[@"名称", @"最新", @"涨幅", @"涨跌", @"昨收", @"成交量", @"成交额", @"最高", @"最低"];
+    }
+    return _titles;
+}
+
+- (NSArray *)contents {
+    if (!_contents) {
+        _contents = @[@"振华重工", @"20.19", @"+2.10%", @"0.45", @"19.64", @"3.2B", @"54B", @"20.21", @"19.88"];
+    }
+    return _contents;
+}
 
 @end
