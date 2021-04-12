@@ -34,7 +34,6 @@
     return YES;
 }
 
-
 - (CGFloat)stockListView:(MTNStockListView *)stockListView widthForItem:(NSInteger)item section:(NSInteger)section {
     return MIN(100, MAX(40, item * 10.0));
 }
@@ -57,6 +56,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCell.new;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    return 50.0;
 }
 
 - (MTNStockListView *)stockListView {

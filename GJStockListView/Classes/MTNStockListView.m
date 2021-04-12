@@ -57,13 +57,6 @@ NSString *getSectionIdentifier(NSInteger section) {
 @synthesize delegate = _delegate;
 @synthesize dataSource = _dataSource;
 
-- (instancetype)init {
-    if (self = [super init]) {
-        _forwardTarget = [MTNStockListViewForwardTarget new];
-    }
-    return self;
-}
-
 - (void)setDelegate:(id<MTNStockListViewDelegate>)delegate {
     super.delegate = self;
     self.forwardTarget.delegate = delegate;
@@ -71,6 +64,15 @@ NSString *getSectionIdentifier(NSInteger section) {
 
 - (id<MTNStockListViewDelegate>)delegate {
     return self.forwardTarget.delegate;
+}
+
+- (void)setDataSource:(id<MTNStockListViewDataSource>)dataSource {
+    super.dataSource = self;
+    self.forwardTarget.dataSource = dataSource;
+}
+
+- (id<MTNStockListViewDataSource>)dataSource {
+    return self.forwardTarget.dataSource;
 }
 
 #pragma mark - MTNScrollableTableViewCellDelegate
@@ -110,24 +112,24 @@ NSString *getSectionIdentifier(NSInteger section) {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     NSInteger num = 1;
-    if ([self.forwardTarget.dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
-        num = [self.forwardTarget.dataSource numberOfSectionsInTableView:tableView];
+    if ([self.dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
+        num = [self.dataSource numberOfSectionsInTableView:tableView];
     }
     return num;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.forwardTarget.dataSource tableView:tableView numberOfRowsInSection:section];
+    return [self.dataSource tableView:tableView numberOfRowsInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL should = NO;
-    if ([self.forwardTarget respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
-        should = [self.forwardTarget.dataSource stockListView:self shouldHorizontalScrollableAtSection:indexPath.section];
+    if ([self.dataSource respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
+        should = [self.dataSource stockListView:self shouldHorizontalScrollableAtSection:indexPath.section];
     }
     
     if (should == NO) {
-        return [self.forwardTarget.dataSource tableView:self cellForRowAtIndexPath:indexPath];
+        return [self.dataSource tableView:self cellForRowAtIndexPath:indexPath];
     }
     
     static NSInteger kScrollableRowViewTag = 10086l;
@@ -147,15 +149,6 @@ NSString *getSectionIdentifier(NSInteger section) {
     [rowView setContentOffsetX:configure.contentOffsetX];
     rowView.indexPath = indexPath;
     return cell;
-}
-
-- (void)setDataSource:(id<MTNStockListViewDataSource>)dataSource {
-    super.dataSource = self;
-    self.forwardTarget.dataSource = dataSource;
-}
-
-- (id<MTNStockListViewDataSource>)dataSource {
-    return self.forwardTarget.dataSource;
 }
 
 - (MTNSectionConfigure *)sectionConfigureAtSection:(NSInteger)section {
@@ -198,6 +191,13 @@ NSString *getSectionIdentifier(NSInteger section) {
         _sectionConfigure = [NSMutableDictionary dictionary];
     }
     return _sectionConfigure;
+}
+
+- (MTNStockListViewForwardTarget *)forwardTarget {
+    if (!_forwardTarget) {
+        _forwardTarget = [MTNStockListViewForwardTarget new];
+    }
+    return _forwardTarget;
 }
 
 @end
