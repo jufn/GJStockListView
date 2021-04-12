@@ -8,7 +8,7 @@
 #import "MTNStockListView.h"
 #import "MTNScrollableRowView.h"
 
-inline NSString *getSectionIdentifier(NSInteger section) {
+NSString *getSectionIdentifier(NSInteger section) {
     return [NSString stringWithFormat:@"MTNStockListView_Section_identifier_%zd", section];
 }
 
@@ -45,7 +45,7 @@ inline NSString *getSectionIdentifier(NSInteger section) {
 }
 @end
 
-@interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableTableViewCellDelegate>
+@interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableRowViewDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary <NSString *, MTNSectionConfigure *> *sectionConfigure;
 @property (nonatomic, strong) MTNStockListViewForwardTarget *forwardTarget;
@@ -78,16 +78,18 @@ inline NSString *getSectionIdentifier(NSInteger section) {
 - (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item {
     NSAttributedString *attri = nil;
     if (view.indexPath.row == kSectionHeaderRowFlag) { // 头部
-        attri = [self attrbutedStringForHeaderItem:item section:view.indexPath.section];
     } else {
-        attri = [self attributedStringForItem:item row:view.indexPath.row section:view.indexPath.section];
     }
     return attri;
 }
 
 - (CGFloat)rowView:(nonnull MTNScrollableRowView *)view widthForItem:(NSInteger)item {
     NSIndexPath *indexPath = view.indexPath;
-    return [self widthForItem:item section:indexPath.section];
+    CGFloat width = 0.0f;
+    if ([self.delegate respondsToSelector:@selector(stockListView:widthForItem:section:)]) {
+        width = [self.delegate stockListView:self widthForItem:item section:indexPath.section];
+    }
+    return width;
 }
 
 - (void)rowView:(MTNScrollableRowView *)view didScrollToOffsetX:(CGFloat)x {

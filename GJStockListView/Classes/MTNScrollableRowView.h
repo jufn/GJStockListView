@@ -18,6 +18,7 @@ FOUNDATION_EXPORT NSInteger kSectionHeaderRowFlag; // 表示是header
 - (CGFloat)rowView:(MTNScrollableRowView *)view widthForItem:(NSInteger)item;
 - (NSAttributedString *)rowView:(MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item;
 - (void)rowView:(MTNScrollableRowView *)view didScrollToOffsetX:(CGFloat)x;
+
 @end
 
 /// 可横向滚动的cell
