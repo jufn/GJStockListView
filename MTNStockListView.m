@@ -7,6 +7,22 @@
 
 #import "MTNStockListView.h"
 
+@interface MTNSectionItem : NSObject
+/// 偏移量
+@property (nonatomic, assign) CGFloat contentOffsetX;
+/// 弱引用cell
+@property (nonatomic, strong) NSPointerArray *rowViews;
+@end
+
+@implementation MTNSectionItem
+- (NSPointerArray *)rowViews {
+    if (!_rowViews) {
+        _rowViews = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
+    }
+    return _rowViews;
+}
+@end
+
 @interface MTNStockListViewForwardTarget : NSObject
 
 @property (nonatomic, weak) id <MTNStockListViewDelegate>delegate;
@@ -22,7 +38,6 @@
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
     [anInvocation invokeWithTarget:self.delegate];
 }
-
 @end
 
 @interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource>
@@ -74,8 +89,12 @@
     }
     
     UITableViewCell *cell = nil;
-    
     if (should) {
+        NSString *identifier = [NSString stringWithFormat:@"%@_section_%zd", NSStringFromClass(UITableViewCell.class), indexPath.section];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+
+        
+        
         
     } else {
         cell = [self.forwardTarget.dataSource tableView:self cellForRowAtIndexPath:indexPath];

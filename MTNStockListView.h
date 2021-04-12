@@ -10,11 +10,14 @@
 NS_ASSUME_NONNULL_BEGIN
 @class MTNStockListView;
 @protocol MTNStockListViewDelegate <UITableViewDelegate>
+- (CGFloat)stockListView:(MTNStockListView *)stockListView widthForItem:(NSInteger)item section:(NSInteger)section;
+- (void)stockListView:(MTNStockListView *)stockListView itemViewAtItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section;
 @end
 
 @protocol MTNStockListViewDataSource  <UITableViewDataSource>
 
 - (BOOL)stockListView:(MTNStockListView *)stockListView shouldHorizontalScrollableAtSection:(NSInteger)section;
+- (NSInteger)stockListView:(MTNStockListView *)stockListView numberOfItemsAtSection:(NSInteger)section;
 
 @end
 

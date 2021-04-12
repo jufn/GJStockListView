@@ -4,14 +4,14 @@
 
 const NSInteger kMTNScrollableRowTag = 100000;
 
-@interface MTNSectionItem : NSObject
+@interface GJSectionItem : NSObject
 /// 偏移量
 @property (nonatomic, assign) CGFloat contentOffsetX;
 /// 弱引用cell
 @property (nonatomic, strong) NSPointerArray *rowViews;
 @end
 
-@implementation MTNSectionItem
+@implementation GJSectionItem
 - (NSPointerArray *)rowViews {
     if (!_rowViews) {
         _rowViews = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
@@ -24,7 +24,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
 
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 
-@property (nonatomic, strong) NSMutableDictionary <NSString *, MTNSectionItem *> *mapper;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, GJSectionItem *> *mapper;
 
 @end
 
@@ -74,7 +74,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
 }
 
 - (void)rowView:(MTNScrollableRowView *)view didScrollToOffsetX:(CGFloat)x {
-    MTNSectionItem *item = [self itemAtSection:view.indexPath.section];
+    GJSectionItem *item = [self itemAtSection:view.indexPath.section];
     item.contentOffsetX  = x;
     [item.rowViews compact];
     for (MTNScrollableRowView *each in item.rowViews) {
@@ -103,7 +103,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    MTNSectionItem *item = [self itemAtSection:section];
+    GJSectionItem *item = [self itemAtSection:section];
     MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForHeaderInSection:section]) numberOfItems:[self numberOfItemInSection:section] delegate:self];
     view.indexPath = [NSIndexPath indexPathForRow:kSectionHeaderRowFlag inSection:section];
     [item.rowViews addPointer:(__bridge void *)view];
@@ -114,7 +114,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = [NSString stringWithFormat:@"%@_section_%zd", NSStringFromClass(UITableViewCell.class), indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    MTNSectionItem *item = [self itemAtSection:indexPath.section];
+    GJSectionItem *item = [self itemAtSection:indexPath.section];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForRow:indexPath.row section:indexPath.section]) numberOfItems:[self numberOfItemInSection:indexPath.section] delegate:self];
@@ -145,11 +145,11 @@ const NSInteger kMTNScrollableRowTag = 100000;
     return mAttris.copy;
 }
 
-- (MTNSectionItem *)itemAtSection:(NSInteger)section {
+- (GJSectionItem *)itemAtSection:(NSInteger)section {
     NSString *key = [NSString stringWithFormat:@"%zd", section];
-    MTNSectionItem *item = self.mapper[key];
+    GJSectionItem *item = self.mapper[key];
     if (item == nil) {
-        item = [[MTNSectionItem alloc] init];
+        item = [[GJSectionItem alloc] init];
         [self.mapper setValue:item forKey:key];
     }
     return item;
@@ -237,7 +237,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
     return _tableView;
 }
 
-- (NSMutableDictionary<NSString *,MTNSectionItem *> *)mapper {
+- (NSMutableDictionary<NSString *,GJSectionItem *> *)mapper {
     if (!_mapper) {
         _mapper = [NSMutableDictionary dictionary];
     }
