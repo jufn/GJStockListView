@@ -52,6 +52,37 @@
     return self.forwardTarget.delegate;
 }
 
+#pragma mark - <UITableViewDelegate, UITableViewDataSource>
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSInteger num = 1;
+    if ([self.forwardTarget.dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
+        num = [self.forwardTarget.dataSource numberOfSectionsInTableView:tableView];
+    }
+    return num;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.forwardTarget.dataSource tableView:tableView numberOfRowsInSection:section];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BOOL should = NO;
+    if ([self.forwardTarget respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
+        should = [self.forwardTarget.dataSource stockListView:self shouldHorizontalScrollableAtSection:indexPath.section];
+    }
+    
+    UITableViewCell *cell = nil;
+    
+    if (should) {
+        
+    } else {
+        cell = [self.forwardTarget.dataSource tableView:self cellForRowAtIndexPath:indexPath];
+    }
+    return cell;
+}
+
 - (void)setDataSource:(id<MTNStockListViewDataSource>)dataSource {
     super.dataSource = self;
     self.forwardTarget.dataSource = dataSource;

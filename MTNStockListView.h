@@ -8,11 +8,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class MTNStockListView;
 @protocol MTNStockListViewDelegate <UITableViewDelegate>
 @end
 
 @protocol MTNStockListViewDataSource  <UITableViewDataSource>
+
+- (BOOL)stockListView:(MTNStockListView *)stockListView shouldHorizontalScrollableAtSection:(NSInteger)section;
 
 @end
 
