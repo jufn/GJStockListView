@@ -7,6 +7,7 @@
 //
 
 #import "MTNStockListViewController_new.h"
+#import <GJStockListView/MTNStockListView.h>
 
 @interface MTNStockListViewController_new ()
 

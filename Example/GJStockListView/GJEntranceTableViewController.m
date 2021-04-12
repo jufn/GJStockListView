@@ -9,9 +9,9 @@
 #import "GJEntranceTableViewController.h"
 #import "GJMainRACDemoViewController.h"
 #import "MTNStockListViewController.h"
+#import "MTNStockListViewController_new.h"
 
 @interface GJEntranceTableViewController ()
-
 @property (nonatomic, copy) NSArray *data;
 
 @end
@@ -23,7 +23,7 @@
     
     self.clearsSelectionOnViewWillAppear = YES;
     
-    self.data = @[@"RAC", @"stockList"];
+    self.data = @[@"RAC", @"stockList", @"stockList_new"];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -50,6 +50,8 @@
         [self.navigationController pushViewController:GJMainRACDemoViewController.new animated:YES];
     } else if ([text isEqualToString:@"stockList"]) {
         [self.navigationController pushViewController:MTNStockListViewController.new animated:YES];
+    } else if ([text isEqualToString:@"stockList_new"]) {
+        [self.navigationController pushViewController:MTNStockListViewController_new.new animated:YES];
     }
 }
 
