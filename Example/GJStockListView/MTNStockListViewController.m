@@ -10,9 +10,8 @@
 #import <GJStockListView.h>
 #import "MXParallaxViewController.h"
 
-
-@interface MTNStockListViewController () <MTNStockListViewDelegate>
-@property (nonatomic, strong) MTNStockListView *stockListView;
+@interface MTNStockListViewController () <GJStockListViewDelegate>
+@property (nonatomic, strong) GJStockListView *stockListView;
 @property (nonatomic, copy) NSArray *titles;
 @property (nonatomic, copy) NSArray *contents;
 @end
@@ -26,40 +25,40 @@
     [self.view addSubview:self.stockListView];
 }
 
-- (NSInteger)numberOfSectionInStockListView:(nonnull MTNStockListView *)listView {
+- (NSInteger)numberOfSectionInStockListView:(nonnull GJStockListView *)listView {
     return 1;
 }
 
-- (CGFloat)stockListView:(MTNStockListView *)view heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)stockListView:(GJStockListView *)view heightForHeaderInSection:(NSInteger)section{
     return 44.0;
 }
 
-- (CGFloat)stockListView:(nonnull MTNStockListView *)view heightForRow:(NSInteger)row section:(NSInteger)section {
+- (CGFloat)stockListView:(nonnull GJStockListView *)view heightForRow:(NSInteger)row section:(NSInteger)section {
     return 62;
 }
 
-- (NSInteger)stockListView:(nonnull MTNStockListView *)view numOfRowInSection:(NSInteger)section {
+- (NSInteger)stockListView:(nonnull GJStockListView *)view numOfRowInSection:(NSInteger)section {
     return self.titles.count;
 }
 
-- (NSInteger)stockListView:(nonnull MTNStockListView *)view numOfItemInSection:(NSInteger)section {
+- (NSInteger)stockListView:(nonnull GJStockListView *)view numOfItemInSection:(NSInteger)section {
     return self.titles.count;
 }
 
-- (CGFloat)stockListView:(nonnull MTNStockListView *)view widthForItem:(NSInteger)item section:(NSInteger)section {
+- (CGFloat)stockListView:(nonnull GJStockListView *)view widthForItem:(NSInteger)item section:(NSInteger)section {
     return 100;
 }
 
-- (nonnull NSAttributedString *)stockListView:(nonnull MTNStockListView *)view attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section {
+- (nonnull NSAttributedString *)stockListView:(nonnull GJStockListView *)view attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section {
     return [[NSAttributedString alloc] initWithString:self.titles[item] attributes:@{NSForegroundColorAttributeName : [UIColor darkTextColor], NSFontAttributeName : [UIFont systemFontOfSize:16]}];
     
 }
 
-- (nonnull NSAttributedString *)stockListView:(nonnull MTNStockListView *)view attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section {
+- (nonnull NSAttributedString *)stockListView:(nonnull GJStockListView *)view attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section {
     return [[NSAttributedString alloc] initWithString:self.contents[item] attributes:@{NSForegroundColorAttributeName : [UIColor orangeColor], NSFontAttributeName : [UIFont systemFontOfSize:15]}];
 }
 
-- (void)stockListView:(MTNStockListView *)view didSelectedRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)stockListView:(GJStockListView *)view didSelectedRowAtIndexPath:(NSIndexPath *)indexPath {
 //    MXParallaxViewController *vc = [[MXParallaxViewController alloc] init];
 //    [self.navigationController pushViewController:vc animated:YES];
     [self tryCatchDemo];
@@ -78,9 +77,9 @@
     
 }
 
-- (MTNStockListView *)stockListView {
+- (GJStockListView *)stockListView {
     if (!_stockListView) {
-        _stockListView = [[MTNStockListView alloc] initWithFrame:CGRectMake(0, 100, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 100)];
+        _stockListView = [[GJStockListView alloc] initWithFrame:CGRectMake(0, 100, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 100)];
         _stockListView.delegate = self;
     }
     return _stockListView;

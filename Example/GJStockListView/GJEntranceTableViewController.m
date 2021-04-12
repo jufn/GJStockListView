@@ -8,6 +8,7 @@
 
 #import "GJEntranceTableViewController.h"
 #import "GJMainRACDemoViewController.h"
+#import "MTNStockListViewController.h"
 
 @interface GJEntranceTableViewController ()
 
@@ -22,7 +23,7 @@
     
     self.clearsSelectionOnViewWillAppear = YES;
     
-    self.data = @[@"RAC"];
+    self.data = @[@"RAC", @"stockList"];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -47,6 +48,8 @@
     
     if ([text isEqualToString:@"RAC"]) {
         [self.navigationController pushViewController:GJMainRACDemoViewController.new animated:YES];
+    } else if ([text isEqualToString:@"stockList"]) {
+        [self.navigationController pushViewController:MTNStockListViewController.new animated:YES];
     }
 }
 

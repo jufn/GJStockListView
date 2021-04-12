@@ -1,30 +1,30 @@
 
 #import <UIKit/UIKit.h>
 
-@class MTNStockListView;
+@class GJStockListView;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol MTNStockListViewDelegate <NSObject>
-- (NSInteger)numberOfSectionInStockListView:(MTNStockListView *)listView;
-- (NSInteger)stockListView:(MTNStockListView *)view numOfRowInSection:(NSInteger)section;
-- (NSInteger)stockListView:(MTNStockListView *)view numOfItemInSection:(NSInteger)section;
+@protocol GJStockListViewDelegate <NSObject>
+- (NSInteger)numberOfSectionInStockListView:(GJStockListView *)listView;
+- (NSInteger)stockListView:(GJStockListView *)view numOfRowInSection:(NSInteger)section;
+- (NSInteger)stockListView:(GJStockListView *)view numOfItemInSection:(NSInteger)section;
 
-- (CGFloat)stockListView:(MTNStockListView *)view heightForHeaderInSection:(NSInteger)section;
-- (CGFloat)stockListView:(MTNStockListView *)view heightForRow:(NSInteger)row section:(NSInteger)section;
-- (CGFloat)stockListView:(MTNStockListView *)view widthForItem:(NSInteger)item section:(NSInteger)section;
+- (CGFloat)stockListView:(GJStockListView *)view heightForHeaderInSection:(NSInteger)section;
+- (CGFloat)stockListView:(GJStockListView *)view heightForRow:(NSInteger)row section:(NSInteger)section;
+- (CGFloat)stockListView:(GJStockListView *)view widthForItem:(NSInteger)item section:(NSInteger)section;
 
-- (NSAttributedString *)stockListView:(MTNStockListView *)view attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section;
-- (NSAttributedString *)stockListView:(MTNStockListView *)view attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section;
-- (void)stockListView:(MTNStockListView *)view didSelectedRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSAttributedString *)stockListView:(GJStockListView *)view attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section;
+- (NSAttributedString *)stockListView:(GJStockListView *)view attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section;
+- (void)stockListView:(GJStockListView *)view didSelectedRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
-@interface MTNStockListView : UIView
+@interface GJStockListView : UIView
 
 @property (nonatomic, readonly) UITableView *tableView;
 
-@property (nonatomic, weak) id <MTNStockListViewDelegate>delegate;
+@property (nonatomic, weak) id <GJStockListViewDelegate>delegate;
 
 - (void)reloadData;
 

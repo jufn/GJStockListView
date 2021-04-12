@@ -20,7 +20,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
 }
 @end
 
-@interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableRowViewDelegate>
+@interface GJStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableRowViewDelegate>
 
 @property (nonatomic, strong, readwrite) UITableView *tableView;
 
@@ -28,7 +28,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
 
 @end
 
-@implementation MTNStockListView
+@implementation GJStockListView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {

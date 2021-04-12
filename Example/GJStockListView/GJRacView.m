@@ -13,21 +13,23 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
-//        self.backgroundColor = [UIColor redColor];
-//        //创建一个按钮
-//        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 70, 70)];
-//        btn.backgroundColor = [UIColor blueColor];
-//        [self addSubview:btn];
-//
-//        [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-//            [self sendValue:@"1234" andDict:@{@"key" : @"value"}];
-//        }];
-        [self demo2];
+        self.backgroundColor = [UIColor redColor];
+        //创建一个按钮
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 70, 70)];
+        btn.backgroundColor = [UIColor blueColor];
+        [self addSubview:btn];
+
+        [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            [self sendValue:@"1234" andDict:@{@"key" : @"value"}];
+        }];
+//        [self demo2];
     }
     return self;
 }
 
-
+- (void)sendValue:(NSString *)value andDict:(NSDictionary *)dict {
+    
+}
 
 - (void)demo2 {
     //创建一个按钮

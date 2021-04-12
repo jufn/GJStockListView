@@ -17,9 +17,9 @@ static NSString * const kMenuItemTitleBottom = @"置底";
 static NSString * const kMenuItemTitleDelete = @"删除";
 static NSString * const kMenuItemTitleManager = @"指标管理";
 
-@interface GJViewController () <MTNStockListViewDelegate>
+@interface GJViewController () <GJStockListViewDelegate>
 
-@property (nonatomic, strong) MTNStockListView *listView;
+@property (nonatomic, strong) GJStockListView *listView;
 @property (nonatomic, copy) NSArray<UIMenuItem *> *allMenuItems;
 
 @property (nonatomic, strong) NSTimer *timer;
@@ -36,19 +36,19 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
     return @[@"国泰君安", @"20.19", @"+2.10%", @"0.45", @"19.64", @"3.2B", @"54B", @"20.21", @"19.88"];
 }
 
-- (NSArray<NSString *> *)titlesForListViewHeader:(MTNStockListView *)listView {
+- (NSArray<NSString *> *)titlesForListViewHeader:(GJStockListView *)listView {
 	return [self getTitles];
 }
 
-- (NSInteger)numberOfRowsInListView:(nonnull MTNStockListView *)listView {
+- (NSInteger)numberOfRowsInListView:(nonnull GJStockListView *)listView {
 	return 30;
 }
 
-- (NSInteger)numberOfColumnsInListView:(MTNStockListView *)listView {
+- (NSInteger)numberOfColumnsInListView:(GJStockListView *)listView {
     return [[self getTitles] count];
 }
 
-- (UIView *)stockListView:(MTNStockListView *)view headerItemViewAtColumn:(NSInteger)column {
+- (UIView *)stockListView:(GJStockListView *)view headerItemViewAtColumn:(NSInteger)column {
     NSString *title = [self getTitles][column];
     UIButton *button = [[UIButton alloc] init];
     [button setTitle:title forState:UIControlStateNormal];
@@ -68,7 +68,7 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
     NSLog(@"hhhhhh %@ ____ %zd", title, index);
 }
 
-- (UIView *)stockListView:(MTNStockListView *)view itemViewAtRow:(NSInteger)row column:(NSInteger)column {
+- (UIView *)stockListView:(GJStockListView *)view itemViewAtRow:(NSInteger)row column:(NSInteger)column {
     UILabel *label = [[UILabel alloc] init];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = [self getContent][column];
@@ -76,15 +76,15 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
     return label;
 }
 
-- (CGFloat)stockListView:(MTNStockListView *)view widthAtColumn:(NSInteger)column {
+- (CGFloat)stockListView:(GJStockListView *)view widthAtColumn:(NSInteger)column {
     return 120;
 }
 
-- (void)stockListView:(MTNStockListView *)view reloadingItemView:(UIView *)itemView atRow:(NSInteger)row column:(NSInteger)column {
+- (void)stockListView:(GJStockListView *)view reloadingItemView:(UIView *)itemView atRow:(NSInteger)row column:(NSInteger)column {
     
 }
 
-- (void)stockListView:(MTNStockListView *)view didSelectedAtRow:(NSInteger)row {
+- (void)stockListView:(GJStockListView *)view didSelectedAtRow:(NSInteger)row {
 //	[view startRiseHeartBeatAnimationAtRow:row];
 	NSLog(@" ++++++ 您点击了第%ld行", row);
 }
@@ -93,7 +93,7 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	return YES;
 }
 
-- (void)stockListView:(MTNStockListView *)view didBegainLongPressAtRow:(NSInteger)row {
+- (void)stockListView:(GJStockListView *)view didBegainLongPressAtRow:(NSInteger)row {
 //	[view startFallHeartBeatAnimationAtRow:row];
 	[self becomeFirstResponder];
 	NSLog(@" ________ 您长按了第%zd行", row);
@@ -179,7 +179,7 @@ static NSString * const kMenuItemTitleManager = @"指标管理";
 	self.title  = @"股票列表";
 	CGRect frame = CGRectMake(0, 200, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 200);
 
-	self.listView = [[MTNStockListView alloc] initWithFrame:frame];
+	self.listView = [[GJStockListView alloc] initWithFrame:frame];
 	self.listView.delegate = self;
 
 	MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

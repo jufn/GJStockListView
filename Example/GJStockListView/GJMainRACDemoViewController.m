@@ -330,8 +330,10 @@
     GJRacView *view = [[GJRacView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     [self.view addSubview:view];
     [[view rac_signalForSelector:@selector(sendValue:andDict:)] subscribeNext:^(RACTuple * _Nullable x) {
-        NSLog(@"点击了按钮%@", x.first);
-        NSLog(@"%@", x.second);
+        RACTupleUnpack(NSString *first, NSDictionary *sec) = x;
+        
+        NSLog(@"点击了按钮%@", first);
+        NSLog(@"%@", sec);
     }];
 }
 

@@ -20,6 +20,7 @@
 	[self.window setRootViewController:({
         GJEntranceTableViewController *vc = [[GJEntranceTableViewController alloc] init];
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//        nav.navigationBar.hidden = YES; // 可模拟整体的navi效果
 		nav;
 	})];
 	
