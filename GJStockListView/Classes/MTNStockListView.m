@@ -79,7 +79,7 @@ NSString *getSectionIdentifier(NSInteger section) {
 
 - (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item {
     NSAttributedString *attri = nil;
-    if (view.indexPath.row == kSectionHeaderRowFlag) { // 头部
+    if (view.isAddedToHeader) { // 头部
         attri = [self attrbutedStringForHeaderItem:item section:view.indexPath.section];
     } else {
         attri = [self attributedStringForItem:item row:view.indexPath.row section:view.indexPath.section];

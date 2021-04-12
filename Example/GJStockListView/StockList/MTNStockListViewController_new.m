@@ -10,12 +10,9 @@
 #import <GJStockListView/MTNStockListView.h>
 
 @interface MTNStockListViewController_new () <MTNStockListViewDelegate, MTNStockListViewDataSource>
-
 @property (nonatomic, strong) MTNStockListView *stockListView;
-
 @property (nonatomic, copy) NSArray *titles;
 @property (nonatomic, copy) NSArray *contents;
-
 @end
 
 @implementation MTNStockListViewController_new
@@ -35,7 +32,7 @@
 }
 
 - (CGFloat)stockListView:(MTNStockListView *)stockListView widthForItem:(NSInteger)item section:(NSInteger)section {
-    return MIN(100, MAX(40, item * 10.0));
+    return MIN(120, MAX(60, item * 10.0));
 }
 
 - (NSInteger)stockListView:(MTNStockListView *)stockListView numberOfItemsAtSection:(NSInteger)section {

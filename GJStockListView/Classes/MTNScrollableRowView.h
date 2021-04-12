@@ -10,8 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT NSInteger kSectionHeaderRowFlag; // 表示是header
-
 @class MTNScrollableRowView;
 
 @protocol MTNScrollableRowViewDelegate <NSObject>
@@ -26,6 +24,8 @@ FOUNDATION_EXPORT NSInteger kSectionHeaderRowFlag; // 表示是header
 @property (nonatomic, strong) UILabel *titleLab;
 
 - (instancetype)initWithFrame:(CGRect)frame numberOfItems:(NSInteger)numberOfItems delegate:(id <MTNScrollableRowViewDelegate>) delegate;
+
+@property (nonatomic, assign) BOOL isAddedToHeader;
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 

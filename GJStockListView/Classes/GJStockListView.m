@@ -60,7 +60,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
 
 - (nonnull NSAttributedString *)rowView:(nonnull MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item {
     NSAttributedString *attri = nil;
-    if (view.indexPath.row == kSectionHeaderRowFlag) { // 头部
+    if (view.isAddedToHeader) { // 头部
         attri = [self attrbutedStringForHeaderItem:item section:view.indexPath.section];
     } else {
         attri = [self attributedStringForItem:item row:view.indexPath.row section:view.indexPath.section];
@@ -105,7 +105,7 @@ const NSInteger kMTNScrollableRowTag = 100000;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     GJSectionItem *item = [self itemAtSection:section];
     MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), [self heightForHeaderInSection:section]) numberOfItems:[self numberOfItemInSection:section] delegate:self];
-    view.indexPath = [NSIndexPath indexPathForRow:kSectionHeaderRowFlag inSection:section];
+    view.indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     [item.rowViews addPointer:(__bridge void *)view];
     view.titleLab.attributedText = [self attrbutedStringForHeaderItem:0 section:section];
     return view;

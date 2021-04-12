@@ -8,8 +8,6 @@
 
 #import "MTNScrollableRowView.h"
 
-NSInteger kSectionHeaderRowFlag = NSIntegerMax;
-
 @interface MTNScrollableCollectionViewCell : UICollectionViewCell
 @property (nonatomic, strong) UILabel *titleLab;
 @end
