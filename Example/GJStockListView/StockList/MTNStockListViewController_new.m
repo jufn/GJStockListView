@@ -26,8 +26,7 @@
 }
 
 - (void)pullDown {
-    
-    
+    self.contents = [self.contents arrayByAddingObjectsFromArray:[self testDatas]];
 }
 
 #pragma mark - <MTNStockListViewDelegate, MTNStockListViewDataSource>
@@ -41,15 +40,17 @@
 }
 
 - (NSInteger)stockListView:(MTNStockListView *)stockListView numberOfItemsAtSection:(NSInteger)section {
-    return self.titles.count;
+    return [self.contents.firstObject count];
 }
 
 - (nonnull NSAttributedString *)stockListView:(nonnull MTNStockListView *)view attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section {
-    return [[NSAttributedString alloc] initWithString:self.titles[item] attributes:@{NSForegroundColorAttributeName : [UIColor darkTextColor], NSFontAttributeName : [UIFont systemFontOfSize:16]}];
+    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"row:%zd", item] attributes:@{NSForegroundColorAttributeName : [UIColor darkTextColor], NSFontAttributeName : [UIFont systemFontOfSize:16]}];
 }
 
 - (nonnull NSAttributedString *)stockListView:(nonnull MTNStockListView *)view attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section {
-    return [[NSAttributedString alloc] initWithString:self.contents[item] attributes:@{NSForegroundColorAttributeName : [UIColor orangeColor], NSFontAttributeName : [UIFont systemFontOfSize:15]}];
+    
+    NSArray *rowData = self.contents[row];
+    return [[NSAttributedString alloc] initWithString:rowData[item] attributes:@{NSForegroundColorAttributeName : [UIColor orangeColor], NSFontAttributeName : [UIFont systemFontOfSize:15]}];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -57,7 +58,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.contents.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -91,7 +92,7 @@
 
 - (NSArray *)contents {
     if (!_contents) {
-        _contents = @[@"振华重工", @"20.19", @"+2.10%", @"0.45", @"19.64", @"3.2B", @"54B", @"20.21", @"19.88"];
+        _contents = [self testDatas];
     }
     return _contents;
 }
