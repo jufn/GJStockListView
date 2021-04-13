@@ -32,7 +32,7 @@
 }
 
 - (CGFloat)stockListView:(MTNStockListView *)stockListView widthForItem:(NSInteger)item section:(NSInteger)section {
-    return MIN(120, MAX(60, item * 10.0));
+    return MIN(180, MAX(100, item * 10.0));
 }
 
 - (NSInteger)stockListView:(MTNStockListView *)stockListView numberOfItemsAtSection:(NSInteger)section {
@@ -65,7 +65,7 @@
 
 - (MTNStockListView *)stockListView {
     if (!_stockListView) {
-        _stockListView = [[MTNStockListView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _stockListView = [[MTNStockListView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _stockListView.dataSource = self;
         _stockListView.delegate = self;
     }

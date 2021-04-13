@@ -33,9 +33,7 @@
 @end
 
 @interface MTNScrollableRowView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
-
 @property (nonatomic, strong) UICollectionView *collectionView;
-
 @property (nonatomic, weak) id <MTNScrollableRowViewDelegate> delegate;
 @property (nonatomic, assign) NSInteger numberOfItems;
 @end
@@ -52,13 +50,9 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
         CGSize size = [self sizeForItem:0];
         self.titleLab.frame = CGRectMake(0, 0, size.width, size.height);
         self.collectionView.frame = CGRectMake(size.width, 0, CGRectGetWidth(frame) - size.width, size.height);
+        self.titleLab.attributedText = [self attributedStringForItem:0];
     }
     return self;
-}
-
-- (void)reloadData {
-    self.titleLab.attributedText = [self attributedStringForItem:0];
-    [self.collectionView reloadData];
 }
 
 - (void)setContentOffsetX:(CGFloat)contentOffsetX {

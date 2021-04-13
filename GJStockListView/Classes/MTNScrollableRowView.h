@@ -31,8 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setContentOffsetX:(CGFloat)contentOffsetX;
 
-- (void)reloadData;
-
 @end
 
 NS_ASSUME_NONNULL_END
