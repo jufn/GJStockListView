@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)rowView:(MTNScrollableRowView *)view attributedStringForItem:(NSInteger)item;
 - (void)rowView:(MTNScrollableRowView *)view didScrollToOffsetX:(CGFloat)x;
 
+- (void)rowView:(MTNScrollableRowView *)view didSelectedAtItem:(NSInteger)item;
+
 @end
 
 /// 可横向滚动的cell

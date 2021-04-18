@@ -99,6 +99,13 @@ NSString *getSectionIdentifier(NSInteger section) {
     }
 }
 
+- (void)rowView:(MTNScrollableRowView *)view didSelectedAtItem:(NSInteger)item {
+    [self selectRowAtIndexPath:view.indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        [self.delegate tableView:self didSelectRowAtIndexPath:view.indexPath];
+    }
+}
+
 #pragma mark - <UITableViewDelegate, UITableViewDataSource>
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

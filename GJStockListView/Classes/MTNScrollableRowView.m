@@ -71,6 +71,13 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(rowView:didSelectedAtItem:)]) {
+        [self.delegate rowView:self didSelectedAtItem:indexPath.item];
+    }
+}
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
