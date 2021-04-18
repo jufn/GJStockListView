@@ -28,24 +28,13 @@ NSString *getSectionIdentifier(NSInteger section) {
 }
 @end
 
-@interface MTNStockListViewForwardTarget : NSObject
+@interface MTNStockListViewForwardTarget : NSObject <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) id <MTNStockListViewDelegate>delegate;
 @property (nonatomic, weak) id <MTNStockListViewDataSource>dataSource;
 @end
 
-@implementation MTNStockListViewForwardTarget
-
-- (BOOL)respondsToSelector:(SEL)aSelector {
-    return [super respondsToSelector:aSelector] || [self.delegate respondsToSelector:aSelector];
-}
-
-- (void)forwardInvocation:(NSInvocation *)anInvocation {
-    [anInvocation invokeWithTarget:self.delegate];
-}
-@end
-
-@interface MTNStockListView () <UITableViewDelegate, UITableViewDataSource, MTNScrollableRowViewDelegate>
+@interface MTNStockListView () <MTNScrollableRowViewDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary <NSString *, MTNSectionConfigure *> *sectionConfigure;
 @property (nonatomic, strong) MTNStockListViewForwardTarget *forwardTarget;
@@ -58,8 +47,9 @@ NSString *getSectionIdentifier(NSInteger section) {
 @synthesize dataSource = _dataSource;
 
 - (void)setDelegate:(id<MTNStockListViewDelegate>)delegate {
-    super.delegate = self;
     self.forwardTarget.delegate = delegate;
+    super.delegate = nil;
+    super.delegate = self.forwardTarget;
 }
 
 - (id<MTNStockListViewDelegate>)delegate {
@@ -67,8 +57,9 @@ NSString *getSectionIdentifier(NSInteger section) {
 }
 
 - (void)setDataSource:(id<MTNStockListViewDataSource>)dataSource {
-    super.dataSource = self;
     self.forwardTarget.dataSource = dataSource;
+    super.dataSource = nil;
+    super.dataSource = self.forwardTarget;
 }
 
 - (id<MTNStockListViewDataSource>)dataSource {
@@ -109,18 +100,6 @@ NSString *getSectionIdentifier(NSInteger section) {
 }
 
 #pragma mark - <UITableViewDelegate, UITableViewDataSource>
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSInteger num = 1;
-    if ([self.dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
-        num = [self.dataSource numberOfSectionsInTableView:tableView];
-    }
-    return num;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataSource tableView:tableView numberOfRowsInSection:section];
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL should = NO;
@@ -198,6 +177,35 @@ NSString *getSectionIdentifier(NSInteger section) {
         _forwardTarget = [MTNStockListViewForwardTarget new];
     }
     return _forwardTarget;
+}
+
+@end
+
+@implementation MTNStockListViewForwardTarget
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    return [super respondsToSelector:aSelector] || [self.delegate respondsToSelector:aSelector];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    [anInvocation invokeWithTarget:self.delegate];
+}
+
+
+- (UITableViewCell *)tableView:(MTNStockListView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    return [tableView tableView:tableView cellForRowAtIndexPath:indexPath];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.dataSource tableView:tableView numberOfRowsInSection:section];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSInteger num = 1;
+    if ([self.dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
+        num = [self.dataSource numberOfSectionsInTableView:tableView];
+    }
+    return num;
 }
 
 @end

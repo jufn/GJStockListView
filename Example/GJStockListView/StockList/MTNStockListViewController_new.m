@@ -69,6 +69,10 @@
     return 50.0;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@" ---- %@", indexPath);
+}
+
 - (MTNStockListView *)stockListView {
     if (!_stockListView) {
         _stockListView = [[MTNStockListView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
