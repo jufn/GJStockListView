@@ -28,6 +28,8 @@
 
 - (void)pullDown {
     self.contents = [self.contents arrayByAddingObjectsFromArray:[self testDatas]];
+    [self.stockListView.mj_header endRefreshing];
+    [self.stockListView reloadData];
 }
 
 #pragma mark - <MTNStockListViewDelegate, MTNStockListViewDataSource>
@@ -80,7 +82,7 @@
         _stockListView.dataSource = self;
         _stockListView.delegate = self;
         __weak typeof(self) weakSelf = self;
-        _stockListView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
+        _stockListView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             __strong typeof(weakSelf) strongSelf = self;
             [strongSelf pullDown];
         }];
