@@ -7,6 +7,7 @@
 //
 
 #import "MTNScrollableRowView.h"
+#import "NSIndexPath+StockList.h"
 
 @interface MTNScrollableCollectionViewCell : UICollectionViewCell
 @property (nonatomic, strong) UILabel *titleLab;
@@ -74,6 +75,7 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(rowView:didSelectedAtItem:)]) {
+        self.indexPath.itemIndex = indexPath.item;
         [self.delegate rowView:self didSelectedAtItem:indexPath.item];
     }
 }

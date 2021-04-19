@@ -9,6 +9,7 @@
 #import "MTNStockListViewController_new.h"
 #import <GJStockListView/MTNStockListView.h>
 #import <MJRefresh/MJRefresh.h>
+#import <GJStockListView/NSIndexPath+StockList.h>
 
 @interface MTNStockListViewController_new () <MTNStockListViewDelegate, MTNStockListViewDataSource>
 @property (nonatomic, strong) MTNStockListView *stockListView;
@@ -70,7 +71,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@" ---- %@", indexPath);
+    NSLog(@" ---- %@ --- %zd", indexPath, indexPath.itemIndex);
 }
 
 - (MTNStockListView *)stockListView {
