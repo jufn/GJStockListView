@@ -11,7 +11,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import <GJStockListView/NSIndexPath+StockList.h>
 
-@interface MTNStockListViewController_new () <MTNStockListViewDelegate, MTNStockListViewDataSource>
+@interface MTNStockListViewController_new () <MTNStockListViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) MTNStockListView *stockListView;
 @property (nonatomic, copy) NSArray *titles;
 @property (nonatomic, copy) NSArray *contents;
@@ -28,7 +28,7 @@
 
 - (void)pullDown {
     self.contents = [self.contents arrayByAddingObjectsFromArray:[self testDatas]];
-    [self.stockListView.mj_header endRefreshing];
+    [self.stockListView.mj_footer endRefreshing];
     [self.stockListView reloadData];
 }
 
@@ -82,7 +82,7 @@
         _stockListView.dataSource = self;
         _stockListView.delegate = self;
         __weak typeof(self) weakSelf = self;
-        _stockListView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _stockListView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             __strong typeof(weakSelf) strongSelf = self;
             [strongSelf pullDown];
         }];

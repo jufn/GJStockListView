@@ -31,7 +31,7 @@ NSString *getSectionIdentifier(NSInteger section) {
 @interface MTNStockListViewForwardTarget : NSObject <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) id <MTNStockListViewDelegate>delegate;
-@property (nonatomic, weak) id <MTNStockListViewDataSource>dataSource;
+@property (nonatomic, weak) id <UITableViewDataSource>dataSource;
 @end
 
 @interface MTNStockListView () <MTNScrollableRowViewDelegate>
@@ -56,13 +56,14 @@ NSString *getSectionIdentifier(NSInteger section) {
     return self.forwardTarget.delegate;
 }
 
-- (void)setDataSource:(id<MTNStockListViewDataSource>)dataSource {
+- (void)setDataSource:(id<UITableViewDataSource>)dataSource {
     self.forwardTarget.dataSource = dataSource;
     super.dataSource = nil;
     super.dataSource = self.forwardTarget;
+    
 }
 
-- (id<MTNStockListViewDataSource>)dataSource {
+- (id<UITableViewDataSource>)dataSource {
     return self.forwardTarget.dataSource;
 }
 
@@ -110,8 +111,8 @@ NSString *getSectionIdentifier(NSInteger section) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL should = NO;
-    if ([self.dataSource respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
-        should = [self.dataSource stockListView:self shouldHorizontalScrollableAtSection:indexPath.section];
+    if ([self.delegate respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
+        should = [self.delegate stockListView:self shouldHorizontalScrollableAtSection:indexPath.section];
     }
     
     if (should == NO) {
@@ -149,8 +150,8 @@ NSString *getSectionIdentifier(NSInteger section) {
 
 - (NSInteger)numberOfItemsAtSection:(NSInteger)section {
     NSInteger number = 0;
-    if ([self.dataSource respondsToSelector:@selector(stockListView:numberOfItemsAtSection:)]) {
-        number = [self.dataSource stockListView:self numberOfItemsAtSection:section];
+    if ([self.delegate respondsToSelector:@selector(stockListView:numberOfItemsAtSection:)]) {
+        number = [self.delegate stockListView:self numberOfItemsAtSection:section];
     }
     return number;
 }
@@ -197,7 +198,6 @@ NSString *getSectionIdentifier(NSInteger section) {
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
     [anInvocation invokeWithTarget:self.delegate];
 }
-
 
 - (UITableViewCell *)tableView:(MTNStockListView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     return [tableView tableView:tableView cellForRowAtIndexPath:indexPath];

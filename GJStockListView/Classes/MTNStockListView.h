@@ -14,20 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString *)stockListView:(MTNStockListView *)stockListView attributedStringForItem:(NSInteger)item row:(NSInteger)row section:(NSInteger)section;
 - (NSAttributedString *)stockListView:(MTNStockListView *)stockListView attributedStringForHeaderItem:(NSInteger)item section:(NSInteger)section;
-@end
-
-@protocol MTNStockListViewDataSource  <UITableViewDataSource>
 
 - (BOOL)stockListView:(MTNStockListView *)stockListView shouldHorizontalScrollableAtSection:(NSInteger)section;
 - (NSInteger)stockListView:(MTNStockListView *)stockListView numberOfItemsAtSection:(NSInteger)section;
-
 @end
 
 @interface MTNStockListView : UITableView
-
 @property (nonatomic, weak, nullable) id<MTNStockListViewDelegate>delegate;
-@property (nonatomic, weak, nullable) id<MTNStockListViewDataSource>dataSource;
-
 @end
 
 NS_ASSUME_NONNULL_END
