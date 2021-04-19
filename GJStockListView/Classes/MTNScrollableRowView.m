@@ -51,13 +51,22 @@ static NSString * const MTNScrollableReuseIdentifier = @"MTNScrollableReuseIdent
         CGSize size = [self sizeForItem:0];
         self.titleLab.frame = CGRectMake(0, 0, size.width, size.height);
         self.collectionView.frame = CGRectMake(size.width, 0, CGRectGetWidth(frame) - size.width, size.height);
-        self.titleLab.attributedText = [self attributedStringForItem:0];
     }
     return self;
 }
 
 - (void)setContentOffsetX:(CGFloat)contentOffsetX {
     self.collectionView.contentOffset = CGPointMake(contentOffsetX, self.collectionView.contentOffset.y);
+}
+
+- (void)setIndexPath:(NSIndexPath *)indexPath {
+    _indexPath = indexPath;
+    [self reloadData];
+}
+
+- (void)reloadData {
+    self.titleLab.attributedText = [self attributedStringForItem:0];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDataSource
