@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MTNStockListView : UITableView
 @property (nonatomic, weak, nullable) id<MTNStockListViewDelegate>delegate;
+@property (nonatomic, weak, nullable) id<UITableViewDataSource>dataSource;
 @end
 
 NS_ASSUME_NONNULL_END

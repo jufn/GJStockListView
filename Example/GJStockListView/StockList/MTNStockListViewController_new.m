@@ -72,6 +72,10 @@
     return 50.0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 60.0;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@" ---- %@ --- %zd", indexPath, indexPath.itemIndex);
 }
@@ -81,6 +85,7 @@
         _stockListView = [[MTNStockListView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _stockListView.dataSource = self;
         _stockListView.delegate = self;
+        _stockListView.sectionHeaderHeight = 60.0;
         __weak typeof(self) weakSelf = self;
         _stockListView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             __strong typeof(weakSelf) strongSelf = self;

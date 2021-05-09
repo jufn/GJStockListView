@@ -347,17 +347,56 @@
 }
 
 - (void)racDemo1 {
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(50, 50, 70, 70)];
-    btn.backgroundColor = [UIColor redColor];
-    [self.view addSubview:btn];
-    btn.tag = 1001;
-    [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-//        NSLog(@"%@", x);
-        x.frame = CGRectMake(200, 50, 100, 100);
-    }];
-    [[[btn rac_valuesAndChangesForKeyPath:@"frame" options:NSKeyValueObservingOptionNew observer:self] distinctUntilChanged] subscribeNext:^(RACTwoTuple<id,NSDictionary *> * _Nullable x) {
-        NSLog(@"+++++ %@", x.second);
-    }];
+//    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(50, 50, 70, 70)];
+//    btn.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:btn];
+//    btn.tag = 1001;
+//    [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+////        NSLog(@"%@", x);
+//        x.frame = CGRectMake(200, 50, 100, 100);
+//    }];
+//    [[[btn rac_valuesAndChangesForKeyPath:@"frame" options:NSKeyValueObservingOptionNew observer:self] distinctUntilChanged] subscribeNext:^(RACTwoTuple<id,NSDictionary *> * _Nullable x) {
+//        NSLog(@"+++++ %@", x.second);
+//    }];
+    
+    CGFloat leftMargin = 30, width = 40, shadowRadius = 3;
+    
+    CGFloat margin = ([UIScreen mainScreen].bounds.size.width - width * 3 - leftMargin * 2)/2.f;
+     UIView *view1 = [[UIView alloc]init];
+     view1.frame = CGRectMake(leftMargin, width + leftMargin*1.5, width, width);
+     [self.view addSubview:view1];
+     view1.backgroundColor = [UIColor yellowColor];
+     view1.layer.shadowColor = [UIColor blackColor].CGColor;
+     view1.layer.shadowOffset = CGSizeMake(-shadowRadius,-shadowRadius);
+     view1.layer.shadowOpacity = 1;
+     view1.layer.shadowRadius = shadowRadius;
+     view1.layer.cornerRadius = shadowRadius;
+     view1.layer.masksToBounds = YES;
+     view1.clipsToBounds = NO;
+     
+     UIView *view2 = [[UIView alloc]init];
+     view2.frame = CGRectMake(leftMargin + (width + margin), width + leftMargin*1.5, width, width);
+     [self.view addSubview:view2];
+     view2.backgroundColor = [UIColor yellowColor];
+     view2.layer.shadowColor = [UIColor blackColor].CGColor;
+     view2.layer.shadowOffset = CGSizeMake(0,0);
+     view2.layer.shadowOpacity = 1;
+     view2.layer.shadowRadius = shadowRadius;
+     view2.layer.cornerRadius = shadowRadius;
+     view2.layer.masksToBounds = YES;
+     view2.clipsToBounds = NO;
+    
+    UIView *view3 = [[UIView alloc]init];
+    view3.frame = CGRectMake(leftMargin + (width + margin)*2, width + leftMargin*1.5, width, width);
+    [self.view addSubview:view3];
+    view3.backgroundColor = [UIColor yellowColor];
+    view3.layer.shadowColor = [UIColor blackColor].CGColor;
+    view3.layer.shadowOffset = CGSizeMake(shadowRadius,shadowRadius);
+    view3.layer.shadowOpacity = 1;
+    view3.layer.shadowRadius = shadowRadius;
+    view3.layer.cornerRadius = shadowRadius;
+    view3.layer.masksToBounds = YES;
+    view3.clipsToBounds = NO;
 }
 
 

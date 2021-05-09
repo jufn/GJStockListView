@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		191E74872624481E00C9081A /* MTNStockListViewController_new.m in Sources */ = {isa = PBXBuildFile; fileRef = 191E74862624481E00C9081A /* MTNStockListViewController_new.m */; };
 		193D0D63259C19CB00219433 /* MTNStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193D0D62259C19CB00219433 /* MTNStockListViewController.m */; };
+		19A28810262E9AD000E14422 /* GJPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A2880F262E9AD000E14422 /* GJPerson.m */; };
 		19CFBBAE261D5927001CD99A /* GJEntranceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CFBBAD261D5927001CD99A /* GJEntranceTableViewController.m */; };
 		19CFBBB5261D5BFD001CD99A /* GJMainRACDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CFBBB4261D5BFD001CD99A /* GJMainRACDemoViewController.m */; };
 		19F85BD425C939D200100503 /* MXSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F85BC525C939D200100503 /* MXSimpleViewController.m */; };
@@ -58,6 +59,8 @@
 		191E74862624481E00C9081A /* MTNStockListViewController_new.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTNStockListViewController_new.m; sourceTree = "<group>"; };
 		193D0D61259C19CB00219433 /* MTNStockListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTNStockListViewController.h; sourceTree = "<group>"; };
 		193D0D62259C19CB00219433 /* MTNStockListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTNStockListViewController.m; sourceTree = "<group>"; };
+		19A2880E262E9AD000E14422 /* GJPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJPerson.h; sourceTree = "<group>"; };
+		19A2880F262E9AD000E14422 /* GJPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJPerson.m; sourceTree = "<group>"; };
 		19CFBBAC261D5927001CD99A /* GJEntranceTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJEntranceTableViewController.h; sourceTree = "<group>"; };
 		19CFBBAD261D5927001CD99A /* GJEntranceTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJEntranceTableViewController.m; sourceTree = "<group>"; };
 		19CFBBB3261D5BFD001CD99A /* GJMainRACDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJMainRACDemoViewController.h; sourceTree = "<group>"; };
@@ -147,6 +150,8 @@
 				191E74862624481E00C9081A /* MTNStockListViewController_new.m */,
 				193D0D61259C19CB00219433 /* MTNStockListViewController.h */,
 				193D0D62259C19CB00219433 /* MTNStockListViewController.m */,
+				19A2880E262E9AD000E14422 /* GJPerson.h */,
+				19A2880F262E9AD000E14422 /* GJPerson.m */,
 			);
 			path = StockList;
 			sourceTree = "<group>";
@@ -474,6 +479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A1E97522414C6D700B33115 /* GJVC2ViewModel.m in Sources */,
+				19A28810262E9AD000E14422 /* GJPerson.m in Sources */,
 				191E74872624481E00C9081A /* MTNStockListViewController_new.m in Sources */,
 				19F85BD825C939D200100503 /* MXParallaxViewController.m in Sources */,
 				19F85BD925C939D200100503 /* MXCustomView.m in Sources */,

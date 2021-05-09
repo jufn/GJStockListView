@@ -39,6 +39,11 @@ NSString *getSectionIdentifier(NSInteger section) {
 @implementation MTNStockListViewForwardTarget
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
+   BOOL header = [NSStringFromSelector(aSelector) containsString:@"viewForHeaderInSection"];
+    
+    if (header) {
+        NSLog(@" ----- ");
+    }
     return [super respondsToSelector:aSelector] || [self.delegate respondsToSelector:aSelector];
 }
 
@@ -73,6 +78,35 @@ NSString *getSectionIdentifier(NSInteger section) {
     [rowView setContentOffsetX:configure.contentOffsetX];
     rowView.indexPath = indexPath;
     return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    BOOL should = NO;
+    if ([self.delegate respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
+        should = [self.delegate stockListView:(MTNStockListView *)tableView shouldHorizontalScrollableAtSection:section];
+    }
+    if (should == NO) {
+        return [self.delegate tableView:tableView viewForHeaderInSection:section];
+    }
+    static NSInteger kScrollableHeaderRowViewTag = 10086l;
+    MTNSectionConfigure *configure = [self sectionConfigureAtSection:section];
+    NSString *identifier = getSectionIdentifier(section);
+    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
+    if (header == nil) {
+        header = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:identifier];
+        
+        CGFloat rowHeight = [self.delegate tableView:tableView heightForHeaderInSection:section];
+        
+        MTNScrollableRowView *view = [[MTNScrollableRowView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), rowHeight) numberOfItems:[self numberOfItemsAtSection:section] delegate:self];
+        view.tag = kScrollableHeaderRowViewTag;
+        [header.contentView addSubview:view];
+        [configure.rowViews addPointer:(__bridge void *)view];
+    }
+    MTNScrollableRowView *rowView = [header.contentView viewWithTag:kScrollableHeaderRowViewTag];
+    [rowView setContentOffsetX:configure.contentOffsetX];
+    rowView.indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+    rowView.isAddedToHeader = YES;
+    return header;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -196,7 +230,6 @@ NSString *getSectionIdentifier(NSInteger section) {
     self.forwardTarget.dataSource = dataSource;
     super.dataSource = nil;
     super.dataSource = self.forwardTarget;
-    
 }
 
 - (id<UITableViewDataSource>)dataSource {
